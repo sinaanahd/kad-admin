@@ -36,6 +36,14 @@ body {
         border: 0px solid transparent;
         font-family: "main-font";
     }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 }
 
 .mm-width{
@@ -101,7 +109,7 @@ body {
         @include flexMixin(row,center,flex-start);
         height: 100%;
     }
-    .filter{
+    .welcome-filter{
         width: 152px;
         height: 40px;
         background-color: #27AE60;
@@ -112,7 +120,7 @@ body {
         cursor: pointer;
         font-weight: bold;
     }
-    .filter-text{
+    .welcome-filter-text{
         width: 96px;
         @include flexMixin(row,center,center);
     }
@@ -495,3 +503,277 @@ body {
     }
 }
 /* login Page */
+
+/* classes Page */
+.classes-wrapper{
+    .classes{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 22px;
+        flex-wrap: wrap;
+    }
+    .class-wrapper{
+        @include flexMixin(column,flex-start,center);
+        padding: 27px 20px 15px;
+        background-color: #fff;
+        border-radius: 14px;
+        flex: 0 0 302px;
+        min-height: 407px;
+        gap: 15px;
+        font-size: 13px;
+    }
+    .img-wrapper{
+        img{
+            border-radius: 13px;
+        }
+    }
+    .class-info{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        padding: 0 10px;
+    }
+    .class-teacher-name,.prices-wrppaer{
+        @include flexMixin(column,space-between,flex-start);
+        gap: 5px;
+    }
+    .edit-class-btn{
+        width: 100%;
+        height: 31px;
+        border-radius: 8px;
+        border: 1px solid #7E818A;
+        color: #000;
+        font-weight: bold;
+        @include flexMixin(row,center,center);
+    }
+}
+/* classes Page */
+/* edit class page */
+.edit-class-page{
+    .main-content{
+        align-items: flex-start;
+    }
+    .class-banner-edit{
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        gap: 21px;
+        margin: 0 0 19px;
+    }
+    .edit-satge-area{
+        width: 100%;
+        max-width: 649px;
+        height: 391px;
+        border-radius: 14px;
+        background-color: #fff;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 54px;
+        padding: 20px 18px 20px 30px;
+    }
+    .editing-item{
+        color: #000;
+        font-weight: bold;
+        width: 212px;
+        height: 61px;
+        border-radius: 7px;
+        background-color: #F7F7F7;
+        @include flexMixin(row,flex-start,center);
+        padding: 10px 15px 10px;
+        gap: 12px;
+        font-size: 13px;
+    }
+    .arrow{
+        flex: 0 0 13px;
+        img{
+            position: relative;
+            top: 3px;
+        }
+    }
+    .editing-texts{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+    }
+    .filters-wrapper{
+        @include flexMixin(row,flex-end,center);
+        gap: 13px;
+        width: 100%;
+        font-size: 13px;
+    }
+    .filter{
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 25px;
+        flex: 0 0 125px;
+        position: relative;
+        input , .drop-down-sample{
+            width: 120px;
+            height: 27px;
+            border: 0.5px solid #7E818A;
+            border-radius: 5px;
+            padding: 3px 5px 0;
+            @include flexMixin(row,flex-start,center);
+            &::placeholder{
+                color: #999;
+            }
+        }
+    }
+    .drop-down-sample{
+        cursor: pointer;
+        color: #999;
+    }
+    .filter-title{
+        font-weight: bold;
+    }
+    .input-options {
+        position: absolute;
+        top: 80px;
+        width: 120px;
+        height: 150px;
+        overflow-y: scroll;
+        border: 0.5px solid #7E818A;
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+    .class-card {
+        @include flexMixin(column, flex-start, center);
+        padding: 27px 20px 0;
+        background-color: #fff;
+        border-radius: 14px;
+        flex: 0 0 290px;
+        gap: 20px;
+        font-size: 13px;
+        height: 391px;
+    }
+    .img-wrapper {
+        img {
+            border-radius: 13px;
+        }
+    }
+    .class-info {
+        width: 100%;
+        @include flexMixin(row, space-between, center);
+        padding: 0 10px;
+    }
+    .class-teacher-name,
+    .prices-wrppaer {
+        @include flexMixin(column, space-between, flex-start);
+        gap: 5px;
+    }
+    .btns-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-end);
+        gap: 10px;
+    }
+    .edit-btn{
+        width: 121px;
+        height: 31px;
+        border-radius: 10px;
+        @include flexMixin(row,center,center);
+        color: #fff;
+        background-color: #dadada;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .save-changes-btn{
+        background-color: #27AE60;
+    }
+    .session-edits-wrapper{
+        width: 100%;
+        max-width: 960px;
+        height: 559px;
+        border-radius: 13px;
+        background-color: #F9FAFC;
+        @include flexMixin(row,flex-start,flex-start);
+        overflow: hidden;
+    }
+    .session-wrapper{
+        flex: 0 0 295px;
+        height: 540px;
+        transition: $transition;
+        padding: 14px 14px 58px;
+        @include flexMixin(column,flex-start,flex-start);
+        background-color: #fff;
+    }
+    .teachers-img-name{
+        width: 100%;
+        height: 54px;
+        border-radius: 6px;
+        @include flexMixin(row,flex-start,center);
+        font-size: 12px;
+        gap: 10px;
+        border: 1px solid #dadada;
+        padding: 0 10px;
+    }
+    .choose-jalase{
+        margin: 25px 10px 12px;
+        font-size: 19px;
+        font-weight: bold;
+        width: 100%;
+    }
+    .date-picker{
+        width: 100%;
+        @include flexMixin(column,space-between,flex-end);
+        height: 100%;
+    }
+    .date-picker-box , .choose-time{
+        width: 100%;
+        height: 38px;
+        @include flexMixin(row,space-between,center);
+        background-color: #f7f7f7;
+        border-radius: 13px;
+        font-size: 18px;
+    }
+    .date-picker-box{
+        padding: 0 26px 0 14px;
+    }
+    .arrow-down{
+        cursor: pointer;
+        transition: $transition;
+        transform: rotate(0);
+    }
+    .rotate-arrow{
+        transform: rotate(180deg);
+    }
+    .pick-days-wrapper{
+        width: 159px;
+        border-radius: 13px;
+        background-color: #f7f7f7;
+        @include flexMixin(column,flex-start,center);
+        padding: 20px 30px;
+        gap: 10px;
+        transition: $transition;
+        height: 245px;
+        opacity: 1;
+    }
+    .pick-days-wrapper.no-show{
+        opacity: 0;
+    }
+    .select-day{
+        font-size: 18px;
+        height: 21px;
+        @include flexMixin(row,center,center);
+        width: 99px;
+        border-radius: 13px;
+        cursor: pointer;
+       transition:  $transition;
+        &:hover{
+            background-color: #fff;
+        }
+    }
+    .selected-day{
+        background-color: #fff;
+    }
+    .choose-time{
+        padding: 12px;
+        font-size: 23px;
+    }
+    .time-white{
+        flex: 0 0 79px;
+        height: 28px;
+        border-radius: 13px;
+        @include flexMixin(row,center,center);
+        background-color: #fff;
+        padding: 5px 0 0;
+    }
+}
+/* edit class page */
