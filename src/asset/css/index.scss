@@ -33,6 +33,8 @@ body {
     }
     input{
         outline: 0px solid transparent!important;
+        border: 0px solid transparent;
+        font-family: "main-font";
     }
 }
 
@@ -398,3 +400,98 @@ body {
     }
 }
 /* finance page */
+
+/* login Page */
+.login-page-wrapper{
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    @include flexMixin(row , flex-start, center);
+    padding: 0 200px;
+    background-image: url("../images/landing-bg.webp");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    .content-wrapper{
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 10px;
+        width: 100%;
+    }
+    .title{
+        font-size: 50px;
+        font-weight: bold;
+    }
+    .page-desc{
+        font-size: 30px;
+    }
+    .input-btn-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        gap: 11px;
+    }
+    .input-wrapper{
+        position: relative;
+        max-width: 369px;
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 12px;
+    }
+    .pass-input{
+        max-width: 369px;
+        width: 100%;
+        height: 62px;
+        border-radius: 8px;
+        color: #fff;
+        background: rgba(166, 103, 202, 0.20);
+        padding: 0 20px;
+        &::placeholder {
+            color: #fff;
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            color: #fff;
+        }
+        &::-ms-input-placeholder {
+            color: #fff;
+        }
+    }
+    .show-pass-icon{
+        position: absolute;
+        top: 22.5px;
+        left: 20px;
+        cursor: pointer;
+    }
+    .input-error{
+       flex: 0 0 110px;
+       height: 21px;
+       border-radius: 8px;
+       @include flexMixin(row,center,center);
+       font-size: 13px;
+       background-color: #FF5858;
+       padding-top: 2px;
+    }
+    .forget-error-wrapper{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+    }
+    .forget-btn{
+        color: #b0b0bb;
+        font-size: 13px;
+        transition: $transition;
+        &:hover{
+            color: #fff;
+        }
+    }
+    .enter-btn{
+        flex: 0 0 152px;
+        height: 62px;
+        border-radius: 8px;
+        background-color: #fff;
+        color: #000;
+        font-size: 20px;
+        @include flexMixin(row,center,center);
+    }
+}
+/* login Page */
