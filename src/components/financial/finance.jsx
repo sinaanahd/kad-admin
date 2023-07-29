@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
 import Header from "../header/header";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import Bill from "./bill/bill";
 import FinanceDetails from "./finance-details/finance-details";
+import { DataContext } from "../context/DataContext";
+
 const FinancePage = () => {
   const [popup, setPopUpstatus] = useState(false);
-  const handle_pop_up = () => {
-    setPopUpstatus(!popup);
+  const [factor, setFactor] = useState(false);
+  const { factors, kelasses, user } = useContext(DataContext);
+  const handle_pop_up = (factor) => {
+    if (popup) {
+      setPopUpstatus(false);
+    } else {
+      setFactor(factor);
+      setPopUpstatus(true);
+    }
   };
+  useEffect(() => {
+    if (!user) {
+      window.location.pathname = "/login";
+    }
+  }, []);
   return (
     <>
       <Helmet>
@@ -32,10 +46,11 @@ const FinancePage = () => {
                 </span>
                 <span className="bill-header-item  show-details"></span>
               </div>
-              <Bill handle_pop_up={handle_pop_up} />
-              <Bill handle_pop_up={handle_pop_up} />
-              <Bill handle_pop_up={handle_pop_up} />
-              <Bill handle_pop_up={handle_pop_up} />
+              {factors
+                ? factors.map((f, i) => (
+                    <Bill key={i++} factor={f} handle_pop_up={handle_pop_up} />
+                  ))
+                : "موردی برای نمایش وجود ندارد"}
             </div>
             <div className="choose-time-wrapper">
               <span className="title-wrapper">
@@ -52,7 +67,15 @@ const FinancePage = () => {
           </div>
         </div>
       </section>
-      {popup ? <FinanceDetails handle_pop_up={handle_pop_up} /> : ""}
+      {popup ? (
+        <FinanceDetails
+          factor={factor}
+          handle_pop_up={handle_pop_up}
+          kelasses={kelasses}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 };

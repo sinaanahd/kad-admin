@@ -1,19 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
+import LittleLoading from "../reusable/little-loading";
+import { DataContext } from "../context/DataContext";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
 
 import space_bg from "../../asset/images/landing-bg.webp";
 import show_pass from "../../asset/images/show-pass.svg";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import hide_pass from "../../asset/images/eye-open.svg";
 const Login = () => {
+  const { user, updateUser } = useContext(DataContext);
   const [pass, setPass] = useState(false);
+  const [password, setPassWord] = useState(false);
+  const [err, setErr] = useState(false);
+  const [pause, setPause] = useState(false);
   const handle_pass = () => {
     setPass(!pass);
   };
+  useEffect(() => {
+    if (user) {
+      window.location.pathname = "/finance";
+    }
+  }, []);
+  const handle_password_check = () => {
+    setPause(true);
+    axios
+      .get(`https://kadschool.com/backend/kad_api/admin_login/${password}`)
+      .then((res) => {
+        setPause(false);
+        const { result } = res.data;
+        if (result) {
+          window.location.pathname = "/finance";
+          localStorage.setItem("admin-data", JSON.stringify(res.data));
+          updateUser(1);
+        } else {
+          setErr("کد نامعتبر !");
+          setPass(false);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+  const check_pass_input = (target) => {
+    const { value } = target;
+    if (value.length !== 0) {
+      setPassWord(value);
+    } else {
+      setPassWord(false);
+      setErr("کد وارد نشده");
+    }
+  };
+
   return (
     <>
       <Helmet>
         <title>پنل مدیریت سایت کاد</title>
-        <link rel="preload" href={space_bg} />
+        <link as="preload" href={space_bg} />
       </Helmet>
       <section className="login-page-wrapper">
         <div className="content-wrapper">
@@ -27,6 +70,9 @@ const Login = () => {
                 id="entry-code"
                 placeholder="کد ورود"
                 className="pass-input"
+                onInput={({ target }) => {
+                  check_pass_input(target);
+                }}
               />
               <span
                 className="show-pass-icon"
@@ -42,23 +88,34 @@ const Login = () => {
                     height={17}
                   />
                 ) : (
-                  "پنهان"
-                  // <img
-                  //   src={show_pass}
-                  //   alt="پنهان کردن رمز"
-                  //   width={17}
-                  //   height={17}
-                  // />
+                  <img
+                    src={hide_pass}
+                    alt="نمایش دادن رمز"
+                    width={17}
+                    height={17}
+                    className="show-pos"
+                  />
                 )}
               </span>
               <span className="forget-error-wrapper">
                 <Link to="/forget-code" className="forget-btn">
                   فراموشی کد!
                 </Link>
-                <span className="input-error">کد نامعتبر !</span>
+                {err ? <span className="input-error">{err}</span> : <></>}
               </span>
             </span>
-            <span className="enter-btn">ورود</span>
+            {password ? (
+              <span
+                className="enter-btn"
+                onClick={() => {
+                  handle_password_check();
+                }}
+              >
+                {pause ? <LittleLoading /> : "ورود"}
+              </span>
+            ) : (
+              <span className="enter-btn not-allowed">ورود</span>
+            )}
           </span>
         </div>
       </section>

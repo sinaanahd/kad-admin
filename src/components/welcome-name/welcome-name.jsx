@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DataContext } from "../context/DataContext";
 
 import add_icon from "../../asset/images/add-icon.svg";
 const WelcomeName = () => {
+  const { user } = useContext(DataContext);
   return (
     <>
       <div className="welcome-text-wrapper">
         <div className="welcome-text">
-          {"اسم کاربری, "}
+          {user.fullname + " "}
           خوش اومدی! 👋
         </div>
         <div className="options">

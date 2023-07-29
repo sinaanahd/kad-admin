@@ -17,6 +17,7 @@ function App() {
         <Route path="/classes" exact component={ClassesPage} />
         <Route path="/classes/:id"  component={EditClassPage} />
         <Route path="/login" component={Login} />
+        <Route path="/test" component={Login} />
         <Redirect from="/" exact to="/login" />
         <Route path="/not-found" component={NotFound} />
         <Redirect to="/not-found" />

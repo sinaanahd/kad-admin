@@ -43,6 +43,7 @@ body {
     }
     input[type=number] {
         -moz-appearance: textfield;
+        appearance: textfield;
     }
 }
 
@@ -163,7 +164,7 @@ body {
         @include flexMixin(row,flex-start,center);
         gap: 16px;
         font-size: 15px;
-        flex: 0 0 160px;
+        flex: 0 0 200px;
     }
     .open-drop-down{
         img{
@@ -408,7 +409,25 @@ body {
     }
 }
 /* finance page */
+/* inside loader */
+@keyframes spinMf {
+    from {
+        transform: rotate(0deg);
+    }
 
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.inside-loader {
+    @include flexMixin(row, center, center);
+
+    svg {
+        animation: spinMf 1s ease-in-out 0s infinite normal;
+    }
+}
+/* inside loader */
 /* login Page */
 .login-page-wrapper{
     width: 100%;
@@ -470,6 +489,10 @@ body {
         top: 22.5px;
         left: 20px;
         cursor: pointer;
+        .show-pos{
+            position: relative;
+            top: 3px;
+        }
     }
     .input-error{
        flex: 0 0 110px;
@@ -500,6 +523,10 @@ body {
         color: #000;
         font-size: 20px;
         @include flexMixin(row,center,center);
+        cursor: pointer;
+    }
+    .not-allowed{
+        cursor: not-allowed;
     }
 }
 /* login Page */

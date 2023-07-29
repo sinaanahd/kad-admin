@@ -36,6 +36,8 @@ function convert_to_persian(num) {
                 case 9:
                     persian_digits.push("۹");
                     break;
+                default:
+                    break
             }
         }
     }
