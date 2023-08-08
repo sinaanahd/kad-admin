@@ -5,6 +5,8 @@ import Login from './components/login/login';
 import NotFound from './components/404/404';
 import ClassesPage from './components/classes/classes';
 import EditClassPage from './components/edit-class/edit-class';
+import MyAccount from './components/my-account/my-account';
+import Essentials from './components/essentials/essentials';
 
 import './asset/css/index.scss';
 
@@ -14,11 +16,14 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/finance" component={FinancePage} />
-        <Route path="/classes" exact component={ClassesPage} />
-        <Route path="/classes/:id"  component={EditClassPage} />
+        {/* <Route path="/classes" exact component={ClassesPage} /> */}
+        {/* <Route path="/classes/:id"  component={EditClassPage} /> */}
         <Route path="/login" component={Login} />
-        <Route path="/test" component={Login} />
+        <Route path="/account" component={MyAccount} />
+        <Route path="/essentials" component={Essentials} />
+        {/* <Route path="/test" component={Login} /> */}
         <Redirect from="/" exact to="/login" />
+        {/* <Route path="/not-found" component={MyAccount} /> */}
         <Route path="/not-found" component={NotFound} />
         <Redirect to="/not-found" />
       </Switch>

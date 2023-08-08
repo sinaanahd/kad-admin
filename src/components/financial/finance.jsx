@@ -23,6 +23,9 @@ const FinancePage = () => {
     if (!user) {
       window.location.pathname = "/login";
     }
+    if (user.level !== 20) {
+      window.location.pathname = "/account";
+    }
   }, []);
   return (
     <>
@@ -48,7 +51,12 @@ const FinancePage = () => {
               </div>
               {factors
                 ? factors.map((f, i) => (
-                    <Bill key={i++} factor={f} handle_pop_up={handle_pop_up} />
+                    <Bill
+                      key={i++}
+                      factor={f}
+                      handle_pop_up={handle_pop_up}
+                      kelasses={kelasses}
+                    />
                   ))
                 : "موردی برای نمایش وجود ندارد"}
             </div>

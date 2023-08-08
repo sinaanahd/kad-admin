@@ -86,7 +86,7 @@ const FinanceDetails = ({ handle_pop_up, factor, kelasses }) => {
                         : "inside-item waiting-to-pay"
                     }
                   >
-                    {split_in_three(convert_to_persian(factor.price1))} تومان
+                    {split_in_three(convert_to_persian(factor.price3))} تومان
                   </span>
                 </span>
                 <span className="finanace-record-header-item table-item">

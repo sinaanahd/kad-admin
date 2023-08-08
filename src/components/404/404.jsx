@@ -14,7 +14,7 @@ const NotFound = () => {
         <SideBar />
         <div className="main-content">
           <WelcomeName />
-          <h1 className="page-404">این صفحه هنوز ساخته نشده است :(</h1>
+          <h1 className="page-404">صفحه مورد نظر پیدا نشد :(</h1>
         </div>
       </section>
     </>

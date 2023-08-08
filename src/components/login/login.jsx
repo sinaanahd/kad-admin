@@ -19,7 +19,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (user) {
-      window.location.pathname = "/finance";
+      window.location.pathname = "/account";
     }
   }, []);
   const handle_password_check = () => {
@@ -30,7 +30,7 @@ const Login = () => {
         setPause(false);
         const { result } = res.data;
         if (result) {
-          window.location.pathname = "/finance";
+          window.location.pathname = "/account";
           localStorage.setItem("admin-data", JSON.stringify(res.data));
           updateUser(1);
         } else {

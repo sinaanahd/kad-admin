@@ -37,7 +37,7 @@ function convert_to_persian(num) {
                     persian_digits.push("۹");
                     break;
                 default:
-                    break
+                    return " عدد وارد نشده "
             }
         }
     }

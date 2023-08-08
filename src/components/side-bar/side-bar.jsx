@@ -1,27 +1,142 @@
 import React from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { DataContext } from "../context/DataContext";
 import scrollToTop from "../functions/scroll";
 
 import dasboardIcon from "../../asset/images/dashboard.svg";
-import financeIcon from "../../asset/images/finance-icon.svg";
+import financeIconActive from "../../asset/images/finance-icon.svg";
+import financeIcon from "../../asset/images/finance-icon-active.svg";
 import classesIcon from "../../asset/images/classes-icon.svg";
 import usersIcon from "../../asset/images/users-icon.svg";
 import bannersIcon from "../../asset/images/banners-icon.svg";
 import elanatIcon from "../../asset/images/elanat-icon.svg";
 import gozasheratIcon from "../../asset/images/gozareshat.svg";
+import my_accountIcon from "../../asset/images/my-account.svg";
+import my_accountIconActive from "../../asset/images/my-account-active.svg";
 const SideBar = () => {
+  const [menu_items, setMenuItems] = useState([
+    {
+      imgs: [dasboardIcon],
+      type: false,
+      url: "dashboard",
+      text: "داشبورد",
+      required_level: 0,
+      id: 0,
+    },
+    {
+      imgs: [financeIcon, financeIconActive],
+      type: true,
+      url: "finance",
+      text: "امور مالی",
+      required_level: 20,
+      id: 1,
+    },
+    {
+      imgs: [classesIcon],
+      type: false,
+      url: "classes",
+      text: "کلاس ها",
+      required_level: 20,
+      id: 2,
+    },
+    {
+      imgs: [usersIcon],
+      type: false,
+      url: "users",
+      text: "کاربران",
+      required_level: 0,
+      id: 3,
+    },
+    {
+      imgs: [my_accountIcon, my_accountIconActive],
+      type: true,
+      url: "essentials",
+      text: "پیشنیاز ها",
+      required_level: 0,
+      id: 4,
+    },
+    {
+      imgs: [my_accountIcon, my_accountIconActive],
+      type: true,
+      url: "account",
+      text: "حساب من",
+      required_level: 0,
+      id: 5,
+    },
+    {
+      imgs: [bannersIcon],
+      type: false,
+      url: "banners",
+      text: "بنر ها",
+      required_level: 0,
+      id: 6,
+    },
+    {
+      imgs: [elanatIcon],
+      type: false,
+      url: "notify",
+      text: "اعلانات",
+      required_level: 0,
+      id: 7,
+    },
+    {
+      imgs: [gozasheratIcon],
+      type: false,
+      url: "reports",
+      text: "گزارشات",
+      required_level: 0,
+      id: 8,
+    },
+  ]);
+  const { user } = useContext(DataContext);
   const [active_item, setActive] = useState(
     window.location.pathname.split("/")[1]
   );
-  // useEffect(() => {
-  //     const slug = window.location.pathname.split("/")[1];
-  //     console.log(slug);
-  // });
+  useEffect(() => {
+    const sample_menu = [];
+    menu_items.forEach((menu_item) => {
+      if (menu_item.required_level <= user.level) {
+        sample_menu.push(menu_item);
+      }
+    });
+    setMenuItems(sample_menu);
+  }, []);
   return (
     <aside className="side-bar-wrapper">
       <nav>
-        <Link
+        {menu_items.map((menu_item) =>
+          menu_item.type ? (
+            <Link
+              key={menu_item.id}
+              onClick={() => {
+                scrollToTop();
+              }}
+              to={`${menu_item.url}`}
+              className={
+                active_item === menu_item.url
+                  ? "side-bar-item active-item"
+                  : "side-bar-item"
+              }
+            >
+              <img
+                src={
+                  active_item === menu_item.url
+                    ? menu_item.imgs[1]
+                    : menu_item.imgs[0]
+                }
+                alt={menu_item.text}
+              />
+              <span className="side-bar-item-text">{menu_item.text}</span>
+            </Link>
+          ) : (
+            <span key={menu_item.id} className={"side-bar-item"}>
+              <img src={menu_item.imgs[0]} alt={menu_item.text} />
+              <span className="side-bar-item-text">{menu_item.text}</span>
+            </span>
+          )
+        )}
+        {/* <span
           onClick={() => {
             scrollToTop();
           }}
@@ -32,9 +147,12 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={dasboardIcon} alt="داشبورد" />
+          <img
+            src={active_item === "dashboard" ? "" : dasboardIcon}
+            alt="داشبورد"
+          />
           <span className="side-bar-item-text">داشبورد</span>
-        </Link>
+        </span>
         <Link
           onClick={() => {
             scrollToTop();
@@ -46,10 +164,13 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={financeIcon} alt="امور مالی" />
+          <img
+            src={active_item === "finance" ? financeIconActive : financeIcon}
+            alt="امور مالی"
+          />
           <span className="side-bar-item-text">امور مالی</span>
         </Link>
-        <Link
+        <span
           onClick={() => {
             scrollToTop();
           }}
@@ -60,10 +181,13 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={classesIcon} alt="کلاس ها" />
+          <img
+            src={active_item === "classes" ? "" : classesIcon}
+            alt="کلاس ها"
+          />
           <span className="side-bar-item-text">کلاس ها</span>
-        </Link>
-        <Link
+        </span>
+        <span
           onClick={() => {
             scrollToTop();
           }}
@@ -74,10 +198,53 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={dasboardIcon} alt="کاربران" />
+          <img
+            src={active_item === "users" ? "" : dasboardIcon}
+            alt="کاربران"
+          />
           <span className="side-bar-item-text">کاربران</span>
+        </span>
+        <Link
+          onClick={() => {
+            scrollToTop();
+          }}
+          to="/essentials"
+          className={
+            active_item === "essentials"
+              ? "side-bar-item active-item"
+              : "side-bar-item"
+          }
+        >
+          <img
+            src={
+              active_item === "essentials"
+                ? my_accountIconActive
+                : my_accountIcon
+            }
+            alt="پیشنیازها"
+          />
+          <span className="side-bar-item-text">پیشنیاز ها</span>
         </Link>
         <Link
+          onClick={() => {
+            scrollToTop();
+          }}
+          to="/account"
+          className={
+            active_item === "account"
+              ? "side-bar-item active-item"
+              : "side-bar-item"
+          }
+        >
+          <img
+            src={
+              active_item === "account" ? my_accountIconActive : my_accountIcon
+            }
+            alt="حساب من"
+          />
+          <span className="side-bar-item-text">حساب من</span>
+        </Link>
+        <span
           onClick={() => {
             scrollToTop();
           }}
@@ -88,10 +255,13 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={bannersIcon} alt="بنر ها" />
+          <img
+            src={active_item === "banners" ? "" : bannersIcon}
+            alt="بنر ها"
+          />
           <span className="side-bar-item-text">بنر ها</span>
-        </Link>
-        <Link
+        </span>
+        <span
           onClick={() => {
             scrollToTop();
           }}
@@ -102,10 +272,10 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={elanatIcon} alt="اعلانات" />
+          <img src={active_item === "notify" ? "" : elanatIcon} alt="اعلانات" />
           <span className="side-bar-item-text">اعلانات</span>
-        </Link>
-        <Link
+        </span>
+        <span
           onClick={() => {
             scrollToTop();
           }}
@@ -116,9 +286,12 @@ const SideBar = () => {
               : "side-bar-item"
           }
         >
-          <img src={gozasheratIcon} alt="گزارشات" />
+          <img
+            src={active_item === "reports" ? "" : gozasheratIcon}
+            alt="گزارشات"
+          />
           <span className="side-bar-item-text">گزارشات</span>
-        </Link>
+        </span> */}
       </nav>
       <span className="kad-panel-version">
         <span className="text">کاد پنل</span>

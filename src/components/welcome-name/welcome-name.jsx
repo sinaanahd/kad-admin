@@ -8,7 +8,8 @@ const WelcomeName = () => {
     <>
       <div className="welcome-text-wrapper">
         <div className="welcome-text">
-          {user.fullname + " "}
+          {user.fullname + " - "}
+          {user.admin_type + " "}
           خوش اومدی! 👋
         </div>
         <div className="options">

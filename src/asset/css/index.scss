@@ -74,6 +74,30 @@ body {
         border-radius: 4px;
         font-weight: 500;
     }
+    span.side-bar-item{
+        img{
+            opacity: .3;
+        }
+        color: #ddddde;
+        position: relative;
+        &:hover{
+            &::before{
+                width: 100px;
+                height: 40px;
+                color: #fff;
+                background-color: #9D58C5;
+                border-radius: 4px;
+                font-size: 14px;
+                position: absolute;
+                top: 0px;
+                left: 0;
+                content: "در دست طراحی";
+                opacity: 1;
+                @include flexMixin(row,center,center);
+                transition: $transition;
+            }
+        }
+    }
     .active-item{
         color: #9D58C5;
         background-color: rgba(157, 88, 197 , 0.1);
@@ -100,7 +124,7 @@ body {
 /* welcome text */
 .welcome-text-wrapper{
     width: 100%;
-    margin: 0 0 29px;
+    margin: 40px 0;
     @include flexMixin(row,space-between,center);
     .welcome-text{
         font-size: 21px;
@@ -165,6 +189,20 @@ body {
         gap: 16px;
         font-size: 15px;
         flex: 0 0 200px;
+        position: relative;
+    }
+    .exit-from-user{
+        position: absolute;
+        top: 50px;
+        width: 100%;
+        border: 2px solid #9D58C5;
+        border-radius: 14px;
+        background-color: #fff;
+        @include flexMixin(row,center,center);
+        z-index: 20;
+        height: 50px;
+        color : #9D58C5;
+        cursor: pointer;
     }
     .open-drop-down{
         img{
@@ -304,6 +342,29 @@ body {
         color: #000;
         font-size: 15px;
     }
+    .selected-courses{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 5px;
+    }
+    .poiter-cursor{
+        cursor: pointer;
+    }
+    .selected-title{
+        font-size: 15px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+    .selected-item{
+        background-color: #8E8E93;
+        @include flexMixin(row,center,center);
+        font-size: 15px;
+        height: 22px;
+        padding: 0 30px;
+        min-width: 130px;
+        border-radius: 16px;
+        color: #fff;
+    }
     .pay-kind{
         font-weight: bold;
     }
@@ -433,16 +494,16 @@ body {
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
-    @include flexMixin(row , flex-start, center);
+    @include flexMixin(row , center, center);
     padding: 0 200px;
-    background-image: url("../images/landing-bg.webp");
+    background-image: url("../images/login-bg.webp");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: #fff;
     .content-wrapper{
-        @include flexMixin(column,flex-start,flex-start);
+        @include flexMixin(column,center,center);
         gap: 10px;
         width: 100%;
     }
@@ -455,7 +516,7 @@ body {
     }
     .input-btn-wrapper{
         width: 100%;
-        @include flexMixin(row,flex-start,flex-start);
+        @include flexMixin(row,center,flex-start);
         gap: 11px;
     }
     .input-wrapper{
@@ -804,3 +865,340 @@ body {
     }
 }
 /* edit class page */
+
+/* my account page */
+.account-page{
+    .main-content{
+        align-items: flex-start;
+    }
+    .welcome-filter{
+        display: none;
+    }
+    .cols-wrapper{
+        background-color: #fff;
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        gap: 24px;
+        max-width: 966px;
+        min-height: 897px;
+        border-radius: 14px;
+        padding: 48px 36px;
+    }
+    .account-detials{
+        flex: 0 0 500px;
+        min-height: 539px;
+        background-color: #f7f7f7;
+        padding: 23px 27px;
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+        border-radius: 16px;
+    }
+    .balance-wrapper{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        font-weight: bold;
+        padding: 0 0 20px;
+        border-bottom: 2px solid #000;
+    }
+    .balance-wrapper-title{
+        font-size: 20px;
+    }
+    .balance-quan{
+        font-size: 25px;
+    }
+    .pay-quan{
+        font-size: 15px;
+        width: 100%;
+        font-weight: bold;
+    }
+    .sold-details-wrapper{
+        width: 100%;
+        border-radius: 16px;
+        background-color: #fff;
+        padding: 14px 20px;
+        @include flexMixin(column,flex-start,center);
+        gap: 15px;
+    }
+    .sold-details-header{
+        width: 100%;
+        @include flexMixin(row,space-evenly,center);
+        font-size: 12px;
+        font-weight: bold;
+        padding: 0 0 6px;
+        border-bottom: 1px solid #000;
+        gap: 30px;
+    }
+    .sold-item{
+        @include flexMixin(row,space-evenly,center);
+        width: 100%;
+        gap: 30px;
+        font-size: 15px;
+    }
+    .sold-details-inside{
+        @include flexMixin(row,flex-start,center);
+        min-width: 100px;
+    }
+    .space-middle{
+        width: 100%;
+    }
+    .cursor-needed{
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .selected-courses {
+        width: 100%;
+        @include flexMixin(row, flex-start, center);
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+    .selected-title {
+        font-size: 13px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .selected-item {
+        background-color: #8E8E93;
+        @include flexMixin(row, center, center);
+        font-size: 12px;
+        height: 18px;
+        padding: 0 10px;
+        min-width: 70px;
+        border-radius: 16px;
+        color: #fff;
+    }
+    .sold-details-footer{
+        padding: 20px 0 0;
+        border-top: 1px solid #000;
+        width: 100%;
+        font-size: 15px;
+        @include flexMixin(row,space-between,center);
+        font-weight: bold;
+    }
+    .notice-text{
+        width: 100%;
+        font-weight: bold;
+        font-size: 15px;
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        padding: 0 15px;
+        &::before{
+         flex: 0 0 7px;
+         height: 7px;
+         background-color: #000;
+         border-radius: 50%;
+         content: " ";
+         display: block;
+        }
+    }
+    .marketing-data-wrapper{
+        flex: 0 0 376px;
+        background-color: #f7f7f7;
+        padding: 13px 17px 13px 24px;
+        border-radius: 16px;
+        @include flexMixin(column,flex-start,center);
+        gap: 12px;
+    }
+    .title-count{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        font-size: 15px;
+    }
+    .data-count{
+        font-weight: bold;
+    }
+    .see-all-data-btn{
+        @include flexMixin(row,center,center);
+        margin: 10px 0 0;
+        width: 100%;
+        height: 30px;
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 16px;
+        border: 1px solid #000;
+        cursor: pointer;
+    }
+}
+.details-pop-up{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.20);
+    @include flexMixin(row,center,center);
+    position : fixed;
+    top: 0;
+    left: 0;
+    z-index: 12;
+    .content-wrapper{
+        background-color: #fff;
+        border-radius: 14px;
+        max-width: 975px;
+        min-height: 449px;
+        width: 100%;
+        padding: 40px 19px;
+        @include flexMixin(column,flex-start,center);
+        gap: 40px;
+    }
+    .detail-header{
+        width: 100%;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7E818A;
+    }
+    .chart{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 21px;
+    }
+    .chart-header{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        font-size: 13px;
+        color: #7E818A;
+        font-weight: bold;
+    }
+    .chart-items-wrapper{
+        width: 100%;
+        background-color: #f7f7f7;
+        @include flexMixin(column,flex-start,center);
+        gap: 23px;
+        border-radius: 14px;
+        padding: 15px 0;
+        height: 300px;
+        overflow-y: scroll;
+    }
+    .chart-item{
+        width: 100%;
+        @include flexMixin(row,center,center);
+    }
+    .second-item{
+        max-width: 70px;
+    }
+    .first-item{
+        max-width: 100px;
+    }
+    .chart-data{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        font-size: 15px;
+    }
+    .btns-wrapper{
+        width: 90%;
+        @include flexMixin(row,flex-end,center);
+        margin: 20px 0 0;
+        gap: 10px;
+    }
+    .pop-up-btn{
+        border: 1px solid #000;
+        border-radius: 12px;
+        width: 95px;
+        height: 33px;
+        @include flexMixin(row,center,center);
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .selected-courses {
+        width: 100%;
+        @include flexMixin(row, flex-start, center);
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .selected-title {
+        font-size: 13px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .selected-item {
+        background-color: #8E8E93;
+        @include flexMixin(row, center, center);
+        font-size: 12px;
+        height: 18px;
+        padding: 0 10px;
+        min-width: 70px;
+        border-radius: 16px;
+        color: #fff;
+    }
+    .cursor-needed{
+        cursor: pointer;
+        font-weight: bold;
+    }
+}
+
+/* my account page */
+
+/* essentials-page */
+.essentials-page{
+    .options{
+        display: none;
+    }
+    .main-content{
+        align-items: flex-start;
+    }
+    .how-to-calculate-profit-wrapper{
+        max-width: 996px;
+        min-height: 483px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 14px;
+        @include flexMixin(column,flex-start,flex-start);
+        padding: 27px 29px;
+    }
+    .title{
+        color: #7E818A;
+        font-size: 15px;
+       font-weight: bold;
+    }
+    .desc{
+        margin: 12px 0 32px;
+        color: #000;
+        font-size: 15px;
+    }
+    .copy-wrapper{
+        @include flexMixin(row,flex-start,center);
+        width: 100%;
+        gap: 8px;
+    }
+    .copy-code{
+        background-color: #F7F7F7;
+        border: 2px solid #f7f7f7;
+        border-radius: 16px;
+        height: 34px;
+        flex: 0 0 268px;
+        overflow-x: hidden;
+        @include flexMixin(row,flex-end,center);
+        padding: 0 10px;
+        font-size: 15px;
+    }
+    .copy-btn{
+        font-size: 14px;
+        @include flexMixin(row,center,center);
+        min-width: 38px;
+        height: 34px;
+        border-radius: 16px;
+        background-color: #9D58C5;
+        color: #fff;
+        cursor: pointer;
+        border: 2px solid #9D58C5;
+        transition: $transition;
+        font-weight: bold;
+        padding: 0 5px;
+        &:hover{
+            color: #9D58C5;
+            background-color: #fff;
+        }
+    }
+    .code-wrapper{
+        background-color: #F7F7F7;
+        color: #000;
+        width: 314px;
+        height: 34px;
+        @include flexMixin(row,center,center);
+        border-radius: 16px;
+        margin: 12px 0 0;
+    }
+}
+/* essentials-page */

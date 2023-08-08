@@ -11,6 +11,10 @@ const Header = () => {
   const handel_notif_status = () => {
     setActive_notif(!active_notif);
   };
+  const [logOut, setLogOut] = useState(false);
+  const delete_local = () => {
+    window.localStorage.clear();
+  };
   return (
     <header className="main-header">
       <div className="user-img-name">
@@ -18,9 +22,27 @@ const Header = () => {
           <img src="" alt="" />
         </span>
         <span className="user-name">{user.fullname}</span>
-        <span className="open-drop-down">
+        <span
+          className="open-drop-down"
+          onClick={() => {
+            setLogOut(!logOut);
+          }}
+        >
           <img src={arrow_drop_down} alt="پایین" />
         </span>
+        {logOut ? (
+          <span
+            className="exit-from-user"
+            onClick={() => {
+              delete_local();
+              window.location.pathname = "/login";
+            }}
+          >
+            خروج از حساب کاربری
+          </span>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="search-part">
         <img src={searchImg} alt="جستجو" />
