@@ -9,6 +9,7 @@ import financeIconActive from "../../asset/images/finance-icon.svg";
 import financeIcon from "../../asset/images/finance-icon-active.svg";
 import classesIcon from "../../asset/images/classes-icon.svg";
 import usersIcon from "../../asset/images/users-icon.svg";
+import usersIconActive from "../../asset/images/users-icon-active.svg";
 import bannersIcon from "../../asset/images/banners-icon.svg";
 import elanatIcon from "../../asset/images/elanat-icon.svg";
 import gozasheratIcon from "../../asset/images/gozareshat.svg";
@@ -41,11 +42,11 @@ const SideBar = () => {
       id: 2,
     },
     {
-      imgs: [usersIcon],
-      type: false,
+      imgs: [usersIcon, usersIconActive],
+      type: true,
       url: "users",
       text: "کاربران",
-      required_level: 0,
+      required_level: 10,
       id: 3,
     },
     {
@@ -112,7 +113,7 @@ const SideBar = () => {
               onClick={() => {
                 scrollToTop();
               }}
-              to={`${menu_item.url}`}
+              to={`/${menu_item.url}`}
               className={
                 active_item === menu_item.url
                   ? "side-bar-item active-item"

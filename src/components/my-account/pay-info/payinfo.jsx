@@ -47,7 +47,10 @@ const PayInfo = ({ pay_info, kelasses }) => {
           <span className="selected-title">دوره های کابر انتخاب شده:</span>
           {pay_info.kelases_ids.map((k_id) => (
             <span className="selected-item">
-              {{ ...kelasses.find((k) => k_id === k.kelas_id) }.kelas_title}
+              {
+                { ...kelasses.find((k) => k_id === k.kelas_id) }
+                  .kelas_title_and_ostad_name
+              }
             </span>
           ))}
         </div>

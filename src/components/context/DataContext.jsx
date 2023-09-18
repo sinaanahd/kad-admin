@@ -2,6 +2,8 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import last_login_check from "../functions/last-login-check";
+import tell_total from "../functions/test";
+import split_in_three from "../functions/spilit_in_three";
 const DataContext = createContext();
 
 const local_user = JSON.parse(localStorage.getItem("admin-data")) || false;
@@ -13,6 +15,9 @@ const local_account_info =
   JSON.parse(localStorage.getItem("account_info")) || false;
 const local_essentials =
   JSON.parse(localStorage.getItem("essentials")) || false;
+const local_all_users = JSON.parse(localStorage.getItem("all_users")) || false;
+const local_admin_change_history =
+  JSON.parse(localStorage.getItem("admin_change_history")) || [];
 const now_time = new Date().getTime();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(local_user);
@@ -21,17 +26,25 @@ const DataProvider = ({ children }) => {
   const [teachers, setTeachers] = useState(local_teachers);
   const [essentials, setEssentials] = useState(local_essentials);
   const [account_info, setAccountInfo] = useState(local_account_info);
+  const [all_users, setAll_users] = useState(local_all_users);
+  const [history, setHistory] = useState(local_admin_change_history);
   const updateUser = (newData) => {
     setUser(newData);
   };
 
   useEffect(() => {
+    // const data = split_in_three(Math.ceil(tell_total()));
+    // console.log(data);
+    //get_factors();
+    //get_admin_regestries();
+    get_admin_account();
     const is_time = last_login_check(last_time, now_time);
     if (user) {
       if (is_time) {
         get_kelasses();
         get_teachers();
         get_admin_requirments();
+        get_all_users();
         if (user.level === 20) {
           get_factors();
         }
@@ -53,9 +66,23 @@ const DataProvider = ({ children }) => {
         if (!local_account_info) {
           get_admin_account();
         }
+        if (!local_all_users) {
+          get_all_users();
+        }
       }
     }
   }, []);
+  const get_all_users = () => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/admin_users")
+      .then((res) => {
+        setAll_users(res.data);
+        localStorage.setItem("all_users", JSON.stringify(res.data));
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   const get_admin_account = (e) => {
     axios
       .get(
@@ -117,6 +144,18 @@ const DataProvider = ({ children }) => {
         });
         account_info.this_month_pays = this_month_pays;
         account_info.monthly_profit = sum;
+
+        const children_old = [];
+        account_info.children_ids.forEach((ci) => {
+          const child_user = all_users.find((u) => u.user_id === ci);
+          if (Object.keys(child_user).length !== 0) {
+            children_old.push(child_user);
+          }
+        });
+        const children_new = children_old.toReversed();
+        // console.log(children_old, children_new);
+        account_info.children = children_new;
+
         localStorage.setItem("account_info", JSON.stringify(account_info));
         setAccountInfo(account_info);
       })
@@ -172,7 +211,7 @@ const DataProvider = ({ children }) => {
     axios
       .get(`https://kadschool.com/backend/kad_api/admin_financials`)
       .then((res) => {
-        const factors = res.data;
+        const factors = res.data.toReversed();
         localStorage.setItem("factors", JSON.stringify(factors));
         setFactors(factors);
       })
@@ -204,7 +243,22 @@ const DataProvider = ({ children }) => {
         console.log(e.message);
       });
   };
-
+  const setNewHistory = (history) => {
+    setHistory(history);
+    localStorage.setItem("admin_change_history", JSON.stringify(history));
+  };
+  // const get_admin_regestries = () => {
+  //   axios
+  //     .get(
+  //       `https://kadschool.com/backend/kad_api/admin_account/${user.admin_id}`
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e.message);
+  //     });
+  // };
   return (
     <DataContext.Provider
       value={{
@@ -215,6 +269,9 @@ const DataProvider = ({ children }) => {
         teachers,
         essentials,
         account_info,
+        all_users,
+        history,
+        setNewHistory,
       }}
     >
       {children}

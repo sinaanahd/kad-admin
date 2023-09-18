@@ -1,18 +1,12 @@
-document.addEventListener("DOMContentLoaded" , ()=>{
+const gold = 2375000;
+const weight = 4.27;
+const ojrat = 25;
+const tax = 9;
+const profit = 7;
 
-const show_btn = document.querySelector("#show-content-btn .elementor-button-link");
-const content_wrapper = document.querySelector("#hide-content");
-let state = false;
-show_btn.addEventListener("click" , (e)=>{
-    e.preventDefault();
-    state = !state;
-    if(state){
-        document.querySelector("#show-content-btn .elementor-button-link .elementor-button-text").innerHTML = "بستن";
-        content_wrapper.style.display = "block";
-    }
-    else{
-        document.querySelector("#show-content-btn .elementor-button-link .elementor-button-text").innerHTML = "مشاهده";
-        content_wrapper.style.display = "none";
-    }
-})
-})
+const total = weight*((((gold + (gold * ojrat/100))+((gold + (gold * ojrat/100))* profit/100))-gold)*(tax/100))+weight*(((gold + (gold * ojrat/100))+((gold + (gold * ojrat/100))* profit/100)))
+
+function tell_total (){
+    return total;
+}
+export default tell_total;

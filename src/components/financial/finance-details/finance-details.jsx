@@ -46,7 +46,7 @@ const FinanceDetails = ({ handle_pop_up, factor, kelasses }) => {
                     <span className="inside-item" key={k_id}>
                       {
                         { ...kelasses.find((k) => k_id === k.kelas_id) }
-                          .kelas_title
+                          .kelas_title_and_ostad_name
                       }
                     </span>
                   ))}

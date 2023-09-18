@@ -7,6 +7,8 @@ import ClassesPage from './components/classes/classes';
 import EditClassPage from './components/edit-class/edit-class';
 import MyAccount from './components/my-account/my-account';
 import Essentials from './components/essentials/essentials';
+import UsersPage from './components/users/users';
+import SingleUser from './components/single-user/single-user';
 
 import './asset/css/index.scss';
 
@@ -19,6 +21,8 @@ function App() {
         {/* <Route path="/classes" exact component={ClassesPage} /> */}
         {/* <Route path="/classes/:id"  component={EditClassPage} /> */}
         <Route path="/login" component={Login} />
+        <Route path="/users" exact component={UsersPage} />
+        <Route path="/users/:id" component={SingleUser} />
         <Route path="/account" component={MyAccount} />
         <Route path="/essentials" component={Essentials} />
         {/* <Route path="/test" component={Login} /> */}

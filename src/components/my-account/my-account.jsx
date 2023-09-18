@@ -62,7 +62,7 @@ const MyAccount = () => {
         <div className="main-content">
           <WelcomeName />
           <div className="cols-wrapper">
-            <section className="account-detials">
+            <div className="account-detials">
               <div className="balance-wrapper">
                 <h2 className="balance-wrapper-title">بالانس حساب</h2>
                 <span className="balance-quan">
@@ -117,67 +117,132 @@ const MyAccount = () => {
               <p className="notice-text">
                 بالانس حساب در کل تاریخ فعالیت کاربر لحاظ شده است
               </p>
-            </section>
-            <section className="marketing-data-wrapper">
-              <span className="title-count">
-                <span className="data-title">
-                  تعداد ثبت نام کاریر با لینک دعوت
+            </div>
+            <div className="left-col">
+              <div className="marketing-data-wrapper">
+                <span className="title-count">
+                  <span className="data-title">
+                    تعداد ثبت نام کاریر با لینک دعوت
+                  </span>
+                  <span className="data-count">
+                    {account_info ? (
+                      conver_to_persian(account_info.children_count)
+                    ) : (
+                      <LittleLoading />
+                    )}{" "}
+                    کاربر
+                  </span>
                 </span>
-                <span className="data-count">
-                  {account_info ? (
-                    conver_to_persian(account_info.children_count)
+                <span className="title-count">
+                  <span className="data-title">
+                    تعداد کاربر با حداقل یک خرید
+                  </span>
+                  <span className="data-count">
+                    {account_info ? (
+                      conver_to_persian(
+                        account_info.children_at_least_in_one_kelas_count
+                      )
+                    ) : (
+                      <LittleLoading />
+                    )}{" "}
+                    کاربر
+                  </span>
+                </span>
+                <span className="title-count">
+                  <span className="data-title">تعداد کل خرید</span>
+                  <span className="data-count">
+                    {account_info ? (
+                      conver_to_persian(
+                        account_info.total_payment_done_by_children_done_count
+                      )
+                    ) : (
+                      <LittleLoading />
+                    )}{" "}
+                    خرید
+                  </span>
+                </span>
+                <span className="title-count">
+                  <span className="data-title">تعداد خرید کلاس‌ها</span>
+                  <span className="data-count">
+                    {account_info ? (
+                      conver_to_persian(account_info.total_sold_kelases_count)
+                    ) : (
+                      <LittleLoading />
+                    )}{" "}
+                    کلاس
+                  </span>
+                </span>
+                <span
+                  className="see-all-data-btn"
+                  onClick={() => {
+                    handle_pop_up();
+                  }}
+                >
+                  مشاهده جزئیات صورت مالی
+                </span>
+              </div>
+              <div className="register-records">
+                <div className="register-record-header">
+                  <span className="register-record-item">شناسه دانش آموز</span>
+                  <span className="register-record-item">شماره موبایل</span>
+                  <span className="register-record-item">تاریخ ثبت نام</span>
+                </div>
+                {account_info ? (
+                  account_info.children.length !== 0 ? (
+                    account_info.children.map((chil) => (
+                      <div key={chil.user_id} className="register-record-data">
+                        <span className="register-record-item">
+                          {chil.name}
+                        </span>
+                        <span className="register-record-item">
+                          {chil.phone_number}
+                        </span>
+                        <span className="register-record-item">
+                          <span className="indside-line">
+                            {new Date(chil.register_date).toLocaleDateString(
+                              "fa-ir"
+                            )}
+                          </span>
+                          <span className="indside-line">
+                            {new Date(chil.register_date).toLocaleTimeString(
+                              "fa-ir"
+                            )}
+                          </span>
+                        </span>
+                      </div>
+                    ))
                   ) : (
-                    <LittleLoading />
-                  )}{" "}
-                  کاربر
-                </span>
-              </span>
-              <span className="title-count">
-                <span className="data-title">تعداد کاربر با حداقل یک خرید</span>
-                <span className="data-count">
-                  {account_info ? (
-                    conver_to_persian(
-                      account_info.children_at_least_in_one_kelas_count
-                    )
-                  ) : (
-                    <LittleLoading />
-                  )}{" "}
-                  کاربر
-                </span>
-              </span>
-              <span className="title-count">
-                <span className="data-title">تعداد کل خرید</span>
-                <span className="data-count">
-                  {account_info ? (
-                    conver_to_persian(
-                      account_info.total_payment_done_by_children_done_count
-                    )
-                  ) : (
-                    <LittleLoading />
-                  )}{" "}
-                  کاربر
-                </span>
-              </span>
-              <span className="title-count">
-                <span className="data-title">تعداد خرید کلاس‌ها</span>
-                <span className="data-count">
-                  {account_info ? (
-                    conver_to_persian(account_info.total_sold_kelases_count)
-                  ) : (
-                    <LittleLoading />
-                  )}{" "}
-                  کاربر
-                </span>
-              </span>
-              <span
-                className="see-all-data-btn"
-                onClick={() => {
-                  handle_pop_up();
-                }}
-              >
-                مشاهده جزئیات صورت مالی
-              </span>
-            </section>
+                    "موردی برای نمایش وجود ندارد"
+                  )
+                ) : (
+                  <LittleLoading />
+                )}
+                {/* <div className="register-record-data">
+                  <span className="register-record-item">پارسا سرائیه</span>
+                  <span className="register-record-item">۰۹۱۲۱۲۳۴۵۶۷</span>
+                  <span className="register-record-item">
+                    <span className="indside-line">۳۱ شهریور ۱۴۰۲ </span>
+                    <span className="indside-line">۱۲:۲۳</span>
+                  </span>
+                </div>
+                <div className="register-record-data">
+                  <span className="register-record-item">پارسا سرائیه</span>
+                  <span className="register-record-item">۰۹۱۲۱۲۳۴۵۶۷</span>
+                  <span className="register-record-item">
+                    <span className="indside-line">۳۱ شهریور ۱۴۰۲ </span>
+                    <span className="indside-line">۱۲:۲۳</span>
+                  </span>
+                </div>
+                <div className="register-record-data">
+                  <span className="register-record-item">پارسا سرائیه</span>
+                  <span className="register-record-item">۰۹۱۲۱۲۳۴۵۶۷</span>
+                  <span className="register-record-item">
+                    <span className="indside-line">۳۱ شهریور ۱۴۰۲ </span>
+                    <span className="indside-line">۱۲:۲۳</span>
+                  </span>
+                </div> */}
+              </div>
+            </div>
           </div>
         </div>
       </section>
