@@ -9,7 +9,7 @@ import space_bg from "../../asset/images/landing-bg.webp";
 import show_pass from "../../asset/images/show-pass.svg";
 import hide_pass from "../../asset/images/eye-open.svg";
 const Login = () => {
-  const { user, updateUser } = useContext(DataContext);
+  const { user, updateUser, check_login } = useContext(DataContext);
   const [pass, setPass] = useState(false);
   const [password, setPassWord] = useState(false);
   const [err, setErr] = useState(false);
@@ -27,12 +27,13 @@ const Login = () => {
     axios
       .get(`https://kadschool.com/backend/kad_api/admin_login/${password}`)
       .then((res) => {
-        setPause(false);
+        // setPause(false);
         const { result } = res.data;
         if (result) {
-          window.location.pathname = "/account";
           localStorage.setItem("admin-data", JSON.stringify(res.data));
-          updateUser(1);
+          updateUser(res.data);
+          window.location.pathname = "/account";
+          //check_login(res.data);
         } else {
           setErr("کد نامعتبر !");
           setPass(false);

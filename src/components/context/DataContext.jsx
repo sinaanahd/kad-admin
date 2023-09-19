@@ -11,6 +11,9 @@ const local_factors = JSON.parse(localStorage.getItem("factors")) || false;
 const last_time = JSON.parse(localStorage.getItem("last-time")) || false;
 const local_kelasses = JSON.parse(localStorage.getItem("kelasses")) || false;
 const local_teachers = JSON.parse(localStorage.getItem("teachers")) || false;
+const local_allow_login = JSON.parse(localStorage.getItem("all_users"))
+  ? true
+  : false;
 const local_account_info =
   JSON.parse(localStorage.getItem("account_info")) || false;
 const local_essentials =
@@ -28,23 +31,21 @@ const DataProvider = ({ children }) => {
   const [account_info, setAccountInfo] = useState(local_account_info);
   const [all_users, setAll_users] = useState(local_all_users);
   const [history, setHistory] = useState(local_admin_change_history);
+  const [allow_login, set_allow_login] = useState(local_allow_login);
   const updateUser = (newData) => {
     setUser(newData);
   };
 
   useEffect(() => {
-    // const data = split_in_three(Math.ceil(tell_total()));
-    // console.log(data);
-    //get_factors();
-    //get_admin_regestries();
-    get_admin_account();
     const is_time = last_login_check(last_time, now_time);
     if (user) {
+      get_admin_account();
       if (is_time) {
         get_kelasses();
         get_teachers();
         get_admin_requirments();
         get_all_users();
+        get_admin_account();
         if (user.level === 20) {
           get_factors();
         }
@@ -70,20 +71,28 @@ const DataProvider = ({ children }) => {
           get_all_users();
         }
       }
+    } else {
+      get_kelasses();
+      get_teachers();
+      get_all_users();
     }
   }, []);
   const get_all_users = () => {
+    localStorage.setItem("allow-login", JSON.stringify(false));
+    set_allow_login(false);
     axios
       .get("https://kadschool.com/backend/kad_api/admin_users")
       .then((res) => {
         setAll_users(res.data);
         localStorage.setItem("all_users", JSON.stringify(res.data));
+        localStorage.setItem("allow-login", JSON.stringify(true));
+        set_allow_login(true);
       })
       .catch((e) => {
         console.log(e.message);
       });
   };
-  const get_admin_account = (e) => {
+  const get_admin_account = () => {
     axios
       .get(
         `https://kadschool.com/backend/kad_api/admin_account/${user.admin_id}`
@@ -91,7 +100,7 @@ const DataProvider = ({ children }) => {
       .then((res) => {
         const account_info = res.data;
         //const this_month = 3;
-        console.log(account_info);
+        //console.log(account_info);
         const this_month = convert_number(
           new Date().toLocaleDateString("fa").split("/")[1]
         );
@@ -108,54 +117,26 @@ const DataProvider = ({ children }) => {
             this_month_pays.push({ ...item.pay_obj, porfit: item.amount });
             sum += item.amount;
           }
-          // if (item.pay_naghd_datetime) {
-          //item_month =
-          //   if (item_month === this_month) {
-          //     this_month_pays.push(item);
-          //   }
-          // } else if (item.pay1_datetime) {
-          //   item_month = convert_number(
-          //     new Date(item.pay1_datetime)
-          //       .toLocaleDateString("fa")
-          //       .split("/")[1]
-          //   );
-          //   if (item_month === this_month) {
-          //     this_month_pays.push(item);
-          //   }
-          // } else if (item.pay2_datetime) {
-          //   item_month = convert_number(
-          //     new Date(item.pay2_datetime)
-          //       .toLocaleDateString("fa")
-          //       .split("/")[1]
-          //   );
-          //   if (item_month === this_month) {
-          //     this_month_pays.push(item);
-          //   }
-          // } else if (item.pay3_datetime) {
-          //   item_month = convert_number(
-          //     new Date(item.pay3_datetime)
-          //       .toLocaleDateString("fa")
-          //       .split("/")[1]
-          //   );
-          //   if (item_month === this_month) {
-          //     this_month_pays.push(item);
-          //   }
-          // }
         });
         account_info.this_month_pays = this_month_pays;
         account_info.monthly_profit = sum;
 
         const children_old = [];
-        account_info.children_ids.forEach((ci) => {
-          const child_user = all_users.find((u) => u.user_id === ci);
-          if (Object.keys(child_user).length !== 0) {
-            children_old.push(child_user);
-          }
-        });
-        const children_new = children_old.toReversed();
-        // console.log(children_old, children_new);
-        account_info.children = children_new;
-
+        //console.log(all_users);
+        // if (all_users) {
+        //   account_info.children_ids.forEach((ci) => {
+        //     const child_user = all_users.find((u) => u.user_id === ci);
+        //     if (Object.keys(child_user).length !== 0) {
+        //       children_old.push(child_user);
+        //     }
+        //   });
+        //   const children_new = children_old.toReversed();
+        //   account_info.children = children_new;
+        // } else if (local_all_users) {
+        //   setAll_users(local_all_users);
+        // } else {
+        //   get_all_users();
+        // }
         localStorage.setItem("account_info", JSON.stringify(account_info));
         setAccountInfo(account_info);
       })
@@ -247,18 +228,20 @@ const DataProvider = ({ children }) => {
     setHistory(history);
     localStorage.setItem("admin_change_history", JSON.stringify(history));
   };
-  // const get_admin_regestries = () => {
-  //   axios
-  //     .get(
-  //       `https://kadschool.com/backend/kad_api/admin_account/${user.admin_id}`
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e.message);
-  //     });
-  // };
+  const check_login = (data) => {
+    get_all_users();
+    const login_interval = setInterval(() => {
+      check_login(data);
+      console.log("hi", allow_login);
+    }, 1000);
+    if (allow_login) {
+      clearInterval(login_interval);
+      localStorage.setItem("admin-data", JSON.stringify(data));
+      updateUser(data);
+      window.location.pathname = "/account";
+      //console.log(allow_login, all_users);
+    }
+  };
   return (
     <DataContext.Provider
       value={{
@@ -272,6 +255,7 @@ const DataProvider = ({ children }) => {
         all_users,
         history,
         setNewHistory,
+        check_login,
       }}
     >
       {children}

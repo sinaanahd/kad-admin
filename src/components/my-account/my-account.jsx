@@ -11,6 +11,7 @@ import PayInfo from "./pay-info/payinfo";
 import LittleLoading from "../reusable/little-loading";
 
 const MyAccount = () => {
+  const { user, account_info, kelasses } = useContext(DataContext);
   const [popUp, setPopUp] = useState(false);
   const handle_pop_up = () => {
     setPopUp(!popUp);
@@ -20,7 +21,6 @@ const MyAccount = () => {
       window.location.pathname = "/login";
     }
   }, []);
-  const { user, account_info, kelasses } = useContext(DataContext);
   const convert_month = (num) => {
     switch (num) {
       case "۱":
