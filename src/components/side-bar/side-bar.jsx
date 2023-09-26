@@ -8,6 +8,7 @@ import dasboardIcon from "../../asset/images/dashboard.svg";
 import financeIconActive from "../../asset/images/finance-icon.svg";
 import financeIcon from "../../asset/images/finance-icon-active.svg";
 import classesIcon from "../../asset/images/classes-icon.svg";
+import classesIconActive from "../../asset/images/class-icon-active.svg";
 import usersIcon from "../../asset/images/users-icon.svg";
 import usersIconActive from "../../asset/images/users-icon-active.svg";
 import bannersIcon from "../../asset/images/banners-icon.svg";
@@ -34,11 +35,11 @@ const SideBar = () => {
       id: 1,
     },
     {
-      imgs: [classesIcon],
-      type: false,
+      imgs: [classesIcon, classesIconActive],
+      type: true,
       url: "classes",
       text: "کلاس ها",
-      required_level: 20,
+      required_level: 10,
       id: 2,
     },
     {

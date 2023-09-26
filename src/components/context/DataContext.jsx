@@ -1,6 +1,6 @@
 // DataContext.js
 import axios from "axios";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import last_login_check from "../functions/last-login-check";
 import tell_total from "../functions/test";
 import split_in_three from "../functions/spilit_in_three";
@@ -10,6 +10,7 @@ const local_user = JSON.parse(localStorage.getItem("admin-data")) || false;
 const local_factors = JSON.parse(localStorage.getItem("factors")) || false;
 const last_time = JSON.parse(localStorage.getItem("last-time")) || false;
 const local_kelasses = JSON.parse(localStorage.getItem("kelasses")) || false;
+const local_doreha = JSON.parse(localStorage.getItem("doreha")) || false;
 const local_teachers = JSON.parse(localStorage.getItem("teachers")) || false;
 const local_allow_login = JSON.parse(localStorage.getItem("all_users"))
   ? true
@@ -21,6 +22,9 @@ const local_essentials =
 const local_all_users = JSON.parse(localStorage.getItem("all_users")) || false;
 const local_admin_change_history =
   JSON.parse(localStorage.getItem("admin_change_history")) || [];
+const local_jalasat = JSON.parse(localStorage.getItem("jalasat")) || false;
+const local_sample_files =
+  JSON.parse(localStorage.getItem("sample_files")) || false;
 const now_time = new Date().getTime();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(local_user);
@@ -32,12 +36,17 @@ const DataProvider = ({ children }) => {
   const [all_users, setAll_users] = useState(local_all_users);
   const [history, setHistory] = useState(local_admin_change_history);
   const [allow_login, set_allow_login] = useState(local_allow_login);
+  const [doreha, setDoreha] = useState(local_doreha);
+  const [jalasat, set_jalasat] = useState(local_jalasat);
+  const [sample_files, set_sample_files] = useState(local_sample_files);
+
   const updateUser = (newData) => {
     setUser(newData);
   };
 
   useEffect(() => {
     const is_time = last_login_check(last_time, now_time);
+    // get_admin_account();
     if (user) {
       get_admin_account();
       if (is_time) {
@@ -46,6 +55,9 @@ const DataProvider = ({ children }) => {
         get_admin_requirments();
         get_all_users();
         get_admin_account();
+        get_jalasat();
+        get_doreha();
+        get_sample_files();
         if (user.level === 20) {
           get_factors();
         }
@@ -70,13 +82,31 @@ const DataProvider = ({ children }) => {
         if (!local_all_users) {
           get_all_users();
         }
+        if (!local_doreha) {
+          get_doreha();
+        }
+        if (!local_jalasat) {
+          get_jalasat();
+        }
+        if (!local_sample_files) {
+          get_sample_files();
+        }
       }
     } else {
       get_kelasses();
       get_teachers();
       get_all_users();
+      get_doreha();
+      get_jalasat();
+      get_sample_files();
     }
   }, []);
+  // const prev_sample = useRef(sample_files);
+  // const prev_jalasat = useRef(jalasat);
+  // useEffect(() => {
+  //   fill_sample_files();
+  // }, [sample_files]);
+
   const get_all_users = () => {
     localStorage.setItem("allow-login", JSON.stringify(false));
     set_allow_login(false);
@@ -96,6 +126,7 @@ const DataProvider = ({ children }) => {
     axios
       .get(
         `https://kadschool.com/backend/kad_api/admin_account/${user.admin_id}`
+        // `https://kadschool.com/backend/kad_api/admin_account/6`
       )
       .then((res) => {
         const account_info = res.data;
@@ -122,21 +153,6 @@ const DataProvider = ({ children }) => {
         account_info.monthly_profit = sum;
 
         const children_old = [];
-        //console.log(all_users);
-        // if (all_users) {
-        //   account_info.children_ids.forEach((ci) => {
-        //     const child_user = all_users.find((u) => u.user_id === ci);
-        //     if (Object.keys(child_user).length !== 0) {
-        //       children_old.push(child_user);
-        //     }
-        //   });
-        //   const children_new = children_old.toReversed();
-        //   account_info.children = children_new;
-        // } else if (local_all_users) {
-        //   setAll_users(local_all_users);
-        // } else {
-        //   get_all_users();
-        // }
         localStorage.setItem("account_info", JSON.stringify(account_info));
         setAccountInfo(account_info);
       })
@@ -242,6 +258,66 @@ const DataProvider = ({ children }) => {
       //console.log(allow_login, all_users);
     }
   };
+  const get_doreha = () => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/doreha")
+      .then((res) => {
+        const doreha = res.data;
+        setDoreha(doreha);
+        localStorage.setItem("doreha", JSON.stringify(doreha));
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+  const get_jalasat = () => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/admin_jalasat")
+      .then((res) => {
+        const jalasat = res.data;
+        set_jalasat(jalasat);
+        localStorage.setItem("jalasat", JSON.stringify(jalasat));
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+  const get_sample_files = (e) => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/sample_files")
+      .then((res) => {
+        const sample_files = res.data;
+        set_sample_files(sample_files);
+        localStorage.setItem("sample_files", JSON.stringify(sample_files));
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+
+  // const fill_sample_files = () => {
+  //   if (jalasat && sample_files) {
+  //     const sub_sample = { ...sample_files };
+  //     const sub_jalasat = [...jalasat];
+  //     sub_jalasat.forEach((j) => {
+  //       if (j.sample_files.pdf_sample_files_ids.length !== 0) {
+  //         const sample_pdf_files = [];
+  //         j.sample_files.pdf_sample_files_ids.forEach((pdf_id) => {
+  //           const pdf = {
+  //             ...sub_sample.pdf_sample_files.find((f) => f.file_id === pdf_id),
+  //           };
+  //           if (Object.keys(pdf).length !== 0) {
+  //             sample_pdf_files.push(pdf);
+  //           }
+  //         });
+  //         j.pdfs = sample_pdf_files;
+  //       }
+  //     });
+  //     // console.log(sub_jalasat);
+  //     set_jalasat(sub_jalasat);
+  //     localStorage.setItem("jalasat", JSON.stringify(sub_jalasat));
+  //   }
+  // };
   return (
     <DataContext.Provider
       value={{
@@ -255,7 +331,13 @@ const DataProvider = ({ children }) => {
         all_users,
         history,
         setNewHistory,
-        check_login,
+        doreha,
+        get_kelasses,
+        jalasat,
+        sample_files,
+        get_sample_files,
+        set_jalasat,
+        get_jalasat,
       }}
     >
       {children}

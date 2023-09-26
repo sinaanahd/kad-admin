@@ -9,7 +9,7 @@ import space_bg from "../../asset/images/landing-bg.webp";
 import show_pass from "../../asset/images/show-pass.svg";
 import hide_pass from "../../asset/images/eye-open.svg";
 const Login = () => {
-  const { user, updateUser, check_login } = useContext(DataContext);
+  const { user, updateUser } = useContext(DataContext);
   const [pass, setPass] = useState(false);
   const [password, setPassWord] = useState(false);
   const [err, setErr] = useState(false);

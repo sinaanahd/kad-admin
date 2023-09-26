@@ -18,8 +18,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/finance" component={FinancePage} />
-        {/* <Route path="/classes" exact component={ClassesPage} /> */}
-        {/* <Route path="/classes/:id"  component={EditClassPage} /> */}
+        <Route path="/classes" exact component={ClassesPage} />
+        <Route path="/classes/:id"  component={EditClassPage} />
         <Route path="/login" component={Login} />
         <Route path="/users" exact component={UsersPage} />
         <Route path="/users/:id" component={SingleUser} />

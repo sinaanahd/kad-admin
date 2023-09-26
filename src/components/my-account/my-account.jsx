@@ -189,8 +189,8 @@ const MyAccount = () => {
                 </div>
                 {account_info ? (
                   account_info.children.length !== 0 ? (
-                    account_info.children.map((chil) => (
-                      <div key={chil.user_id} className="register-record-data">
+                    account_info.children.map((chil, i) => (
+                      <div key={i++} className="register-record-data">
                         <span className="register-record-item">
                           {chil.name}
                         </span>

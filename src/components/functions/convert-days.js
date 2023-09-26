@@ -14,6 +14,8 @@ function convert_days(day) {
             return "پنج‌شنبه";
         case "Friday":
             return "جمعه";
+        default : 
+            return  "روز درست وارد نشده";
     }
 }
 export default convert_days;

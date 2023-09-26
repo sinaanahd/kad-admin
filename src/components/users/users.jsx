@@ -20,7 +20,7 @@ const UsersPage = () => {
         window.location.pathname = "/account";
       }
     } else {
-      window.location.pathname = "/account";
+      window.location.pathname = "/login";
     }
   }, []);
   const convert_subject = (s) => {
@@ -60,6 +60,9 @@ const UsersPage = () => {
         (u) => u.phone_number.startsWith(value) || u.name.includes(value)
       );
       setSearched_users(filtered);
+      // users.forEach((u) => {
+      //   console.log(u.phone_number, u.name, u.user_id);
+      // });
     }
   };
   return (

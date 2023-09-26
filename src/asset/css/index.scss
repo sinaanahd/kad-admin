@@ -624,6 +624,12 @@ body {
     .class-teacher-name,.prices-wrppaer{
         @include flexMixin(column,space-between,flex-start);
         gap: 5px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+    .normal-price.discounted{
+        text-decoration: line-through;
+        color: #A0A0A0;
     }
     .edit-class-btn{
         width: 100%;
@@ -641,21 +647,34 @@ body {
     .main-content{
         align-items: flex-start;
     }
+    .main-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        gap: 21px;
+    }
+    .right-col{
+        flex: 0 0 290px;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 22px;
+    }
+    .left-col{
+        width: 100%;
+        @include flexMixin(column, flex-start, flex-start);
+        gap: 17px;
+    }
     .class-banner-edit{
         width: 100%;
         @include flexMixin(row,flex-start,flex-start);
         gap: 21px;
-        margin: 0 0 19px;
     }
     .edit-satge-area{
         width: 100%;
         max-width: 649px;
-        height: 391px;
         border-radius: 14px;
         background-color: #fff;
         @include flexMixin(column,flex-start,flex-start);
-        gap: 54px;
-        padding: 20px 18px 20px 30px;
+        gap: 20px;
+        padding: 36px;
     }
     .editing-item{
         color: #000;
@@ -681,10 +700,10 @@ body {
         @include flexMixin(column,flex-start,flex-start);
     }
     .filters-wrapper{
-        @include flexMixin(row,flex-end,center);
-        gap: 13px;
+        @include flexMixin(row,space-between,flex-start);
         width: 100%;
         font-size: 13px;
+        gap: 13px;
     }
     .filter{
         @include flexMixin(column,flex-start,flex-start);
@@ -747,122 +766,343 @@ body {
     .prices-wrppaer {
         @include flexMixin(column, space-between, flex-start);
         gap: 5px;
+        font-weight: bold;
+    }
+    .normal-price.discounted{
+        color: #A0A0A0;
+        text-decoration: line-through;
     }
     .btns-wrapper{
         width: 100%;
-        @include flexMixin(column,flex-start,flex-end);
+        @include flexMixin(row,flex-end,flex-end);
         gap: 10px;
+        margin: 20px 0 0;
     }
-    .edit-btn{
+    .edit-title{
+        font-size: 15px;
+        font-weight: bold;
+        color: #7E818A;
+    }
+    .return-to-classes{
         width: 121px;
         height: 31px;
         border-radius: 10px;
         @include flexMixin(row,center,center);
         color: #fff;
-        background-color: #dadada;
+        background-color: #9D58C5;
         font-size: 14px;
         cursor: pointer;
     }
     .save-changes-btn{
         background-color: #27AE60;
     }
-    .session-edits-wrapper{
+    .choose-sessions-wrapper{
         width: 100%;
-        max-width: 960px;
-        height: 559px;
-        border-radius: 13px;
-        background-color: #F9FAFC;
-        @include flexMixin(row,flex-start,flex-start);
-        overflow: hidden;
+        background-color: #fff;
+        max-width: 649px;
+        border-radius: 14px;
+        padding: 25px 20px;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 15px;
+    }
+    .semi-title{
+        color: #7E818A;
+        font-size: 15px;
+    }
+    .sessions-wrapper{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        row-gap: 8px;
+        column-gap: 8px;
     }
     .session-wrapper{
-        flex: 0 0 295px;
-        height: 540px;
-        transition: $transition;
-        padding: 14px 14px 58px;
-        @include flexMixin(column,flex-start,flex-start);
-        background-color: #fff;
-    }
-    .teachers-img-name{
         width: 100%;
-        height: 54px;
-        border-radius: 6px;
-        @include flexMixin(row,flex-start,center);
-        font-size: 12px;
-        gap: 10px;
-        border: 1px solid #dadada;
-        padding: 0 10px;
-    }
-    .choose-jalase{
-        margin: 25px 10px 12px;
-        font-size: 19px;
-        font-weight: bold;
-        width: 100%;
-    }
-    .date-picker{
-        width: 100%;
-        @include flexMixin(column,space-between,flex-end);
-        height: 100%;
-    }
-    .date-picker-box , .choose-time{
-        width: 100%;
-        height: 38px;
-        @include flexMixin(row,space-between,center);
-        background-color: #f7f7f7;
-        border-radius: 13px;
-        font-size: 18px;
-    }
-    .date-picker-box{
-        padding: 0 26px 0 14px;
-    }
-    .arrow-down{
-        cursor: pointer;
-        transition: $transition;
-        transform: rotate(0);
-    }
-    .rotate-arrow{
-        transform: rotate(180deg);
-    }
-    .pick-days-wrapper{
-        width: 159px;
-        border-radius: 13px;
-        background-color: #f7f7f7;
-        @include flexMixin(column,flex-start,center);
-        padding: 20px 30px;
-        gap: 10px;
-        transition: $transition;
-        height: 245px;
-        opacity: 1;
-    }
-    .pick-days-wrapper.no-show{
-        opacity: 0;
-    }
-    .select-day{
-        font-size: 18px;
-        height: 21px;
         @include flexMixin(row,center,center);
-        width: 99px;
-        border-radius: 13px;
+        background-color: #f7f7f7;
+        border-radius: 15px;
+        height: 38px;
+        width: 100%;
+        gap: 24px;
+        font-size: 15px;
         cursor: pointer;
-       transition:  $transition;
+        border: 1px solid #f7f7f7;
+        transition: $transition;
         &:hover{
             background-color: #fff;
+            border-color: #B9B9B9;
+            transform: scale(1.05);
         }
     }
-    .selected-day{
+    .session-text{
+        min-width: 40px;
+    }
+    .session-date{
+        font-size: 10px;
+        @include flexMixin(column,flex-start,center);
+    }
+    .focused{
         background-color: #fff;
+        border-color: #B9B9B9;
+        font-weight: bold;
     }
-    .choose-time{
-        padding: 12px;
-        font-size: 23px;
+    .edit-session-name-or-delete{
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        width: 100%;
+        @include flexMixin(column, flex-start, flex-start);
+        gap: 15px;
+        padding: 15px 0;
     }
-    .time-white{
-        flex: 0 0 79px;
-        height: 28px;
-        border-radius: 13px;
+    .session-info-btns-wrapper{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+    }
+    .hold-btns{
+        @include flexMixin(row,flex-end,center);
+        gap: 10px;
+    }
+    .submit-changes-btn{
+        font-size: 12px;
+        color: #fff;
+        width: 120px;
         @include flexMixin(row,center,center);
+        height: 25px;
+        border: 2px solid #27AE60;
+        background-color: #27AE60;
+        border-radius: 10px;
+    }
+    .delete-also{
+        background-color: #ff0000;
+        border-color: #ff0000;
+    }
+    .selected-session-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 15px;
+        padding: 15px 0 0;
+    }
+    .session-name-detail{
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        font-size: 10px;
+    }
+    .session-num{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .session-uploaded-files{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 40px;
+        background-color: #f7f7f7;
+        border-radius: 15px;
+        padding: 22px 27px;
+        position: relative;
+    }
+    .upload-detials-wrapper{
+        @include flexMixin(column,flex-start,flex-start);
+        width: 100%;
+        gap: 30px;
+    }
+    .loading-time{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color : #ff0000;
+    }
+    .detail-row{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        gap: 10px;
+    }
+    .detail-title{
+        font-weight: bold;
+        font-size: 14px;
+        flex: 0 0 40px;
+    }
+    .detail-file-link{
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 5px;
+        font-size: 12px;
+        color: #5956FF;
+        text-decoration: underline;
+        width: 100%;
+        cursor: pointer;
+    }
+    .detail-delete{
+        @include flexMixin(column, flex-start, flex-start);
+        gap: 5px;
+        font-size: 8px;
+        color: #FF0000;
+        text-decoration: underline;
+        flex: 0 0 40px;
+        cursor: pointer;
+    }
+    .upload-btn-palce{
+        flex: 0 0 100px;
+        max-height: 100%;
+        min-height: 120px;
+        @include flexMixin(row,flex-end,center);
+        border-right: 1px solid #D0D0D0;
+    }
+    .make-file-btn{
+        width: 75px;
+        height: 20px;
+        border-radius: 15px;
+        border: 0.5px solid #000;
         background-color: #fff;
-        padding: 5px 0 0;
+        font-size: 12px;
+        cursor: pointer;
+        @include flexMixin(row,center,center);
+    }
+    .make-file-inputs-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 16px 13px;
+    }
+    .make-file-header{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        margin: 0 0 12px;
+    }
+    .close-btn{
+        height: 30px;
+        flex: 0 0 64px;
+        border-radius: 5px;
+        background-color: #7E818A;
+        color: #fff;
+        @include flexMixin(row,center,center);
+        font-size: 14px;
+        direction: ltr;
+        font-weight: bold;
+        cursor: pointer;
+        transition: $transition;
+        border: 1px solid #7E818A;
+        &:hover{
+            color: #7E818A;
+            background-color: #fff;
+            transform: scale(1.1);
+        }
+    }
+    .pick-title{
+        font-size: 12px;
+        margin: 15px 0 7px;
+    }
+    .pick-file-cat{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 5px;
+    }
+    .cat-wrapper{
+        width: 61px;
+        height: 22px;
+        font-size: 10px;
+        @include flexMixin(row,center,center);
+        background-color: #F7F7F7;
+        border-radius: 15px;
+        border: 0.5px solid #f7f7f7;
+        cursor: pointer;
+        transition: $transition;
+        &:hover{
+            background-color: #fff;
+            color: #000;
+            border-color: #000;
+        }
+    }
+    .cat-selected{
+        background-color: #fff;
+        color: #000;
+        border-color: #000;
+    }
+    .chose-title-input{
+        width: 243px;
+        border: 0.5px solid #7E818A;
+        border-radius: 5px;
+        height: 21px;
+        padding: 0 10px;
+    }
+    .error-input{
+        color: red;
+        margin: 10px 0;
+        font-size: 12px;
+    }
+    .chosen-files{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 11px;
+    }
+    .file-img{
+        flex: 0 0 72px;
+        height: 68px;
+        border-radius: 11px;
+        @include flexMixin(row,center,center);
+        background-color: #d9d9d9;
+    margin: 50px 0 40px;
+        font-size: 13px;
+    }
+    .uploaded-files{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 10px;
+        font-size: 9px;
+        text-decoration: underline;
+    }
+    .uploaded-file{
+        width: 100%;
+        @include flexMixin(column, flex-start, flex-start);
+        gap: 6px;
+    }
+    .uploaded-file-name{
+        color: #5956FF;
+    }
+    .delete-btn{
+        color: #ff0000;
+    }
+    .upload-file-btns{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 5px;
+        font-size: 11px;
+    }
+    .upload-btn{
+        color: #000;
+        background-color: #fff;
+        border: 0.5px solid #000;
+        border-radius: 15px;
+        width: 76px;
+        height: 20px;
+        @include flexMixin(row,center,center);
+        cursor: pointer;
+        transition: $transition;
+        outline: 0px solid #000;
+        overflow: hidden;
+        &:hover{
+            color: #fff;
+            background-color: #000;
+            transform: scale(1.1);
+        }
+    }
+    .hidden-input-file{
+        display: none;
+    }
+    .submit-files-btn{
+        color: #fff;
+        background-color: #27AE60;
+        border: 0.5px solid #27AE60;
+        border-radius: 15px;
+        width: 117px;
+        height: 20px;
+        @include flexMixin(row, center, center);
+        cursor: pointer;
+        transition: $transition;
+        &:hover {
+            color: #27AE60;
+            background-color: #fff;
+            transform: scale(1.1);
+        }
     }
 }
 /* edit class page */
