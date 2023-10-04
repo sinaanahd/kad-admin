@@ -76,12 +76,11 @@ const Session_edit = ({
     const send_obj = {
       action: "delete",
       jalase_id: active_session.jalase_id,
-      jalase_id: 124,
     };
     axios
       .patch("https://kadschool.com/backend/kad_api/admin_jalasat", send_obj)
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         set_active_session(false);
         get_jalasat();
         find_single_class();

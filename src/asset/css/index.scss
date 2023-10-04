@@ -130,11 +130,11 @@ body {
         font-size: 21px;
         font-weight: 500;
     }
-    .options{
+    .export-excel{
         @include flexMixin(row,center,flex-start);
         height: 100%;
     }
-    .welcome-filter{
+    .export-excel-btn{
         width: 152px;
         height: 40px;
         background-color: #27AE60;
@@ -145,9 +145,16 @@ body {
         cursor: pointer;
         font-weight: bold;
     }
-    .welcome-filter-text{
-        width: 96px;
+    .export-excel-btn{
+        width: 120px;
         @include flexMixin(row,center,center);
+        cursor: pointer;
+        transition: $transition;
+        border: 2px solid #27AE60;
+        &:hover{
+            color: #27AE60;
+            background-color: #fff;
+        }
     }
 }
 /* welcome text */
@@ -1773,6 +1780,22 @@ body {
     }
     .kelas-detail-item.first-col{
         align-items: flex-start;
+    }
+    .img-text{
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        img{
+            max-width: 16px;
+        }
+    }
+    .accssess-control{
+        font-size: 12px;
+        text-decoration: underline;
+        cursor: pointer;
+        color: #C80000;
+    }
+    .cancel.accssess-control{
+        color: #289800;
     }
     .add-kelas-wrapper{
         width: 100%;

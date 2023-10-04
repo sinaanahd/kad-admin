@@ -6,11 +6,12 @@ import WelcomeName from "../welcome-name/welcome-name";
 import Bill from "./bill/bill";
 import FinanceDetails from "./finance-details/finance-details";
 import { DataContext } from "../context/DataContext";
+import LittleLoading from "../reusable/little-loading";
 
 const FinancePage = () => {
   const [popup, setPopUpstatus] = useState(false);
   const [factor, setFactor] = useState(false);
-  const { factors, kelasses, user } = useContext(DataContext);
+  const { factors, kelasses, user, get_factors } = useContext(DataContext);
   const handle_pop_up = (factor) => {
     if (popup) {
       setPopUpstatus(false);
@@ -22,9 +23,12 @@ const FinancePage = () => {
   useEffect(() => {
     if (!user) {
       window.location.pathname = "/login";
-    }
-    if (user.level !== 20) {
-      window.location.pathname = "/account";
+    } else {
+      if (user.level <= 10) {
+        window.location.pathname = "/account";
+      } else {
+        get_factors();
+      }
     }
   }, []);
   return (
@@ -49,16 +53,18 @@ const FinancePage = () => {
                 </span>
                 <span className="bill-header-item  show-details"></span>
               </div>
-              {factors
-                ? factors.map((f, i) => (
-                    <Bill
-                      key={i++}
-                      factor={f}
-                      handle_pop_up={handle_pop_up}
-                      kelasses={kelasses}
-                    />
-                  ))
-                : "موردی برای نمایش وجود ندارد"}
+              {factors ? (
+                factors.map((f, i) => (
+                  <Bill
+                    key={i++}
+                    factor={f}
+                    handle_pop_up={handle_pop_up}
+                    kelasses={kelasses}
+                  />
+                ))
+              ) : (
+                <LittleLoading />
+              )}
             </div>
             <div className="choose-time-wrapper">
               <span className="title-wrapper">

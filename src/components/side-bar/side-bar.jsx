@@ -31,7 +31,7 @@ const SideBar = () => {
       type: true,
       url: "finance",
       text: "امور مالی",
-      required_level: 20,
+      required_level: 10,
       id: 1,
     },
     {

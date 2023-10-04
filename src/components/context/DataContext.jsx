@@ -58,14 +58,10 @@ const DataProvider = ({ children }) => {
         get_jalasat();
         get_doreha();
         get_sample_files();
-        if (user.level === 20) {
-          get_factors();
-        }
+        get_factors();
       } else {
-        if (user.level === 20) {
-          if (!local_factors) {
-            get_factors();
-          }
+        if (!local_factors) {
+          get_factors();
         }
         if (!local_kelasses) {
           get_kelasses();
@@ -152,7 +148,8 @@ const DataProvider = ({ children }) => {
         account_info.this_month_pays = this_month_pays;
         account_info.monthly_profit = sum;
 
-        const children_old = [];
+        const transactions = account_info.transactions.toReversed();
+        account_info.transactions = transactions;
         localStorage.setItem("account_info", JSON.stringify(account_info));
         setAccountInfo(account_info);
       })
@@ -294,7 +291,6 @@ const DataProvider = ({ children }) => {
         console.log(e.message);
       });
   };
-
   // const fill_sample_files = () => {
   //   if (jalasat && sample_files) {
   //     const sub_sample = { ...sample_files };
@@ -338,6 +334,9 @@ const DataProvider = ({ children }) => {
         get_sample_files,
         set_jalasat,
         get_jalasat,
+        get_factors,
+        setAll_users,
+        get_all_users,
       }}
     >
       {children}

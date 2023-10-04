@@ -73,11 +73,12 @@ const MyAccount = () => {
                 </span>
               </div>
               <span className="pay-quan">
-                دریافتی های{" "}
+                {/* دریافتی های{" "}
                 {convert_month(
                   new Date().toLocaleDateString("fa").split("/")[1]
                 )}{" "}
-                ماه
+                ماه */}
+                تمامی دریافتی ها
               </span>
               <div className="sold-details-wrapper">
                 <div className="sold-details-header">
@@ -88,9 +89,14 @@ const MyAccount = () => {
                   <span className="sold-details-inside">میزان سود</span>
                 </div>
                 {account_info ? (
-                  account_info.this_month_pays.length !== 0 ? (
-                    account_info.this_month_pays.map((po, i) => (
-                      <PayInfo key={i++} pay_info={po} kelasses={kelasses} />
+                  account_info.transactions.length !== 0 ? (
+                    account_info.transactions.map((po, i) => (
+                      <PayInfo
+                        key={i++}
+                        pay_info={po.pay_obj}
+                        profit={po.amount}
+                        kelasses={kelasses}
+                      />
                     ))
                   ) : (
                     <div className="nothing">موردی برای نمایش وجود ندارد</div>

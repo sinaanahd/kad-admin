@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import conver_to_persian from "../../functions/convert-to-persian";
 import spilit_in_three from "../../functions/spilit_in_three";
-const PayInfo = ({ pay_info, kelasses }) => {
+const PayInfo = ({ pay_info, kelasses, profit }) => {
   const [selected_course, setSelected] = useState(false);
   return (
     <>
@@ -39,7 +39,7 @@ const PayInfo = ({ pay_info, kelasses }) => {
             : "وارد نشده"}
         </span>
         <span className="sold-details-inside">
-          {spilit_in_three(conver_to_persian(pay_info.porfit))} تومان
+          {spilit_in_three(conver_to_persian(profit))} تومان
         </span>
       </div>
       {selected_course ? (
