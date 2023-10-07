@@ -90,6 +90,14 @@ const SideBar = () => {
       required_level: 0,
       id: 8,
     },
+    {
+      imgs: [financeIcon, financeIconActive],
+      type: true,
+      url: "all-admins",
+      text: "ادمین ها",
+      required_level: 20,
+      id: 10,
+    },
   ]);
   const { user } = useContext(DataContext);
   const [active_item, setActive] = useState(

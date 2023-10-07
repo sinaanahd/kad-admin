@@ -24,7 +24,7 @@ const FinancePage = () => {
     if (!user) {
       window.location.pathname = "/login";
     } else {
-      if (user.level <= 10) {
+      if (user.level < 10) {
         window.location.pathname = "/account";
       } else {
         get_factors();

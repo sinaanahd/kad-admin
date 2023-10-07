@@ -25,6 +25,8 @@ const local_admin_change_history =
 const local_jalasat = JSON.parse(localStorage.getItem("jalasat")) || false;
 const local_sample_files =
   JSON.parse(localStorage.getItem("sample_files")) || false;
+const local_all_admins =
+  JSON.parse(localStorage.getItem("all_admins")) || false;
 const now_time = new Date().getTime();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(local_user);
@@ -39,6 +41,7 @@ const DataProvider = ({ children }) => {
   const [doreha, setDoreha] = useState(local_doreha);
   const [jalasat, set_jalasat] = useState(local_jalasat);
   const [sample_files, set_sample_files] = useState(local_sample_files);
+  const [all_admins, setAll_admins] = useState(local_all_admins);
 
   const updateUser = (newData) => {
     setUser(newData);
@@ -46,9 +49,7 @@ const DataProvider = ({ children }) => {
 
   useEffect(() => {
     const is_time = last_login_check(last_time, now_time);
-    // get_admin_account();
     if (user) {
-      get_admin_account();
       if (is_time) {
         get_kelasses();
         get_teachers();
@@ -87,6 +88,9 @@ const DataProvider = ({ children }) => {
         if (!local_sample_files) {
           get_sample_files();
         }
+        if (!local_all_admins) {
+          get_all_admins();
+        }
       }
     } else {
       get_kelasses();
@@ -95,6 +99,7 @@ const DataProvider = ({ children }) => {
       get_doreha();
       get_jalasat();
       get_sample_files();
+      get_all_admins();
     }
   }, []);
   // const prev_sample = useRef(sample_files);
@@ -291,6 +296,17 @@ const DataProvider = ({ children }) => {
         console.log(e.message);
       });
   };
+  const get_all_admins = (e) => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/all_admins_accounts")
+      .then((res) => {
+        const all_admins = res.data;
+        // console.log(all_admins);
+        localStorage.setItem("all_admins", JSON.stringify(all_admins));
+        setAll_admins(all_admins);
+      })
+      .catch((e) => console.log(e.message));
+  };
   // const fill_sample_files = () => {
   //   if (jalasat && sample_files) {
   //     const sub_sample = { ...sample_files };
@@ -337,6 +353,8 @@ const DataProvider = ({ children }) => {
         get_factors,
         setAll_users,
         get_all_users,
+        all_admins,
+        get_all_admins,
       }}
     >
       {children}

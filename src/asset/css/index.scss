@@ -1974,3 +1974,47 @@ body {
     z-index: 9999999;
 }
 /* users page */
+
+
+/* all admins page */
+.all-admins-wrapper{
+    .users-table{
+        max-height: unset;
+        overflow-y: unset;
+    }
+}
+.admin-single{
+    .admin-details-wrapper{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        border: 2px solid #fff;
+        padding: 0 10px;
+        height: 50px;
+        border-radius: 14px;
+        background-color: #fff;
+    }
+    .admin-type-wrapper{
+        background-color: #000;
+        color: #fff;
+        @include flexMixin(row, center, center);
+        border-radius: 14px;
+        height: 30px;
+        width: 100px;
+    }
+    .return-to-admins{
+        background-color: #9D58C5;
+        color: #fff;
+        @include flexMixin(row,center,center);
+        border-radius: 14px;
+        height: 30px;
+        width: 150px;
+        border: 2px solid #9D58C5;
+        transition: $transition;
+        font-weight: bold;
+        &:hover{
+            color: #9D58C5;
+            background-color: transparent;
+        }
+    }
+}
+/* all admins page */
