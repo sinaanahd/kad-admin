@@ -2018,3 +2018,162 @@ body {
     }
 }
 /* all admins page */
+
+/* banners page */
+.banners-page-wrapper{
+    width: 100%;
+    .main-content{
+        align-items: flex-start
+    }
+    .page-title{
+        font-size: 30px;
+    }
+    .banners-main-content{
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 20px;
+        width: 100%;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 14px;
+    }
+    .section-title{
+        font-size: 25px;
+    }
+    .dashboard-banner{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 10px;
+    }
+    .hidden-file-input{
+        display: none;
+    }
+    .add-new-banner{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 20px;
+    }
+    .file-input-label{
+        width: 120px;
+        @include flexMixin(row,center,center);
+        height: 30px;
+        background-color: #000;
+        color: #fff;
+        cursor: pointer;
+        transition: $transition;
+        border-radius: 20px;
+        border: 2px solid #000;
+        font-weight: bold;
+        &:hover{
+            color: #000;
+            background-color: #fff;
+        }
+    }
+    .upload-btn{
+        width: 70px;
+        @include flexMixin(row, center, center);
+        height: 30px;
+        background-color: #289800;
+        color: #fff;
+        cursor: pointer;
+        transition: $transition;
+        border-radius: 20px;
+        border: 2px solid #289800;
+        font-weight: bold;
+        &:hover {
+            color: #289800;
+            background-color: #fff;
+        }
+    }
+    .uploaded-banners-wrapper{
+        @include flexMixin(row,flex-start,center);
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 20px 0 ;
+    }
+    .uploaded-banner{
+        flex: 0 0 20%;
+        background-color: #f7f7f7;
+        padding: 0 0 10px;
+        border-radius: 14px;
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+        border: 1px solid #f7f7f7;
+        overflow: hidden;
+        img{
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+        }
+        transition: $transition;
+    }
+    .shop-banners{
+        .uploaded-banner{
+            flex: 0 0 30%;
+        }
+    }
+    .selected-banner{
+        border: 2px solid #000;
+        opacity: 0.5;
+        .delte-btn{
+            &:before {
+                background-color: #000;
+            }   
+        }
+    }
+    .delte-btn{
+        @include flexMixin(row,flex-start,center);
+        width: calc(100% - 40px);
+        cursor: pointer;
+        gap: 10px;
+        padding: 5px 0 0;
+        cursor: pointer;
+        &:before{
+            content: " ";
+            display: block;
+            flex: 0 0 10px;
+            height: 10px;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 50%;
+            position: relative;
+            top: -3px;
+        }
+    }
+    .delete-btn-place{
+        @include flexMixin(row,flex-end,center);
+        width: 100%;
+    }
+    .delete-selected-banner{
+        width: 140px;
+        @include flexMixin(row,center,center);
+        height: 30px;
+        background-color: #C80000;
+        color: #fff;
+        cursor: pointer;
+        transition: $transition;
+        border-radius: 15px;
+        border: 2px solid #C80000;
+        font-weight: bold;
+        padding: 2px 0 0;
+        &:hover{
+            color: #C80000;
+            background-color: #fff;
+        }
+    }
+    .banner-pop-up{
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #0000009b;
+        @include flexMixin(row,center,center);
+        padding: 0 100px;
+        cursor:pointer;
+        img{
+            width: 100%;
+            max-width: 50%;
+            height: auto;
+        }
+    }
+}
+/* banners page */

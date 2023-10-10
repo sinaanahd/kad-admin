@@ -11,6 +11,7 @@ import UsersPage from './components/users/users';
 import SingleUser from './components/single-user/single-user';
 import AllAdminPage from './components/all-admin/all-admin';
 import SingleAdmin   from './components/single-admin/single-admin';
+import Banners from './components/banners/banners';
 
 import './asset/css/index.scss';
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/essentials" component={Essentials} />
         <Route path="/all-admins" component={AllAdminPage} />
         <Route path="/admin/:id" component={SingleAdmin} />
+        <Route path="/banners" component={Banners} />
         {/* <Route path="/test" component={Login} /> */}
         <Redirect from="/" exact to="/login" />
         {/* <Route path="/not-found" component={MyAccount} /> */}

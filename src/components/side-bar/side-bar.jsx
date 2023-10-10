@@ -12,6 +12,7 @@ import classesIconActive from "../../asset/images/class-icon-active.svg";
 import usersIcon from "../../asset/images/users-icon.svg";
 import usersIconActive from "../../asset/images/users-icon-active.svg";
 import bannersIcon from "../../asset/images/banners-icon.svg";
+import bannersIconActive from "../../asset/images/banner-icon-active.svg";
 import elanatIcon from "../../asset/images/elanat-icon.svg";
 import gozasheratIcon from "../../asset/images/gozareshat.svg";
 import my_accountIcon from "../../asset/images/my-account.svg";
@@ -31,7 +32,7 @@ const SideBar = () => {
       type: true,
       url: "finance",
       text: "امور مالی",
-      required_level: 10,
+      required_level: 20,
       id: 1,
     },
     {
@@ -67,11 +68,11 @@ const SideBar = () => {
       id: 5,
     },
     {
-      imgs: [bannersIcon],
-      type: false,
+      imgs: [bannersIcon, bannersIconActive],
+      type: true,
       url: "banners",
       text: "بنر ها",
-      required_level: 0,
+      required_level: 20,
       id: 6,
     },
     {
