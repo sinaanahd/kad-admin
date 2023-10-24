@@ -37,7 +37,11 @@ const Card = ({ single_class, teachers }) => {
             }
           >
             {single_class ? (
-              split_in_three(convert_to_persian(single_class.price))
+              !single_class.discounted_price ? (
+                0
+              ) : (
+                split_in_three(convert_to_persian(single_class.price))
+              )
             ) : (
               <LittleLoading />
             )}{" "}
@@ -45,7 +49,13 @@ const Card = ({ single_class, teachers }) => {
           </span>
           <span className="discounted-price">
             {single_class ? (
-              split_in_three(convert_to_persian(single_class.discounted_price))
+              !single_class.discounted_price ? (
+                split_in_three(convert_to_persian(single_class.price))
+              ) : (
+                split_in_three(
+                  convert_to_persian(single_class.discounted_price)
+                )
+              )
             ) : (
               <LittleLoading />
             )}{" "}

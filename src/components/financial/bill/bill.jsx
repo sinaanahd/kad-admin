@@ -54,7 +54,7 @@ const Bill = ({ handle_pop_up, factor, kelasses }) => {
           }}
           className="bill-item show-details"
         >
-          مشاهده جزئیات
+          <span className="show-btn">مشاهده جزئیات</span>
         </span>{" "}
       </div>
       {selected_course ? (

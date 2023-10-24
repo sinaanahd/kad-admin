@@ -1,11 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import Header from "../header/header";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import LittleLoading from "../reusable/little-loading";
 import { DataContext } from "../context/DataContext";
-import convert_to_persian from "../functions/convert-to-persian";
 import split_in_three from "../functions/spilit_in_three";
 import axios from "axios";
 
@@ -33,6 +31,8 @@ const SingleUser = () => {
   const [save_pause, set_save_pause] = useState(false);
   const [liecene_pause, set_liecene_pause] = useState(false);
   const [copy, setCopy] = useState(false);
+  const [sms_code, setSms_code] = useState(false);
+  const [sms_pause, setSms_pause] = useState(false);
   useEffect(() => {
     if (user) {
       if (user.level >= 10) {
@@ -64,7 +64,7 @@ const SingleUser = () => {
         setSingle_user(single_user);
         fill_not_users(single_user);
         history_actions(single_user);
-        console.log(single_user);
+        // console.log(single_user);
       } else {
         window.location.pathname = "/not-found";
       }
@@ -160,12 +160,28 @@ const SingleUser = () => {
       setCopy(false);
     }, 500);
   };
+  const get_last_code = () => {
+    setSms_pause(true);
+    axios
+      .get(
+        `https://kadschool.com/backend/kad_api/admin_check_last_verification_code/${single_user.user_id}`
+      )
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          setSms_code(response);
+        } else {
+          console.log(error);
+        }
+        setSms_pause(false);
+      })
+      .catch((e) => console.log(e.message));
+  };
   return (
     <>
       <Helmet>
         <title>{single_user ? single_user.name : "در حال بارگذاری"}</title>
       </Helmet>
-      <Header />
       <section className="single-user-wrapper page-wrapper">
         <SideBar />
         <div className="main-content">
@@ -174,6 +190,25 @@ const SingleUser = () => {
             <span className="account-detials">
               کارنامه مالی {single_user ? single_user.name : <LittleLoading />}{" "}
               - {single_user ? single_user.user_id : <LittleLoading />}
+              <span className="get-code">
+                {sms_pause ? (
+                  <span className="get-code-btn">
+                    <LittleLoading />
+                  </span>
+                ) : (
+                  <span
+                    className="get-code-btn"
+                    onClick={() => {
+                      get_last_code();
+                    }}
+                  >
+                    دریافت کد پیامکی
+                  </span>
+                )}
+                <span className="get-code-result">
+                  {sms_code ? "کد تائید : " + sms_code : ""}
+                </span>
+              </span>
             </span>
             <UserMainData single_user={single_user} />
             <UserClasses

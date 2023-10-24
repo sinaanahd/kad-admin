@@ -52,7 +52,21 @@ const Login = () => {
       setErr("کد وارد نشده");
     }
   };
-
+  const send_data = () => {
+    const send_obj = {
+      title: "str",
+      teacher_id: "int",
+      course_id: "int",
+      dore_id: "int",
+      year: "int",
+      subject: ["int", "int"],
+      price: "int",
+      discounted_price: "int",
+      spot_player_id: "str",
+      in_run: true,
+      description: "str",
+    };
+  };
   return (
     <>
       <Helmet>

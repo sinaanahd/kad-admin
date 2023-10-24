@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
 import SideBar from "../side-bar/side-bar";
-import Header from "../header/header";
 import WelcomeName from "../welcome-name/welcome-name";
 import { DataContext } from "../context/DataContext";
 import conver_to_persian from "../functions/convert-to-persian";
@@ -41,7 +40,6 @@ const AllAdminPage = () => {
       <Helmet>
         <title>ادمین ها</title>
       </Helmet>
-      <Header />
       <section className="users-page page-wrapper all-admins-wrapper">
         <SideBar />
         <div className="main-content">

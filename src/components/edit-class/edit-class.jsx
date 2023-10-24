@@ -1,18 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Helmet } from "react-helmet";
-import Header from "../header/header";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import { DataContext } from "../context/DataContext";
 import Card from "./card/card";
-import LittleLoading from "../reusable/little-loading";
-import convert_to_persian from "../functions/convert-to-persian";
-import split_in_three from "../functions/spilit_in_three";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import scrollToTop from "../functions/scroll";
 import Upload from "./upload/upload";
 import Edit_info from "./edit-info/edit-info";
 import Session_edit from "./session-edit/session-edit";
+import LittleLoading from "../reusable/little-loading";
 
 const EditClassPage = () => {
   const {
@@ -36,6 +31,8 @@ const EditClassPage = () => {
         window.location.pathname = "/account";
       } else {
         find_single_class();
+        get_jalasat();
+        get_kelasses();
       }
     } else {
       window.location.pathname = "/login";
@@ -57,7 +54,6 @@ const EditClassPage = () => {
           {single_class ? single_class.kelas_title_and_ostad_name : ""}
         </title>
       </Helmet>
-      <Header />
       <section className="edit-class-page page-wrapper">
         <SideBar />
         <div className="main-content">
@@ -136,12 +132,21 @@ const EditClassPage = () => {
             </div>
             <div className="left-col">
               {/* <div className="edit-and-session-options-wrapper"> */}
-              <Edit_info
-                single_class={single_class}
-                teachers={teachers}
-                get_kelasses={get_kelasses}
-                setSingle_class={setSingle_class}
-              />
+              {user ? (
+                user.level === 20 ? (
+                  <Edit_info
+                    single_class={single_class}
+                    teachers={teachers}
+                    get_kelasses={get_kelasses}
+                    setSingle_class={setSingle_class}
+                  />
+                ) : (
+                  <></>
+                )
+              ) : (
+                <LittleLoading />
+              )}
+
               {/* <div className="edit-satge-area">
                 <h1 className="edit-title">
                   ویرایش اطلاعات کلی درس

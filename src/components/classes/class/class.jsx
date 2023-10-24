@@ -35,10 +35,16 @@ const Kelas = ({ kelas, doreha }) => {
                 : "normal-price discounted"
             }
           >
-            {split_in_three(convert_to_persian(kelas.price))} تومان
+            {kelas.discounted_price === kelas.price
+              ? split_in_three(convert_to_persian(kelas.price))
+              : 0}{" "}
+            تومان
           </span>
           <span className="discounted-price">
-            {split_in_three(convert_to_persian(kelas.discounted_price))} تومان
+            {kelas.discounted_price
+              ? split_in_three(convert_to_persian(kelas.discounted_price))
+              : split_in_three(convert_to_persian(kelas.price))}{" "}
+            تومان
           </span>
         </span>
       </span>

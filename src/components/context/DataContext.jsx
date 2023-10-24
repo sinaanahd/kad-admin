@@ -4,6 +4,7 @@ import { createContext, useState, useEffect, useRef } from "react";
 import last_login_check from "../functions/last-login-check";
 import tell_total from "../functions/test";
 import split_in_three from "../functions/spilit_in_three";
+import Header from "../header/header";
 const DataContext = createContext();
 
 const local_user = JSON.parse(localStorage.getItem("admin-data")) || false;
@@ -28,6 +29,9 @@ const local_sample_files =
 const local_all_admins =
   JSON.parse(localStorage.getItem("all_admins")) || false;
 const local_banners = JSON.parse(localStorage.getItem("banners")) || false;
+const local_courses = JSON.parse(localStorage.getItem("courses")) || false;
+const local_not_approved =
+  JSON.parse(localStorage.getItem("n-approved")) || false;
 const now_time = new Date().getTime();
 const DataProvider = ({ children }) => {
   const [user, setUser] = useState(local_user);
@@ -44,6 +48,40 @@ const DataProvider = ({ children }) => {
   const [sample_files, set_sample_files] = useState(local_sample_files);
   const [all_admins, setAll_admins] = useState(local_all_admins);
   const [banners, setBanners] = useState(local_banners);
+  const [courses, setCourses] = useState(local_courses);
+  const [not_approved_classes, set_not_approved_classes] =
+    useState(local_not_approved);
+  const [years, setYears] = useState([
+    {
+      id: 10,
+      name: "دهم",
+    },
+    {
+      id: 11,
+      name: "یازدهم",
+    },
+    {
+      id: 12,
+      name: "دوازدهم",
+    },
+    {
+      id: 18,
+      name: "کنکور",
+    },
+    {
+      id: 0,
+      name: "فارغ التحصیل",
+    },
+  ]);
+  const [subjects, setSubjects] = useState([
+    { id: 0, name: "ریاضی" },
+
+    { id: 1, name: "تجربی" },
+
+    { id: 2, name: "انسانی" },
+
+    { id: 3, name: "هنر" },
+  ]);
 
   const updateUser = (newData) => {
     setUser(newData);
@@ -51,7 +89,8 @@ const DataProvider = ({ children }) => {
 
   useEffect(() => {
     const is_time = last_login_check(last_time, now_time);
-
+    // get_courses();
+    // get_not_approved_classes();
     if (user) {
       if (is_time) {
         get_kelasses();
@@ -64,6 +103,8 @@ const DataProvider = ({ children }) => {
         get_sample_files();
         get_factors();
         get_banners();
+        get_courses();
+        get_not_approved_classes();
       } else {
         if (!local_factors) {
           get_factors();
@@ -97,6 +138,12 @@ const DataProvider = ({ children }) => {
         }
         if (!local_banners) {
           get_banners();
+        }
+        if (!local_courses) {
+          get_courses();
+        }
+        if (!local_not_approved) {
+          get_not_approved_classes();
         }
       }
     } else {
@@ -233,6 +280,7 @@ const DataProvider = ({ children }) => {
         const kelasses = res.data;
         setKelasses(kelasses);
         localStorage.setItem("kelasses", JSON.stringify(kelasses));
+        // set_not_approved_classes(kelasses);
       })
       .catch((e) => {
         console.log(e.message);
@@ -321,9 +369,36 @@ const DataProvider = ({ children }) => {
       .get("https://kadschool.com/backend/kad_api/admin_banners")
       .then((res) => {
         const banners = res.data;
-        console.log(banners);
+        // console.log(banners);
         setBanners(banners);
         localStorage.setItem("banners", JSON.stringify(banners));
+      })
+      .catch((e) => console.log(e.message));
+  };
+  const get_courses = () => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/courses")
+      .then((res) => {
+        const courses = res.data;
+        setCourses(courses);
+        // console.log(courses);
+        localStorage.setItem("courses", JSON.stringify(courses));
+      })
+      .catch((e) => console.log(e.message));
+  };
+  const get_not_approved_classes = () => {
+    axios
+      .get("https://kadschool.com/backend/kad_api/admin_confirm_kelas")
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          const not_approved = response;
+          // console.log(not_approved);
+          localStorage.setItem("n-approved", JSON.stringify(not_approved));
+          set_not_approved_classes(not_approved);
+        } else {
+          console.log(error);
+        }
       })
       .catch((e) => console.log(e.message));
   };
@@ -355,8 +430,14 @@ const DataProvider = ({ children }) => {
         banners,
         setBanners,
         get_banners,
+        courses,
+        years,
+        subjects,
+        not_approved_classes,
+        set_not_approved_classes,
       }}
     >
+      {window.location.pathname === "/login" ? <></> : <Header />}
       {children}
     </DataContext.Provider>
   );

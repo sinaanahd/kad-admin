@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import Header from "../header/header";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import LittleLoading from "../reusable/little-loading";
@@ -152,7 +151,6 @@ const Banners = () => {
       <Helmet>
         <title>بنرها</title>
       </Helmet>
-      <Header />
       <section className="banners-page-wrapper page-wrapper">
         <SideBar />
         <div className="main-content">

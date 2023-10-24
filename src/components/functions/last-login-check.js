@@ -4,7 +4,7 @@ function last_login_check(old_time, new_time) {
         localStorage.setItem("last-time", JSON.stringify(old_time));
         return false
     }
-    else if (decrement > 1 * 30 * 60 * 1000) {
+    else if (decrement > 1 * 5 * 60 * 1000) {
         localStorage.setItem("last-time", JSON.stringify(new_time));
         return true;
     }

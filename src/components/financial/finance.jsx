@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
-import Header from "../header/header";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import Bill from "./bill/bill";
@@ -12,6 +11,7 @@ const FinancePage = () => {
   const [popup, setPopUpstatus] = useState(false);
   const [factor, setFactor] = useState(false);
   const { factors, kelasses, user, get_factors } = useContext(DataContext);
+  const [searched_factors, setSearched_factors] = useState(false);
   const handle_pop_up = (factor) => {
     if (popup) {
       setPopUpstatus(false);
@@ -31,12 +31,19 @@ const FinancePage = () => {
       }
     }
   }, []);
+  const handle_factor_search = (value) => {
+    let result = false;
+    if (value.length > 2) {
+      result = [...factors.filter((f) => f.user_fullname.includes(value))];
+    }
+    setSearched_factors(result);
+    // console.log(result);
+  };
   return (
     <>
       <Helmet>
         <title>امور مالی</title>
       </Helmet>
-      <Header />
       <section className="finance-wrapper page-wrapper">
         <SideBar />
         <div className="main-content">
@@ -51,22 +58,44 @@ const FinancePage = () => {
                 <span className="bill-header-item">
                   تاریخ و زمان آخرین پرداخت
                 </span>
-                <span className="bill-header-item  show-details"></span>
+                <span className="bill-header-item  show-details">
+                  <input
+                    type="text"
+                    placeholder="جستجو شماره کاربر"
+                    className="finance-search"
+                    onInput={({ target }) => {
+                      handle_factor_search(target.value);
+                    }}
+                  />
+                </span>
               </div>
               {factors ? (
-                factors.map((f, i) => (
-                  <Bill
-                    key={i++}
-                    factor={f}
-                    handle_pop_up={handle_pop_up}
-                    kelasses={kelasses}
-                  />
-                ))
+                searched_factors && searched_factors.length !== 0 ? (
+                  searched_factors.map((f, i) => (
+                    <Bill
+                      key={i++}
+                      factor={f}
+                      handle_pop_up={handle_pop_up}
+                      kelasses={kelasses}
+                    />
+                  ))
+                ) : searched_factors.length === 0 ? (
+                  "موردی برای نمایش وجود ندارد"
+                ) : (
+                  factors.map((f, i) => (
+                    <Bill
+                      key={i++}
+                      factor={f}
+                      handle_pop_up={handle_pop_up}
+                      kelasses={kelasses}
+                    />
+                  ))
+                )
               ) : (
                 <LittleLoading />
               )}
             </div>
-            <div className="choose-time-wrapper">
+            {/* <div className="choose-time-wrapper">
               <span className="title-wrapper">
                 <span className="title">بازه زمانی</span>
                 <span className="cross">
@@ -77,7 +106,7 @@ const FinancePage = () => {
               <span className="choose-time start">۱۲ اردیبهشت ۱۴۰۲</span>
               <span className="till">تا</span>
               <span className="choose-time end">۱۲ اردیبهشت ۱۴۰۲</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

@@ -9,7 +9,6 @@ const NotFound = () => {
       <Helmet>
         <title>صفحه پیدا نشد</title>
       </Helmet>
-      <Header />
       <section className="page-wrapper">
         <SideBar />
         <div className="main-content">

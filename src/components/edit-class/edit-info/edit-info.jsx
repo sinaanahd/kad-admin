@@ -109,9 +109,11 @@ const Edit_info = ({
             }}
             placeholder={
               single_class
-                ? split_in_three(
-                    convert_to_persian(single_class.discounted_price)
-                  ) + " تومان"
+                ? single_class.discounted_price
+                  ? split_in_three(
+                      convert_to_persian(single_class.discounted_price)
+                    ) + " تومان"
+                  : split_in_three(convert_to_persian(1000000)) + " تومان"
                 : split_in_three(convert_to_persian(1000000)) + " تومان"
             }
           />

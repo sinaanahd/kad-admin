@@ -28,7 +28,7 @@ const Session_edit = ({
        {'spf_id': id}
       )
       .then((res) => {
-        //console.log(res.data);
+        // console.log(res.data);
         set_active_session(res.data);
         get_jalasat();
         find_single_class();

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
-import Header from "../header/header";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import { DataContext } from "../context/DataContext";
@@ -70,7 +69,6 @@ const UsersPage = () => {
       <Helmet>
         <title>کاربران</title>
       </Helmet>
-      <Header />
       <section className="users-page page-wrapper">
         <SideBar />
         <div className="main-content">
