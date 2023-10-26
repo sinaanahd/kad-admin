@@ -52,13 +52,21 @@ const WelcomeName = () => {
           {user.admin_type + " "}
           خوش اومدی! 👋
         </div>
-        {user ? (
-          user.level === 20 ? (
-            <>
-              <div className="export-excel">
-                <Link to="/add-new-class" className="welcome-add-new-class">
-                  اضافه کردن کلاس جدید
-                </Link>
+        <div className="export-excel">
+          {user ? (
+            user.level >= 10 ? (
+              <Link to="/add-new-class" className="welcome-add-new-class">
+                اضافه کردن کلاس جدید
+              </Link>
+            ) : (
+              <></>
+            )
+          ) : (
+            <LittleLoading />
+          )}
+          {user ? (
+            user.level === 20 ? (
+              <>
                 <Link
                   to="/confirm-class"
                   className="welcome-add-new-class confirm-btn"
@@ -93,14 +101,14 @@ const WelcomeName = () => {
                     دریافت گزارش
                   </span>
                 )}
-              </div>
-            </>
+              </>
+            ) : (
+              <></>
+            )
           ) : (
-            <></>
-          )
-        ) : (
-          <LittleLoading />
-        )}
+            <LittleLoading />
+          )}
+        </div>
       </div>
     </>
   );
