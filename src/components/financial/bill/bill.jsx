@@ -6,7 +6,10 @@ const Bill = ({ handle_pop_up, factor, kelasses }) => {
   return (
     <>
       <div className="bill">
-        <span className="bill-item">{factor.user_fullname}</span>
+        <span className="bill-item num-name">
+          <span className="inside-item">{factor.user_fullname}</span>
+          <span className="inside-item">{factor.phone_number}</span>
+        </span>
         <span
           className="bill-item poiter-cursor"
           onClick={() => {

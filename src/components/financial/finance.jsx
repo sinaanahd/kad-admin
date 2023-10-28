@@ -34,7 +34,12 @@ const FinancePage = () => {
   const handle_factor_search = (value) => {
     let result = false;
     if (value.length > 2) {
-      result = [...factors.filter((f) => f.user_fullname.includes(value))];
+      result = [
+        ...factors.filter(
+          (f) =>
+            f.user_fullname.includes(value) || f.phone_number.startsWith(value)
+        ),
+      ];
     }
     setSearched_factors(result);
     // console.log(result);
@@ -51,7 +56,7 @@ const FinancePage = () => {
           <div className="bill-and-time-wrapper">
             <div className="bills">
               <div className="bills-header">
-                <span className="bill-header-item">شناسه کاربر</span>
+                <span className="bill-header-item">شناسه/شماره کاربر</span>
                 <span className="bill-header-item">دوره ها</span>
                 <span className="bill-header-item">نوع و وضعیت پرداخت</span>
                 <span className="bill-header-item">میزان پرداختی</span>
@@ -61,7 +66,7 @@ const FinancePage = () => {
                 <span className="bill-header-item  show-details">
                   <input
                     type="text"
-                    placeholder="جستجو شماره کاربر"
+                    placeholder="جستجو نام یا شماره کاربر"
                     className="finance-search"
                     onInput={({ target }) => {
                       handle_factor_search(target.value);

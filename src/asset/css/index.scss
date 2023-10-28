@@ -365,6 +365,10 @@ body {
         color: #000;
         font-size: 15px;
     }
+    .num-name{
+        @include flexMixin(column,center,flex-start);
+        gap: 5px;
+    }
     .selected-courses{
         width: 100%;
         @include flexMixin(row,flex-start,center);
@@ -2240,6 +2244,24 @@ body {
         width: 100%;
         @include flexMixin(row,flex-start,center);
         gap: 20px;
+    }
+    .wrap-need{
+        flex-wrap: wrap;
+    }
+    .uploaded-img-text-input{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 20px;
+        img{
+            max-width: 200px;
+        }
+        input{
+            flex: 0 0 300px;
+            border: 2px solid #000;
+            height: 40px;
+            border-radius: 5px;
+            padding: 0 10px;
+        }
     }
     .file-input-label{
         width: 120px;
