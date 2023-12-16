@@ -37,6 +37,13 @@ const AddClass = () => {
   const [description, setDescition] = useState(false);
   const [description_err, setDescition_err] = useState(false);
   const [pause, setPause] = useState(false);
+  const [class_type, set_class_type] = useState(false);
+  const [class_type_err, set_class_type_err] = useState(false);
+  const handle_class_type = (type) => {
+    set_class_type(type);
+    setCustom_select(false);
+    set_class_type_err(false);
+  };
   const handle_custom_select = (entry) => {
     if (entry === custom_select) {
       setCustom_select(false);
@@ -224,7 +231,7 @@ const AddClass = () => {
       in_run: true,
       description: description,
     };
-    console.log(send_obj);
+    // console.log(send_obj);
   };
   const handle_img = (e) => {
     const file = e.target.files[0];
@@ -255,7 +262,8 @@ const AddClass = () => {
       price &&
       spot_liecene &&
       description &&
-      title_english
+      title_english &&
+      class_type
     ) {
       const subj_ids = subject.map((s) => (s = s.id));
       const formData = new FormData();
@@ -268,6 +276,7 @@ const AddClass = () => {
       formData.append("year", year.id);
       formData.append("subject", subj_ids);
       formData.append("price", price);
+      formData.append("in_run", class_type.truthy);
       formData.append(
         "discounted_price",
         discount_price ? discount_price : null
@@ -331,10 +340,43 @@ const AddClass = () => {
       if (!description) {
         setDescition_err("توضیحات وارد نشده ");
       }
-      if (!title_english_err) {
+      if (!title_english) {
         setTitle_english_err("اسم انگلیسی وارد نشده یا اشتباه است");
       }
+      if (!class_type) {
+        set_class_type_err("نوع کلاس انتخاب نشده است");
+      }
     }
+  };
+  const send_fake_data = (e) => {
+    console.log("done");
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    formData.append("title", "title");
+    formData.append("kelas_english_name", "title_english");
+    formData.append("teacher_id", 7792);
+    formData.append("course_id", 10);
+    formData.append("dore_id", 6);
+    formData.append("year", 10);
+    formData.append("subject", [0, 1]);
+    formData.append("price", 100000);
+    formData.append("discounted_price", null);
+    formData.append("spot_player_id", "spot_liecene");
+    formData.append("description", "description");
+    axios
+      .post(
+        "https://kadschool.com/backend/kad_api/admin_create_kelas",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => console.log(e));
   };
   return (
     <>
@@ -391,6 +433,11 @@ const AddClass = () => {
               )}
               {description_err ? (
                 <span className="final-err">{description_err}</span>
+              ) : (
+                <></>
+              )}
+              {class_type_err ? (
+                <span className="final-err">{class_type_err}</span>
               ) : (
                 <></>
               )}
@@ -483,6 +530,55 @@ const AddClass = () => {
                     ) : (
                       <LittleLoading />
                     )}
+                  </span>
+                ) : (
+                  <></>
+                )}
+              </span>
+              <span className="input-wrapper">
+                <span className="normal-title"> نوع کلاس</span>
+                <span
+                  className="input-span"
+                  onClick={() => {
+                    handle_custom_select("class_type");
+                  }}
+                >
+                  {class_type ? class_type.text : "انتخاب کنید"}
+                </span>
+                {custom_select === "class_type" ? (
+                  <span className="choose-items-wrapper">
+                    <span
+                      className={
+                        class_type.id === 1
+                          ? "choose-item choosen"
+                          : "choose-item"
+                      }
+                      onClick={() => {
+                        handle_class_type({
+                          text: "آنلاین",
+                          id: 1,
+                          truthy: true,
+                        });
+                      }}
+                    >
+                      آنلاین
+                    </span>
+                    <span
+                      className={
+                        class_type.id === 2
+                          ? "choose-item choosen"
+                          : "choose-item"
+                      }
+                      onClick={() => {
+                        handle_class_type({
+                          text: "آفلاین",
+                          id: 2,
+                          truthy: false,
+                        });
+                      }}
+                    >
+                      آفلاین
+                    </span>
                   </span>
                 ) : (
                   <></>
@@ -663,6 +759,7 @@ const AddClass = () => {
                 onClick={() => {
                   send_data();
                   handleUpload();
+                  // send_fake_data();
                 }}
                 className="submit-all-data"
               >

@@ -4,6 +4,7 @@ import check_img from "../../../../asset/images/checked.webp";
 import uncheck_img from "../../../../asset/images/unchecked.webp";
 import LittleLoading from "../../../reusable/little-loading";
 import axios from "axios";
+import urls from "../../../urls/urls";
 const UserClass = ({
   kelasses,
   k,
@@ -25,10 +26,7 @@ const UserClass = ({
       accesses: [{ kelas_id: kelas_id, access: access }],
     };
     axios
-      .patch(
-        "https://kadschool.com/backend/kad_api/admin_edit_accesses",
-        send_obj
-      )
+      .patch(urls.admin_edit_accesses, send_obj)
       .then((res) => {
         console.log(res.data);
         const single_user = res.data;

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import LittleLoading from "../../reusable/little-loading";
 import convert_to_persian from "../../functions/convert-to-persian";
 import convert_days from "../../functions/convert-days";
+import urls from "../../urls/urls";
 const Upload = ({
   set_allow_upload,
   active_session,
@@ -41,7 +42,7 @@ const Upload = ({
     formData.append("file_type", type);
     setPause(true);
     axios
-      .post("https://kadschool.com/backend/kad_api/admin_pdfs", formData, {
+      .post(urls.admin_pdfs, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

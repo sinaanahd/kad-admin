@@ -5,6 +5,7 @@ import split_in_three from "../../functions/spilit_in_three";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import scrollToTop from "../../functions/scroll";
 import axios from "axios";
+import urls from "../../urls/urls";
 
 const Edit_info = ({
   single_class,
@@ -43,7 +44,7 @@ const Edit_info = ({
       };
       setPause(true);
       axios
-        .patch(`https://kadschool.com/backend/kad_api/admin_kelases`, send_obj)
+        .patch(urls.admin_kelases, send_obj)
         .then((res) => {
           const single_class = res.data;
           setSingle_class(single_class);

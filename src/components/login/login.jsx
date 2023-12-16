@@ -52,6 +52,12 @@ const Login = () => {
       setErr("کد وارد نشده");
     }
   };
+  const handle_login_key = (e) => {
+    const key = e.keyCode;
+    if (key === 13) {
+      handle_password_check();
+    }
+  };
   const send_data = () => {
     const send_obj = {
       title: "str",
@@ -88,6 +94,7 @@ const Login = () => {
                 onInput={({ target }) => {
                   check_pass_input(target);
                 }}
+                onKeyDown={handle_login_key}
               />
               <span
                 className="show-pass-icon"

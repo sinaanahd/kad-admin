@@ -9,6 +9,7 @@ import axios from "axios";
 
 import UserMainData from "./user-main-data/user-main-data";
 import UserClasses from "./user-classes/user-classes";
+import urls from "../urls/urls";
 
 const SingleUser = () => {
   const {
@@ -117,7 +118,7 @@ const SingleUser = () => {
     };
     set_save_pause(true);
     axios
-      .patch("https://kadschool.com/backend/kad_api/admin_users", data)
+      .patch(urls.admin_users, data)
       .then((res) => {
         const single_user = res.data;
         setSingle_user(single_user);
@@ -130,9 +131,7 @@ const SingleUser = () => {
   const make_spot_liecence = (id) => {
     set_liecene_pause(true);
     axios
-      .get(
-        `https://kadschool.com/backend/kad_api/admin_create_spot_licence_for_user/${id}`
-      )
+      .get(`${urls.admin_create_spot_licence_for_user}${id}`)
       .then((res) => {
         const single_user = res.data;
         setSingle_user(single_user);
@@ -143,9 +142,7 @@ const SingleUser = () => {
   const update_sky_room = (id) => {
     set_update_pause(true);
     axios
-      .get(
-        `https://kadschool.com/backend/kad_api/admin_update_skyroom_for_user/${id}`
-      )
+      .get(`${urls.admin_update_skyroom_for_user}${id}`)
       .then((res) => {
         const single_user = res.data;
         setSingle_user(single_user);
@@ -163,9 +160,7 @@ const SingleUser = () => {
   const get_last_code = () => {
     setSms_pause(true);
     axios
-      .get(
-        `https://kadschool.com/backend/kad_api/admin_check_last_verification_code/${single_user.user_id}`
-      )
+      .get(`${urls.admin_check_last_verification_code}${single_user.user_id}`)
       .then((res) => {
         const { result, response, error } = res.data;
         if (result) {

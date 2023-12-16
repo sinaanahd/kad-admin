@@ -4,6 +4,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import LittleLoading from "../reusable/little-loading";
 import add_icon from "../../asset/images/add-icon.svg";
+import urls from "../urls/urls";
 const WelcomeName = () => {
   const { user } = useContext(DataContext);
   const [pause, setPause] = useState(false);
@@ -11,7 +12,7 @@ const WelcomeName = () => {
   const get_excel_link = () => {
     setPause(true);
     axios
-      .get("https://kadschool.com/backend/kad_api/moradi_report")
+      .get(urls.moradi_report)
       .then((res) => {
         console.log(res.data);
         const { link } = res.data;
@@ -26,12 +27,10 @@ const WelcomeName = () => {
   };
   const get_excel_report_paria = () => {
     const slug = parseInt(window.location.pathname.split("/")[2]);
-    console.log(slug);
+    // console.log(slug);
     setXls_pause(true);
     axios
-      .get(
-        `https://kadschool.com/backend/kad_api/admin_kelas_members_report/${slug}`
-      )
+      .get(`${urls.admin_kelas_members_report}${slug}`)
       .then((res) => {
         const { result, response, error } = res.data;
         if (result) {

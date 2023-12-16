@@ -3,6 +3,7 @@ import convert_days from "../../functions/convert-days";
 import convert_to_persian from "../../functions/convert-to-persian";
 import axios from "axios";
 import LittleLoading from "../../reusable/little-loading";
+import urls from "../../urls/urls";
 const Session_edit = ({
   jalasat,
   single_class,
@@ -24,7 +25,7 @@ const Session_edit = ({
     setEdit_pause(true);
     // prettier-ignore
     axios
-      .patch("https://kadschool.com/backend/kad_api/admin_pdfs",
+      .patch(urls.admin_pdfs,
        {'spf_id': id}
       )
       .then((res) => {
@@ -48,7 +49,7 @@ const Session_edit = ({
     if (new_title) {
       // console.log(send_obj);
       axios
-        .patch("https://kadschool.com/backend/kad_api/admin_jalasat", send_obj)
+        .patch(urls.jalasat, send_obj)
         .then((res) => {
           //console.log(res.data);
           set_active_session(res.data);
@@ -78,7 +79,7 @@ const Session_edit = ({
       jalase_id: active_session.jalase_id,
     };
     axios
-      .patch("https://kadschool.com/backend/kad_api/admin_jalasat", send_obj)
+      .patch(urls.jalasat, send_obj)
       .then((res) => {
         console.log(res.data);
         set_active_session(false);

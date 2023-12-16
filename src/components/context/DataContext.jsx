@@ -5,6 +5,7 @@ import last_login_check from "../functions/last-login-check";
 import tell_total from "../functions/test";
 import split_in_three from "../functions/spilit_in_three";
 import Header from "../header/header";
+import urls from "../urls/urls";
 const DataContext = createContext();
 
 const local_user = JSON.parse(localStorage.getItem("admin-data")) || false;
@@ -155,6 +156,7 @@ const DataProvider = ({ children }) => {
       get_sample_files();
       get_all_admins();
       get_banners();
+      get_not_approved_classes();
     }
   }, []);
   // const prev_sample = useRef(sample_files);
@@ -167,7 +169,7 @@ const DataProvider = ({ children }) => {
     localStorage.setItem("allow-login", JSON.stringify(false));
     set_allow_login(false);
     axios
-      .get("https://kadschool.com/backend/kad_api/admin_users")
+      .get(urls.admin_users)
       .then((res) => {
         setAll_users(res.data);
         localStorage.setItem("all_users", JSON.stringify(res.data));
@@ -181,7 +183,7 @@ const DataProvider = ({ children }) => {
   const get_admin_account = () => {
     axios
       .get(
-        `https://kadschool.com/backend/kad_api/admin_account/${user.admin_id}`
+        `${urls.admin_account}${user.admin_id}`
         // `https://kadschool.com/backend/kad_api/admin_account/6`
       )
       .then((res) => {
@@ -249,9 +251,7 @@ const DataProvider = ({ children }) => {
   };
   const get_admin_requirments = (e) => {
     axios
-      .get(
-        `https://kadschool.com/backend/kad_api/admin_requirments/${user.admin_id}`
-      )
+      .get(`${urls.admin_requirments}${user.admin_id}`)
       .then((res) => {
         const essentials = res.data;
         localStorage.setItem("essentials", JSON.stringify(essentials));
@@ -263,7 +263,7 @@ const DataProvider = ({ children }) => {
   };
   const get_factors = () => {
     axios
-      .get(`https://kadschool.com/backend/kad_api/admin_financials`)
+      .get(urls.admin_financials)
       .then((res) => {
         const factors = res.data.toReversed();
         localStorage.setItem("factors", JSON.stringify(factors));
@@ -275,7 +275,7 @@ const DataProvider = ({ children }) => {
   };
   const get_kelasses = () => {
     axios
-      .get("https://kadschool.com/backend/kad_api/kelases")
+      .get(urls.kelasses)
       .then((res) => {
         const kelasses = res.data;
         setKelasses(kelasses);
@@ -288,7 +288,7 @@ const DataProvider = ({ children }) => {
   };
   const get_teachers = () => {
     axios
-      .get("https://kadschool.com/backend/kad_api/teachers")
+      .get(urls.teachers)
       .then((res) => {
         const teachers = res.data;
         setTeachers(teachers);
@@ -318,7 +318,7 @@ const DataProvider = ({ children }) => {
   };
   const get_doreha = () => {
     axios
-      .get("https://kadschool.com/backend/kad_api/doreha")
+      .get(urls.doreha)
       .then((res) => {
         const doreha = res.data;
         setDoreha(doreha);
@@ -330,7 +330,7 @@ const DataProvider = ({ children }) => {
   };
   const get_jalasat = () => {
     axios
-      .get("https://kadschool.com/backend/kad_api/admin_jalasat")
+      .get(urls.jalasat)
       .then((res) => {
         const jalasat = res.data;
         set_jalasat(jalasat);
@@ -342,7 +342,7 @@ const DataProvider = ({ children }) => {
   };
   const get_sample_files = (e) => {
     axios
-      .get("https://kadschool.com/backend/kad_api/sample_files")
+      .get(urls.sample_files)
       .then((res) => {
         const sample_files = res.data;
         set_sample_files(sample_files);
@@ -354,7 +354,7 @@ const DataProvider = ({ children }) => {
   };
   const get_all_admins = (e) => {
     axios
-      .get("https://kadschool.com/backend/kad_api/all_admins_accounts")
+      .get(urls.all_admins_accounts)
       .then((res) => {
         const all_admins = res.data;
         // console.log(all_admins);
@@ -366,7 +366,7 @@ const DataProvider = ({ children }) => {
   const get_banners = () => {
     // https://kadschool.com/backend/kad_api/admin_banners
     axios
-      .get("https://kadschool.com/backend/kad_api/admin_banners")
+      .get(urls.banners)
       .then((res) => {
         const banners = res.data;
         // console.log(banners);
@@ -377,7 +377,7 @@ const DataProvider = ({ children }) => {
   };
   const get_courses = () => {
     axios
-      .get("https://kadschool.com/backend/kad_api/courses")
+      .get(urls.all_courses)
       .then((res) => {
         const courses = res.data;
         setCourses(courses);
@@ -388,7 +388,7 @@ const DataProvider = ({ children }) => {
   };
   const get_not_approved_classes = () => {
     axios
-      .get("https://kadschool.com/backend/kad_api/admin_confirm_kelas")
+      .get(urls.admin_confirm_kelas)
       .then((res) => {
         const { result, response, error } = res.data;
         if (result) {

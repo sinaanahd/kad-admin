@@ -3,6 +3,7 @@ import split_in_three from "../../functions/spilit_in_three";
 import convert_to_persian from "../../functions/convert-to-persian";
 import LittleLoading from "../../reusable/little-loading";
 import axios from "axios";
+import urls from "../../urls/urls";
 const ConfirmItem = ({
   kelas,
   years,
@@ -43,10 +44,7 @@ const ConfirmItem = ({
     };
     setPause2(true);
     axios
-      .patch(
-        "https://kadschool.com/backend/kad_api/admin_confirm_kelas",
-        send_obj
-      )
+      .patch(urls.admin_confirm_kelas, send_obj)
       .then((res) => {
         const { result, response, error } = res.data;
         console.log(res.data);
@@ -108,6 +106,12 @@ const ConfirmItem = ({
             <span className="item-title">شناسه اسپات : </span>
             <span className="item-text">
               {kelas.spot_player_id ? kelas.spot_player_id : "وارد نشده"}
+            </span>
+          </span>
+          <span className="text-item">
+            <span className="item-title">نوع کلاس : </span>
+            <span className="item-text">
+              {kelas.in_run ? "آنلاین" : "آفلاین"}
             </span>
           </span>
         </div>

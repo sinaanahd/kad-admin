@@ -5,6 +5,7 @@ import WelcomeName from "../welcome-name/welcome-name";
 import LittleLoading from "../reusable/little-loading";
 import { DataContext } from "../context/DataContext";
 import axios from "axios";
+import urls from "../urls/urls";
 const Banners = () => {
   const { banners, setBanners, get_banners } = useContext(DataContext);
   const [dashboard_banners, setDashboard_banners] = useState([]);
@@ -80,7 +81,7 @@ const Banners = () => {
     formData.append("target_page_link", "test-target");
     set_panel_pause(true);
     axios
-      .post("https://kadschool.com/backend/kad_api/admin_banners", formData, {
+      .post(urls.banners, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -109,7 +110,7 @@ const Banners = () => {
     formData.append("target_page_link", "test-target");
     set_shop_pause(true);
     axios
-      .post("https://kadschool.com/backend/kad_api/admin_banners", formData, {
+      .post(urls.banners, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -153,7 +154,7 @@ const Banners = () => {
     formData.append("target_page_link", main_banner_link);
     set_main_pause(true);
     axios
-      .post("https://kadschool.com/backend/kad_api/admin_banners", formData, {
+      .post(urls.banners, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -172,7 +173,7 @@ const Banners = () => {
     if (dashboard_banners.length !== 0) {
       set_panel_d_pause(true);
       axios
-        .patch("https://kadschool.com/backend/kad_api/admin_banners", {
+        .patch(urls.banners, {
           deleting_list: dashboard_banners,
         })
         .then((res) => {
@@ -180,6 +181,7 @@ const Banners = () => {
           console.log(all_banners);
           setBanners(all_banners);
           set_panel_d_pause(false);
+          setDashboard_banners([]);
           localStorage.setItem("banners", JSON.stringify(all_banners));
         })
         .catch((e) => {
@@ -193,7 +195,7 @@ const Banners = () => {
     if (main_banners.length !== 0) {
       set_main_d_pause(true);
       axios
-        .patch("https://kadschool.com/backend/kad_api/admin_banners", {
+        .patch(urls.banners, {
           deleting_list: main_banners,
         })
         .then((res) => {
@@ -201,6 +203,7 @@ const Banners = () => {
           console.log(all_banners);
           setBanners(all_banners);
           set_main_d_pause(false);
+          setMain_banners([]);
           localStorage.setItem("banners", JSON.stringify(all_banners));
         })
         .catch((e) => {
@@ -214,7 +217,7 @@ const Banners = () => {
     if (shop_banners.length !== 0) {
       set_shop_d_pause(true);
       axios
-        .patch("https://kadschool.com/backend/kad_api/admin_banners", {
+        .patch(urls.banners, {
           deleting_list: shop_banners,
         })
         .then((res) => {
@@ -222,6 +225,7 @@ const Banners = () => {
           console.log(all_banners);
           setBanners(all_banners);
           set_shop_d_pause(false);
+          setShop_banners([]);
           localStorage.setItem("banners", JSON.stringify(all_banners));
         })
         .catch((e) => {
