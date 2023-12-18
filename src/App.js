@@ -15,6 +15,7 @@ import Banners from './components/banners/banners';
 import AddClass from './components/add-class/add-class';
 import StudentSignupChart from './components/test-page/test';
 import ConfirmClass from './components/confirm-class/confirm-class';
+import Accounting from './components/accounting/accounting';
 
 import './asset/css/index.scss';
 
@@ -24,6 +25,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/finance" component={FinancePage} />
+        <Route path="/accounting" component={Accounting} />
         <Route path="/classes" exact component={ClassesPage} />
         <Route path="/classes/:id"  component={EditClassPage} />
         <Route path="/login" component={Login} />

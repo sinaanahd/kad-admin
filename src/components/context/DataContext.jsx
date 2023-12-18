@@ -31,6 +31,9 @@ const local_all_admins =
   JSON.parse(localStorage.getItem("all_admins")) || false;
 const local_banners = JSON.parse(localStorage.getItem("banners")) || false;
 const local_courses = JSON.parse(localStorage.getItem("courses")) || false;
+const local_accounting_payments =
+  JSON.parse(localStorage.getItem("accounting_payments")) || false;
+const local_products = JSON.parse(localStorage.getItem("products")) || false;
 const local_not_approved =
   JSON.parse(localStorage.getItem("n-approved")) || false;
 const now_time = new Date().getTime();
@@ -50,6 +53,10 @@ const DataProvider = ({ children }) => {
   const [all_admins, setAll_admins] = useState(local_all_admins);
   const [banners, setBanners] = useState(local_banners);
   const [courses, setCourses] = useState(local_courses);
+  const [accounting_payments, set_accounting_payments] = useState(
+    local_accounting_payments
+  );
+  const [products, set_products] = useState(local_products);
   const [not_approved_classes, set_not_approved_classes] =
     useState(local_not_approved);
   const [years, setYears] = useState([
@@ -106,6 +113,8 @@ const DataProvider = ({ children }) => {
         get_banners();
         get_courses();
         get_not_approved_classes();
+        get_products();
+        get_accounting_payments();
       } else {
         if (!local_factors) {
           get_factors();
@@ -146,6 +155,12 @@ const DataProvider = ({ children }) => {
         if (!local_not_approved) {
           get_not_approved_classes();
         }
+        if (!local_products) {
+          get_products();
+        }
+        if (!local_accounting_payments) {
+          get_accounting_payments();
+        }
       }
     } else {
       get_kelasses();
@@ -157,14 +172,10 @@ const DataProvider = ({ children }) => {
       get_all_admins();
       get_banners();
       get_not_approved_classes();
+      get_accounting_payments();
+      get_products();
     }
   }, []);
-  // const prev_sample = useRef(sample_files);
-  // const prev_jalasat = useRef(jalasat);
-  // useEffect(() => {
-  //   fill_sample_files();
-  // }, [sample_files]);
-
   const get_all_users = () => {
     localStorage.setItem("allow-login", JSON.stringify(false));
     set_allow_login(false);
@@ -402,6 +413,40 @@ const DataProvider = ({ children }) => {
       })
       .catch((e) => console.log(e.message));
   };
+  const get_accounting_payments = () => {
+    // console.log("started");
+    axios
+      .get(urls.accounting_payments)
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          set_accounting_payments(response);
+          // console.log(response);
+          localStorage.setItem("accounting_payments", JSON.stringify(response));
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+  const get_products = () => {
+    axios
+      .get(urls.products)
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          set_products(response);
+          localStorage.setItem("products", JSON.stringify(response));
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   return (
     <DataContext.Provider
       value={{
@@ -435,6 +480,10 @@ const DataProvider = ({ children }) => {
         subjects,
         not_approved_classes,
         set_not_approved_classes,
+        accounting_payments,
+        set_accounting_payments,
+        get_accounting_payments,
+        products,
       }}
     >
       {window.location.pathname === "/login" ? <></> : <Header />}

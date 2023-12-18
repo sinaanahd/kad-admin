@@ -36,6 +36,8 @@ const urls = {
   password: `${base_site}password/`,
   buy_cart: `${base_site}buyCart/`,
   payment_link: `${base_site}pay/`,
+  accounting_payments : `${base_site}accounting_payments`,
+  products : `${base_site}products`,
 };
 export default urls;
 /*

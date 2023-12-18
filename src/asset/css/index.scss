@@ -31,7 +31,7 @@ body {
         max-width: 100%;
         height: auto;
     }
-    input , textarea{
+    input , textarea , button{
         outline: 0px solid transparent!important;
         border: 0px solid transparent;
         font-family: "main-font";
@@ -446,20 +446,21 @@ body {
     }
     .finance-record-table-header,.finance-record-item{
         width: 100%;
-        @include flexMixin(row,flex-start,center);
+        @include flexMixin(row,flex-start,flex-start);
     }
     .finanace-record-header-item{
         flex: 1;
         color: #7E818A;
         @include flexMixin(column,center,center);
         font-weight: bold;
+        padding: 0px 5px;
     }
     .finance-record-item{
         color: #000;
         background-color: #f7f7f7;
-        height: 204px;
+        // height: 204px;
         border-radius: $radius;
-        padding: 20px 0;
+        padding: 20px 5px;
     }
     .single {
         height: 88px;
@@ -469,10 +470,11 @@ body {
     }
     .table-item{
         font-size: 15px;
-        @include flexMixin(column , space-between,center);
+        @include flexMixin(column , space-between ,center);
         height: 100%;
         font-weight: normal;
         color: #000;
+        gap: 5px;
     }
     .inside-item{
         @include flexMixin(column, center, center);
@@ -2695,14 +2697,80 @@ body {
 }
 /* confirm-page */
 
-// .chart-container {
-//     background-color: #fff;
-//     border: 1px solid #e5e5e5;
-//     padding: 20px;
-//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-// }
-
-// .chart-container h2 {
-//     font-size: 1.5rem;
-//     margin-bottom: 20px;
-// }
+/* accounting page */
+.accounting-page{
+    .filter-payments{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        margin: 0 0 20px;
+        gap: 10px;
+    }
+    .payment-filter-btn{
+        width: 150px;
+        height: 40px;
+        color: $color-2;
+        border: 2px solid $color-2;
+        background-color: #fff;
+        font-weight: bold;
+        border-radius: 12px;
+        transition: $transition;
+        cursor: pointer;
+        @include flexMixin(row,center,center);
+        gap: 10px;
+        &:hover{
+            background-color: $color-2;
+            color: #fff;
+        }
+    }
+    .payment-filter-btn.active{
+        background-color: $color-2;
+        color: #fff;
+    }
+    .bills-header{
+        padding: 0 40px 0 0;
+    }
+    .bill {
+        position: relative;
+        padding: 0 40px 0 0;
+        overflow: hidden;
+    }
+    .factor-status-label {
+        position: absolute;
+        top: 20px;
+        right: -25px;
+        transform: rotate(90deg);
+        color: #fff;
+        width: 68px;
+        height: 25px;
+        padding: 5px 0 0 0;
+        background-color: $color-2;
+        @include flexMixin(row,center,center);
+        font-weight: bold;
+        font-size: 12px;
+    }
+    .factor-status-label.passed{
+        background-color: #27AE60;
+    }
+}
+.accounting-pop-up-wrapper{
+    .action-btn{
+        color: #fff;
+        border: 2px solid #fff;
+    }
+    .approve-btn{
+        background-color: #27AE60;
+        border-color: #27AE60;
+    }
+    .decline-btn{
+        background-color: #C80000;
+        border-color: #C80000;
+    }
+    .close-btn{
+        background-color: #000;
+        border-color: #000;
+    }
+    .cursor-need{
+        cursor: pointer;
+    }
+}
+/* accounting page */
