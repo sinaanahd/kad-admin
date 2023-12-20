@@ -33,6 +33,8 @@ const local_banners = JSON.parse(localStorage.getItem("banners")) || false;
 const local_courses = JSON.parse(localStorage.getItem("courses")) || false;
 const local_accounting_payments =
   JSON.parse(localStorage.getItem("accounting_payments")) || false;
+const local_hesabdar_payments =
+  JSON.parse(localStorage.getItem("hesabdar_payments")) || false;
 const local_products = JSON.parse(localStorage.getItem("products")) || false;
 const local_not_approved =
   JSON.parse(localStorage.getItem("n-approved")) || false;
@@ -55,6 +57,9 @@ const DataProvider = ({ children }) => {
   const [courses, setCourses] = useState(local_courses);
   const [accounting_payments, set_accounting_payments] = useState(
     local_accounting_payments
+  );
+  const [hesabdar_payments, set_hesabdar_payments] = useState(
+    local_hesabdar_payments
   );
   const [products, set_products] = useState(local_products);
   const [not_approved_classes, set_not_approved_classes] =
@@ -115,6 +120,7 @@ const DataProvider = ({ children }) => {
         get_not_approved_classes();
         get_products();
         get_accounting_payments();
+        get_hesabdar_payments();
       } else {
         if (!local_factors) {
           get_factors();
@@ -161,6 +167,9 @@ const DataProvider = ({ children }) => {
         if (!local_accounting_payments) {
           get_accounting_payments();
         }
+        if (!local_hesabdar_payments) {
+          get_hesabdar_payments();
+        }
       }
     } else {
       get_kelasses();
@@ -182,9 +191,14 @@ const DataProvider = ({ children }) => {
     axios
       .get(urls.admin_users)
       .then((res) => {
-        setAll_users(res.data);
-        localStorage.setItem("all_users", JSON.stringify(res.data));
-        localStorage.setItem("allow-login", JSON.stringify(true));
+        const { result, response, error } = res.data;
+        if (result) {
+          setAll_users(response);
+        } else {
+          alert("مشکلی در دریافت کاربران پیش آمده");
+          console.log(error);
+        }
+        localStorage.setItem("all_users", JSON.stringify(response));
         set_allow_login(true);
       })
       .catch((e) => {
@@ -431,6 +445,24 @@ const DataProvider = ({ children }) => {
         console.log(e.message);
       });
   };
+  const get_hesabdar_payments = () => {
+    // console.log("started");
+    axios
+      .get(urls.admin_hesabdar_page)
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          set_hesabdar_payments(response);
+          console.log(response);
+          localStorage.setItem("hesabdar_payments", JSON.stringify(response));
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   const get_products = () => {
     axios
       .get(urls.products)
@@ -454,6 +486,7 @@ const DataProvider = ({ children }) => {
         updateUser,
         factors,
         kelasses,
+        setKelasses,
         teachers,
         essentials,
         account_info,
@@ -480,10 +513,14 @@ const DataProvider = ({ children }) => {
         subjects,
         not_approved_classes,
         set_not_approved_classes,
+        get_not_approved_classes,
         accounting_payments,
         set_accounting_payments,
         get_accounting_payments,
         products,
+        hesabdar_payments,
+        get_hesabdar_payments,
+        set_hesabdar_payments,
       }}
     >
       {window.location.pathname === "/login" ? <></> : <Header />}

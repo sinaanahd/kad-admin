@@ -45,7 +45,7 @@ const Payment = ({ handle_pop_up, factor }) => {
               : "وارد نشده"}
           </span>
         </span>
-        <span className="bill-item pay-date-info">
+        <span className="bill-item pay-date-info no-neccesary">
           <span className="pay-date">
             {factor.deadline_datetime
               ? new Date(factor.deadline_datetime).toLocaleDateString("fa")

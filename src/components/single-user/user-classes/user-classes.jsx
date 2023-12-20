@@ -143,9 +143,8 @@ const UserClasses = ({
               single_user.kelases.map((k, i) => (
                 <UserClass
                   key={i++}
-                  kelasses={kelasses}
                   show_copied={show_copied}
-                  k={k}
+                  kelas_data={k}
                   single_user={single_user}
                   setSingle_user={setSingle_user}
                   setAll_users={setAll_users}

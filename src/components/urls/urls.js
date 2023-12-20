@@ -1,6 +1,6 @@
 const base_site = "https://kadschool.com/backend/kad_api/";
 const urls = {
-  admin_users : `${base_site}admin_users`,
+  admin_users : `${base_site}admin_users_summary`,
   admin_account : `${base_site}admin_account/`,
   admin_requirments : `${base_site}admin_requirments/`,
   admin_financials : `${base_site}admin_financials`,
@@ -21,7 +21,7 @@ const urls = {
   sample_files: `${base_site}sample_files`,
   jalasat: `${base_site}admin_jalasat`,
   banners: `${base_site}admin_banners`,
-  user: `${base_site}user/`,
+  site_user: `${base_site}admin_user/`,
   finance_records: `${base_site}user_payments/`,
   register_user: `${base_site}register_user`,
   verify_number: `${base_site}verify_phone_number/`,
@@ -37,6 +37,7 @@ const urls = {
   buy_cart: `${base_site}buyCart/`,
   payment_link: `${base_site}pay/`,
   accounting_payments : `${base_site}accounting_payments`,
+  admin_hesabdar_page : `${base_site}admin_hesabdar_page`,
   products : `${base_site}products`,
 };
 export default urls;

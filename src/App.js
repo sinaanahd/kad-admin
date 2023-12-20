@@ -16,6 +16,7 @@ import AddClass from './components/add-class/add-class';
 import StudentSignupChart from './components/test-page/test';
 import ConfirmClass from './components/confirm-class/confirm-class';
 import Accounting from './components/accounting/accounting';
+import PaymentResults from './components/payment-results/payment-result';
 
 import './asset/css/index.scss';
 
@@ -26,6 +27,7 @@ function App() {
       <Switch>
         <Route path="/finance" component={FinancePage} />
         <Route path="/accounting" component={Accounting} />
+        <Route path="/payments" component={PaymentResults} />
         <Route path="/classes" exact component={ClassesPage} />
         <Route path="/classes/:id"  component={EditClassPage} />
         <Route path="/login" component={Login} />

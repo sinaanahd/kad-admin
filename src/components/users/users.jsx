@@ -10,8 +10,10 @@ import History from "./history/history";
 
 import search_icon from "../../asset/images/search-icon-users.svg";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import ReloadBtn from "../reusable/reload-btn";
 const UsersPage = () => {
-  const { user, all_users } = useContext(DataContext);
+  const { user, all_users, setAll_users, get_all_users } =
+    useContext(DataContext);
   const [searched_users, setSearched_users] = useState(false);
   useEffect(() => {
     if (user) {
@@ -56,10 +58,14 @@ const UsersPage = () => {
     const users = [...all_users];
     if (value.length > 2) {
       const filtered = users.filter(
-        (u) => u.phone_number.startsWith(value) || u.name.includes(value)
+        (u) => u.phone_number.startsWith(value) || u.fullname.includes(value)
       );
       setSearched_users(filtered);
     }
+  };
+  const handle_reload = (e) => {
+    setAll_users(false);
+    get_all_users();
   };
   return (
     <>
@@ -72,6 +78,7 @@ const UsersPage = () => {
           <WelcomeName />
           <div className="cols-wrapper">
             <div className="users-table">
+              <ReloadBtn click={handle_reload} />
               <div className="table-header">
                 <span className="item-wrapper">شناسه کاربر</span>
                 <span className="item-wrapper">شماره موبایل</span>
@@ -94,14 +101,14 @@ const UsersPage = () => {
                   <div className="table-content">موردی یافت نشد</div>
                 ) : (
                   searched_users.map((u) => (
-                    <div key={u.user_id} className="table-content">
-                      <span className="data-wrapper">{u.name}</span>
+                    <div key={u.id} className="table-content">
+                      <span className="data-wrapper">{u.fullname}</span>
                       <span className="data-wrapper">{u.phone_number}</span>
                       <span className="data-wrapper">
-                        {convert_year(u.year)}
+                        {convert_year(u.grade)}
                       </span>
                       <span className="data-wrapper">
-                        {convert_subject(u.subject)}
+                        {convert_subject(u.major)}
                       </span>
                       <span className="data-wrapper">
                         {conver_to_persian(u.kelases.length)} کلاس
@@ -109,7 +116,7 @@ const UsersPage = () => {
                       <span className="data-wrapper btn-box">
                         <Link
                           className="details-btn"
-                          to={`/users/${u.user_id}`}
+                          to={`/users/${u.id}`}
                           onClick={() => {
                             scrollToTop();
                           }}
@@ -122,12 +129,14 @@ const UsersPage = () => {
                 )
               ) : all_users ? (
                 all_users.map((u) => (
-                  <div key={u.user_id} className="table-content">
-                    <span className="data-wrapper">{u.name}</span>
+                  <div key={u.id} className="table-content">
+                    <span className="data-wrapper">{u.fullname}</span>
                     <span className="data-wrapper">{u.phone_number}</span>
-                    <span className="data-wrapper">{convert_year(u.year)}</span>
                     <span className="data-wrapper">
-                      {convert_subject(u.subject)}
+                      {convert_year(u.grade)}
+                    </span>
+                    <span className="data-wrapper">
+                      {convert_subject(u.major)}
                     </span>
                     <span className="data-wrapper">
                       {conver_to_persian(u.kelases.length)} کلاس
@@ -135,7 +144,7 @@ const UsersPage = () => {
                     <span className="data-wrapper btn-box">
                       <Link
                         className="details-btn"
-                        to={`/users/${u.user_id}`}
+                        to={`/users/${u.id}`}
                         onClick={() => {
                           scrollToTop();
                         }}

@@ -24,31 +24,31 @@ const SideBar = () => {
       type: false,
       url: "dashboard",
       text: "داشبورد",
-      required_level: 0,
+      required_level: [20, 10, 9, 7],
       id: 0,
     },
-    // {
-    //   imgs: [financeIcon, financeIconActive],
-    //   type: true,
-    //   url: "finance",
-    //   text: "امور مالی",
-    //   required_level: 20,
-    //   id: 1,
-    // },
     {
       imgs: [financeIcon, financeIconActive],
       type: true,
       url: "accounting",
       text: "حسابداری",
-      required_level: 20,
+      required_level: [20],
       id: 1,
+    },
+    {
+      imgs: [classesIcon, classesIconActive],
+      type: true,
+      url: "payments",
+      text: "پرداختی ها",
+      required_level: [12, 20],
+      id: 11,
     },
     {
       imgs: [classesIcon, classesIconActive],
       type: true,
       url: "classes",
       text: "کلاس ها",
-      required_level: 10,
+      required_level: [10, 20],
       id: 2,
     },
     {
@@ -56,7 +56,7 @@ const SideBar = () => {
       type: true,
       url: "users",
       text: "کاربران",
-      required_level: 10,
+      required_level: [10, 20],
       id: 3,
     },
     {
@@ -64,7 +64,7 @@ const SideBar = () => {
       type: true,
       url: "essentials",
       text: "پیشنیاز ها",
-      required_level: 0,
+      required_level: [20, 10, 9, 7],
       id: 4,
     },
     {
@@ -72,7 +72,7 @@ const SideBar = () => {
       type: true,
       url: "account",
       text: "حساب من",
-      required_level: 0,
+      required_level: [20, 10, 9, 7, 12],
       id: 5,
     },
     {
@@ -80,7 +80,7 @@ const SideBar = () => {
       type: true,
       url: "banners",
       text: "بنر ها",
-      required_level: 20,
+      required_level: [20],
       id: 6,
     },
     {
@@ -88,7 +88,7 @@ const SideBar = () => {
       type: false,
       url: "notify",
       text: "اعلانات",
-      required_level: 0,
+      required_level: [20, 10, 9, 7],
       id: 7,
     },
     {
@@ -96,7 +96,7 @@ const SideBar = () => {
       type: false,
       url: "reports",
       text: "گزارشات",
-      required_level: 0,
+      required_level: [20, 10, 9, 7],
       id: 8,
     },
     {
@@ -104,7 +104,7 @@ const SideBar = () => {
       type: true,
       url: "all-admins",
       text: "ادمین ها",
-      required_level: 20,
+      required_level: [20],
       id: 10,
     },
   ]);
@@ -115,7 +115,7 @@ const SideBar = () => {
   useEffect(() => {
     const sample_menu = [];
     menu_items.forEach((menu_item) => {
-      if (menu_item.required_level <= user.level) {
+      if (menu_item.required_level.includes(user.level)) {
         sample_menu.push(menu_item);
       }
     });

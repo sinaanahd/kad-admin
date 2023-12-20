@@ -13,8 +13,8 @@ const History = () => {
           {history.length !== 0 ? (
             history.map((user) => (
               <Link
-                to={`./users/${user.user_id}`}
-                key={user.user_id}
+                to={`./users/${user.id}`}
+                key={user.id}
                 className="log-item"
                 onClick={() => {
                   scrollToTop();

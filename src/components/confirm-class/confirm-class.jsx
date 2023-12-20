@@ -5,6 +5,7 @@ import WelcomeName from "../welcome-name/welcome-name";
 import LittleLoading from "../reusable/little-loading";
 import { DataContext } from "../context/DataContext";
 import ConfirmItem from "./confirm-item/confirm-item";
+import ReloadBtn from "../reusable/reload-btn";
 const ConfirmClass = () => {
   const {
     not_approved_classes,
@@ -12,7 +13,12 @@ const ConfirmClass = () => {
     courses,
     years,
     set_not_approved_classes,
+    get_not_approved_classes,
   } = useContext(DataContext);
+  const handle_reload = () => {
+    set_not_approved_classes(false);
+    get_not_approved_classes();
+  };
   return (
     <>
       <Helmet>
@@ -33,6 +39,7 @@ const ConfirmClass = () => {
               )}{" "}
               کلاس )
             </span>
+            <ReloadBtn click={handle_reload} />
           </div>
           <div className="classes-main-area">
             {not_approved_classes ? (

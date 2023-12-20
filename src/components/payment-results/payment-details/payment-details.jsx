@@ -142,7 +142,7 @@ const PaymentDetails = ({
           )}
         </div>
         <div className="actions-btns">
-          {pause ? (
+          {/* {pause ? (
             <button className="get-records action-btn approve-btn">
               <LittleLoading />
             </button>
@@ -169,7 +169,7 @@ const PaymentDetails = ({
             >
               رد پرداختی
             </button>
-          )}
+          )} */}
 
           <button
             className="close-pop-up action-btn close-btn"

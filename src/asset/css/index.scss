@@ -505,6 +505,19 @@ body {
     }
 }
 /* finance page */
+
+/* reload-btn */
+.reload-btn-wrapper{
+    @include flexMixin(row,center,center);
+    cursor: pointer;
+    z-index: 20;
+}
+.abs-pos.reload-btn-wrapper{
+    position: absolute;
+    right: 20px;
+}
+/* reload-btn */
+
 /* inside loader */
 @keyframes spinMf {
     from {
@@ -515,7 +528,6 @@ body {
         transform: rotate(360deg)
     }
 }
-
 .inside-loader {
     @include flexMixin(row, center, center);
 
@@ -669,6 +681,17 @@ body {
         @include flexMixin(row,flex-start,center);
         gap: 10px;
         font-size: 14px;
+    }
+    .reload-place{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        margin: 0 0 10px;
+        .reload-btn-wrapper{
+            background-color: #fff;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
     }
     .filter-btn{
         width: 85px;
@@ -1678,6 +1701,17 @@ body {
         gap: 12px;
         max-height: 1000px;
         overflow-y: scroll;
+        position: relative;
+    }
+    .reload-btn-wrapper{
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: $color-2;
+        border-radius: 5px;
+        color: #fff;
     }
     .table-header{
         width: 100%;
@@ -2612,6 +2646,11 @@ body {
         height: 60px;
         border-radius: 20px;
         padding: 0 20px;
+        position: relative;
+    }
+    .reload-btn-wrapper{
+        position: absolute;
+        left: 20px;
     }
     .classes-main-area{
         width: calc(100% - 30px);
@@ -2699,6 +2738,9 @@ body {
 
 /* accounting page */
 .accounting-page{
+    .bills {
+        position: relative;
+    }
     .filter-payments{
         width: 100%;
         @include flexMixin(row,flex-start,center);
@@ -2751,6 +2793,7 @@ body {
     .factor-status-label.passed{
         background-color: #27AE60;
     }
+    
 }
 .accounting-pop-up-wrapper{
     .action-btn{
@@ -2774,3 +2817,11 @@ body {
     }
 }
 /* accounting page */
+
+/* hesabdar page */
+.hesabdar-page{
+    .no-neccesary{
+        display: none;
+    }
+}
+/* hesabdar page */

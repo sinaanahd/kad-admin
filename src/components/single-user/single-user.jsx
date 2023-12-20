@@ -59,17 +59,33 @@ const SingleUser = () => {
   };
   const get_single = () => {
     const slug = parseInt(window.location.pathname.split("/")[2]);
-    if (all_users && kelasses) {
-      const single_user = { ...all_users.find((u) => u.user_id === slug) };
-      if (Object.keys(single_user).length !== 0) {
-        setSingle_user(single_user);
-        fill_not_users(single_user);
-        history_actions(single_user);
-        // console.log(single_user);
-      } else {
-        window.location.pathname = "/not-found";
-      }
-    }
+    axios
+      .get(urls.site_user + slug)
+      .then((res) => {
+        console.log(res.data);
+        const { result, response, error } = res.data;
+        if (result) {
+          setSingle_user(response);
+          history_actions(response);
+        } else {
+          console.log(error);
+          alert("مشکلی پیش آمده");
+        }
+        // fill_not_users(single_user);
+      })
+      .catch((e) => {
+        console.log(e.message);
+        alert("مشکلی پیش آمده");
+      });
+    // if (all_users && kelasses) {
+    //   const single_user = { ...all_users.find((u) => u.user_id === slug) };
+    //   if (Object.keys(single_user).length !== 0) {
+    //     // setSingle_user(single_user);
+    //     // console.log(single_user);
+    //   } else {
+    //     window.location.pathname = "/not-found";
+    //   }
+    // }
   };
   const fill_not_users = (single_user) => {
     const not_user_kelasses = [];
@@ -81,8 +97,15 @@ const SingleUser = () => {
         not_user_kelasses.push(k);
       }
     });
-    setNot_kelasses(not_user_kelasses);
+    // kelasses.filter((k) =>
+    //   single_user.kelases.includes(k.kelas_id)
+    // );
+    // setNot_kelasses(not_user_kelasses);
+    // console.log(not_user_kelasses);
+    return not_user_kelasses;
   };
+  const repair_not_user_kelasses =
+    kelasses && single_user ? fill_not_users(single_user) : false;
   const add_class = (kelas) => {
     const active_kelasses = [...added_classes];
     const contains = Object.keys({
@@ -122,7 +145,7 @@ const SingleUser = () => {
       .then((res) => {
         const single_user = res.data;
         setSingle_user(single_user);
-        fill_not_users(single_user);
+        // fill_not_users(single_user);
         setAdded_classes([]);
         set_save_pause(false);
       })
@@ -210,9 +233,8 @@ const SingleUser = () => {
               single_user={single_user}
               show_copied={show_copied}
               make_spot_liecence={make_spot_liecence}
-              not_user_kelasses={not_user_kelasses}
+              not_user_kelasses={repair_not_user_kelasses}
               liecene_pause={liecene_pause}
-              kelasses={kelasses}
               add_class={add_class}
               added_classes={added_classes}
               remove_class={remove_class}

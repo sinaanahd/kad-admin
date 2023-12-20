@@ -6,22 +6,20 @@ import { Helmet } from "react-helmet";
 import SideBar from "../side-bar/side-bar";
 import WelcomeName from "../welcome-name/welcome-name";
 import PaymentDetails from "./payment-details/payment-details";
-import Payment from "./payment/payment";
 import ReloadBtn from "../reusable/reload-btn";
+import Payment from "../accounting/payment/payment";
 import compare_months from "../functions/compare-dates";
-import split_in_three from "../functions/spilit_in_three";
-const Accounting = () => {
+const PaymentResults = () => {
   const [popup, setPopUpstatus] = useState(false);
   const [factor, setFactor] = useState(false);
   const [kind_to_show, set_kind_to_show] = useState("all");
   const [today, set_today] = useState(false);
-
   const {
-    accounting_payments,
+    hesabdar_payments,
     products,
     user,
-    get_accounting_payments,
-    set_accounting_payments,
+    get_hesabdar_payments,
+    set_hesabdar_payments,
   } = useContext(DataContext);
   const [searched_factors, setSearched_factors] = useState(false);
   const handle_pop_up = (factor) => {
@@ -48,10 +46,6 @@ const Accounting = () => {
     date_finder();
     if (!user) {
       window.location.pathname = "/login";
-    } else {
-      if (user.level < 20) {
-        window.location.pathname = "/account";
-      }
     }
   }, []);
   const handle_factor_search = (value) => {
@@ -59,7 +53,7 @@ const Accounting = () => {
     if (value.length > 2) {
       set_kind_to_show("searched");
       result = [
-        ...accounting_payments.filter(
+        ...hesabdar_payments.filter(
           (f) =>
             (f.buyer_name && f.buyer_name.includes(value)) ||
             (f.buyer_phone_number && f.buyer_phone_number.startsWith(value))
@@ -70,24 +64,24 @@ const Accounting = () => {
     }
     setSearched_factors(result);
   };
-  const not_approved = accounting_payments
-    ? accounting_payments.filter((ap) => !ap.manager_confirmation)
+  const not_approved = hesabdar_payments
+    ? hesabdar_payments.filter((ap) => !ap.manager_confirmation)
     : false;
-  const approved = accounting_payments
-    ? accounting_payments.filter((ap) => ap.manager_confirmation)
+  const approved = hesabdar_payments
+    ? hesabdar_payments.filter((ap) => ap.manager_confirmation)
     : false;
-  const unpaid = accounting_payments
-    ? accounting_payments.filter((ap) => !ap.is_payed)
+  const unpaid = hesabdar_payments
+    ? hesabdar_payments.filter((ap) => !ap.is_payed)
     : false;
-  const paid = accounting_payments
-    ? accounting_payments.filter((ap) => ap.is_payed)
+  const paid = hesabdar_payments
+    ? hesabdar_payments.filter((ap) => ap.is_payed)
     : false;
-  const site = accounting_payments
-    ? accounting_payments.filter((ap) => ap.seller_name === "سایت")
+  const site = hesabdar_payments
+    ? hesabdar_payments.filter((ap) => ap.seller_name === "سایت")
     : false;
   const this_month =
-    accounting_payments && today
-      ? accounting_payments.filter((hp) =>
+    hesabdar_payments && today
+      ? hesabdar_payments.filter((hp) =>
           compare_months(
             new Date(hp.paying_datetime).getTime(),
             today.year,
@@ -96,8 +90,8 @@ const Accounting = () => {
         )
       : false;
   const previous_month =
-    accounting_payments && today
-      ? accounting_payments.filter((hp) =>
+    hesabdar_payments && today
+      ? hesabdar_payments.filter((hp) =>
           compare_months(
             new Date(hp.paying_datetime).getTime(),
             today.month === 1 ? today.year - 1 : today.year,
@@ -108,7 +102,7 @@ const Accounting = () => {
   const show_result = () => {
     switch (kind_to_show) {
       case "all":
-        return accounting_payments;
+        return hesabdar_payments;
       case "unapproved":
         return not_approved;
       case "approved":
@@ -130,21 +124,21 @@ const Accounting = () => {
     }
   };
   const handle_reload = (e) => {
-    set_accounting_payments(false);
-    get_accounting_payments();
+    set_hesabdar_payments(false);
+    get_hesabdar_payments();
     // let sum = 0;
     // site.forEach((p) => {
-    //   if (p.is_payed) sum += p.payment_amount;
+    //   sum += p.payment_amount;
     // });
-    // console.log(split_in_three(sum));
+    // console.log(split_in_three(convert_to_persian(sum)));
   };
 
   return (
     <>
       <Helmet>
-        <title>حسابداری</title>
+        <title>پرداختی ها</title>
       </Helmet>
-      <section className="finance-wrapper page-wrapper accounting-page">
+      <section className="finance-wrapper page-wrapper accounting-page hesabdar-page">
         <SideBar />
         <div className="main-content">
           <WelcomeName />
@@ -161,86 +155,9 @@ const Accounting = () => {
             >
               همه
               <span className="btn-count-num">
-                {accounting_payments
-                  ? `( ${convert_to_persian(accounting_payments.length)} )`
+                {hesabdar_payments
+                  ? `( ${convert_to_persian(hesabdar_payments.length)} )`
                   : ""}
-              </span>
-            </button>
-            <button
-              onClick={() => {
-                set_kind_to_show("unapproved");
-              }}
-              className={
-                kind_to_show === "unapproved"
-                  ? "payment-filter-btn active"
-                  : "payment-filter-btn"
-              }
-            >
-              تایید نشده ها
-              <span className="btn-count-num">
-                {not_approved
-                  ? `( ${convert_to_persian(not_approved.length)} )`
-                  : ""}
-              </span>
-            </button>
-            <button
-              onClick={() => {
-                set_kind_to_show("approved");
-              }}
-              className={
-                kind_to_show === "approved"
-                  ? "payment-filter-btn active"
-                  : "payment-filter-btn"
-              }
-            >
-              تایید شده ها
-              <span className="btn-count-num">
-                {approved ? `( ${convert_to_persian(approved.length)} )` : ""}
-              </span>
-            </button>
-            <button
-              onClick={() => {
-                set_kind_to_show("unpaid");
-              }}
-              className={
-                kind_to_show === "unpaid"
-                  ? "payment-filter-btn active"
-                  : "payment-filter-btn"
-              }
-            >
-              در انتظار پرداخت
-              <span className="btn-count-num">
-                {unpaid ? `( ${convert_to_persian(unpaid.length)} )` : ""}
-              </span>
-            </button>
-            <button
-              onClick={() => {
-                set_kind_to_show("paid");
-              }}
-              className={
-                kind_to_show === "paid"
-                  ? "payment-filter-btn active"
-                  : "payment-filter-btn"
-              }
-            >
-              پرداخت شده ها
-              <span className="btn-count-num">
-                {paid ? `( ${convert_to_persian(paid.length)} )` : ""}
-              </span>
-            </button>
-            <button
-              onClick={() => {
-                set_kind_to_show("site");
-              }}
-              className={
-                kind_to_show === "site"
-                  ? "payment-filter-btn active"
-                  : "payment-filter-btn"
-              }
-            >
-              سایت
-              <span className="btn-count-num">
-                {site ? `( ${convert_to_persian(site.length)} )` : ""}
               </span>
             </button>
             <button
@@ -288,7 +205,6 @@ const Accounting = () => {
                 <span className="bill-header-item">نوع و وضعیت پرداخت</span>
                 <span className="bill-header-item">میزان پرداختی</span>
                 <span className="bill-header-item">تاریخ پرداخت</span>
-                <span className="bill-header-item">موعد پرداخت</span>
                 <span className="bill-header-item  show-details">
                   <input
                     type="text"
@@ -300,7 +216,7 @@ const Accounting = () => {
                   />
                 </span>
               </div>
-              {accounting_payments ? (
+              {hesabdar_payments ? (
                 show_result() ? (
                   show_result().length !== 0 ? (
                     show_result().map((f, i) => (
@@ -338,4 +254,4 @@ const Accounting = () => {
   );
 };
 
-export default Accounting;
+export default PaymentResults;

@@ -5,6 +5,7 @@ import WelcomeName from "../welcome-name/welcome-name";
 import Kelas from "./class/class";
 import { DataContext } from "../context/DataContext";
 import LittleLoading from "../reusable/little-loading";
+import ReloadBtn from "../reusable/reload-btn";
 
 const ClassesPage = () => {
   const {
@@ -15,6 +16,7 @@ const ClassesPage = () => {
     courses,
     get_kelasses,
     get_jalasat,
+    setKelasses,
   } = useContext(DataContext);
   const [filter_kind, setFilter_kind] = useState(false);
   const [selected_teachers, setSelected_teachers] = useState([]);
@@ -135,6 +137,10 @@ const ClassesPage = () => {
     }
     setFiltered_doreha(result);
   };
+  const handle_reload = (e) => {
+    setKelasses(false);
+    get_kelasses();
+  };
   return (
     <>
       <Helmet>
@@ -144,6 +150,9 @@ const ClassesPage = () => {
         <SideBar />
         <div className="main-content">
           <WelcomeName />
+          <span className="reload-place">
+            <ReloadBtn click={handle_reload} />
+          </span>
           <div className="class-filter-wrapper">
             <div className="class-filter-header">
               <div className="filter-btns">
