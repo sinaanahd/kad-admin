@@ -1848,6 +1848,13 @@ body {
     .get-code{
         @include flexMixin(row,flex-start,center);
         gap: 20px;
+        .reload-btn-wrapper{
+            background-color: $color-2;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            color: #fff;
+        }
     }
     .get-code-btn{
         background-color: #27AE60;
@@ -2055,6 +2062,58 @@ body {
             cursor: pointer;
         }
     }
+    .user-finance-records{
+        width: 100%;
+        margin: 30px 0;
+        padding: 0 10px;
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+    }
+    .finance-header{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        .reload-btn-wrapper{
+            width: 30px;
+            height: 30px;
+            background-color: $color-2;
+            border-radius: 5px;
+            color: #fff;
+        }
+    }
+    .finanace-records-title{
+        font-weight: bold;
+        color: #7E818A;
+    }
+    .finance-data-table{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+        padding: 0 20px;
+    }
+    .finance-table-row{
+        width: 100%;
+        @include flexMixin(row,space-between,center);
+        font-size: 15px;
+        position: relative;
+        height: 60px;
+        border-radius: 10px;
+        background-color: $background-color;
+        padding: 0 10px;
+        *{
+            flex: 1;
+        }
+    }
+    .finance-table-header-row{
+        background-color: transparent;
+        height: unset;
+        font-weight: bold;
+    }
+    .finance-table-item{
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+    }
+
+
     .add-kelas-wrapper{
         width: 100%;
         @include flexMixin(column,flex-start,flex-start);

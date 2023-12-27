@@ -10,6 +10,8 @@ import axios from "axios";
 import UserMainData from "./user-main-data/user-main-data";
 import UserClasses from "./user-classes/user-classes";
 import urls from "../urls/urls";
+import UserFinanceData from "./user-finance-data/user-finance-data";
+import ReloadBtn from "../reusable/reload-btn";
 
 const SingleUser = () => {
   const {
@@ -34,6 +36,7 @@ const SingleUser = () => {
   const [copy, setCopy] = useState(false);
   const [sms_code, setSms_code] = useState(false);
   const [sms_pause, setSms_pause] = useState(false);
+  const [user_paymnets, set_user_payments] = useState(false);
   useEffect(() => {
     if (user) {
       if (user.level >= 10) {
@@ -62,10 +65,11 @@ const SingleUser = () => {
     axios
       .get(urls.site_user + slug)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const { result, response, error } = res.data;
         if (result) {
           setSingle_user(response);
+          get_finance_records(response);
           history_actions(response);
         } else {
           console.log(error);
@@ -195,6 +199,28 @@ const SingleUser = () => {
       })
       .catch((e) => console.log(e.message));
   };
+  const get_finance_records = (entry_user) => {
+    axios
+      .get(urls.finance_records + entry_user.user_id)
+      .then((res) => {
+        const { response, result, error } = res.data;
+        if (result) {
+          set_user_payments(response);
+          console.log(response);
+        } else {
+          console.log(error);
+          alert("مشکلی در دریافت اطلاعات مالی پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+        alert("مشکلی در دریافت اطلاعات مالی پیش آمده");
+      });
+  };
+  const handle_reload = (e) => {
+    setSingle_user(false);
+    get_single();
+  };
   return (
     <>
       <Helmet>
@@ -226,6 +252,7 @@ const SingleUser = () => {
                 <span className="get-code-result">
                   {sms_code ? "کد تائید : " + sms_code : ""}
                 </span>
+                <ReloadBtn click={handle_reload} />
               </span>
             </span>
             <UserMainData single_user={single_user} />
@@ -244,6 +271,12 @@ const SingleUser = () => {
               setAll_users={setAll_users}
               get_all_users={get_all_users}
               all_users={all_users}
+            />
+            <UserFinanceData
+              user_paymnets={user_paymnets}
+              set_user_paymnets={set_user_payments}
+              single_user={single_user}
+              get_finance_records={get_finance_records}
             />
             {added_classes.length !== 0 ? (
               <div className="price-and-ghesti-option">
@@ -297,13 +330,8 @@ const SingleUser = () => {
                 ) : (
                   <span className="save-actions btn-style">ذخیره</span>
                 )}
-                {/* <span className="save-actions btn-style">ذخیره</span> */}
-                {/* <span className="status-text">
-                  ذخیره شده! / عدم نیاز به ذخیره!
-                </span> */}
               </div>
               <div className="btn-wrapper">
-                {/* <span className="wait-text">صبر کنید ...</span> */}
                 <span
                   className="btn-style"
                   onClick={() => {
@@ -314,9 +342,6 @@ const SingleUser = () => {
                 >
                   {update_pause ? <LittleLoading /> : "آپدیت اسکایروم‌"}
                 </span>
-                {/* <span className="status-text">
-                  ذخیره شده! / عدم نیاز به ذخیره!
-                </span> */}
               </div>
             </div>
           </div>

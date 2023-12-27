@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import copy_to_clip_board from "../../functions/copy-to-clip-board";
 import LittleLoading from "../../reusable/little-loading";
-import cross_svg from "../../../asset/images/cross-svg.svg";
-import arrow_icon from "../../../asset/images/arrow-down.svg";
 
 import UserClass from "./user-class/user-class";
 
@@ -235,7 +233,7 @@ const UserClasses = ({
             <LittleLoading />
           )}
         </div>
-        <div className="add-kelas-wrapper">
+        {/* <div className="add-kelas-wrapper">
           <span className="add-title">ثبت‌نام کابر</span>
           <div className="active-kelasses">
             {added_classes.length !== 0
@@ -292,7 +290,7 @@ const UserClasses = ({
               <></>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

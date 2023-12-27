@@ -453,7 +453,7 @@ const DataProvider = ({ children }) => {
         const { result, response, error } = res.data;
         if (result) {
           set_hesabdar_payments(response);
-          console.log(response);
+          // console.log(response);
           localStorage.setItem("hesabdar_payments", JSON.stringify(response));
         } else {
           console.log(error);
