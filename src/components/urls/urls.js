@@ -39,10 +39,6 @@ const urls = {
   accounting_payments : `${base_site}accounting_payments`,
   admin_hesabdar_page : `${base_site}admin_hesabdar_page`,
   products : `${base_site}products`,
+  kelas_summery :` ${base_site}admin_kelases_page`
 };
 export default urls;
-/*
-    https://kadschool.com/backend/kad_api/admin_users"
-    admin_pdfs
-    admin_kelases
-*/

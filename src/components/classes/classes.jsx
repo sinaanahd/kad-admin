@@ -9,14 +9,14 @@ import ReloadBtn from "../reusable/reload-btn";
 
 const ClassesPage = () => {
   const {
-    kelasses,
+    kelas_summery,
     doreha,
     user,
     teachers,
     courses,
-    get_kelasses,
+    get_kelas_summery,
     get_jalasat,
-    setKelasses,
+    set_kelas_summery,
   } = useContext(DataContext);
   const [filter_kind, setFilter_kind] = useState(false);
   const [selected_teachers, setSelected_teachers] = useState([]);
@@ -31,7 +31,7 @@ const ClassesPage = () => {
       if (user.level < 10) {
         window.location.pathname = "/account";
       } else {
-        get_kelasses();
+        get_kelas_summery();
         get_jalasat();
       }
     } else {
@@ -82,7 +82,9 @@ const ClassesPage = () => {
     let result = false;
     if (value.length >= 3) {
       result = [
-        ...kelasses.filter((k) => k.kelas_title_and_ostad_name.includes(value)),
+        ...kelas_summery.filter((k) =>
+          k.kelas_title_and_ostad_name.includes(value)
+        ),
       ];
     }
     // console.log(result);
@@ -93,7 +95,7 @@ const ClassesPage = () => {
     let dore_check,
       course_check,
       teachers_check = false;
-    kelasses.forEach((k) => {
+    kelas_summery.forEach((k) => {
       if (selected_courses.length === 0) {
         course_check = true;
       } else {
@@ -138,8 +140,8 @@ const ClassesPage = () => {
     setFiltered_doreha(result);
   };
   const handle_reload = (e) => {
-    setKelasses(false);
-    get_kelasses();
+    set_kelas_summery(false);
+    get_kelas_summery();
   };
   return (
     <>
@@ -389,8 +391,8 @@ const ClassesPage = () => {
               ))
             ) : searched_classes.length === 0 ? (
               "موردی یافت نشد"
-            ) : kelasses ? (
-              kelasses.map((kelas) => (
+            ) : kelas_summery ? (
+              kelas_summery.map((kelas) => (
                 <Kelas key={kelas.kelas_id} kelas={kelas} doreha={doreha} />
               ))
             ) : (

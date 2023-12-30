@@ -36,6 +36,8 @@ const local_accounting_payments =
 const local_hesabdar_payments =
   JSON.parse(localStorage.getItem("hesabdar_payments")) || false;
 const local_products = JSON.parse(localStorage.getItem("products")) || false;
+const local_kelas_summery =
+  JSON.parse(localStorage.getItem("kelas_summery")) || false;
 const local_not_approved =
   JSON.parse(localStorage.getItem("n-approved")) || false;
 const now_time = new Date().getTime();
@@ -55,6 +57,7 @@ const DataProvider = ({ children }) => {
   const [all_admins, setAll_admins] = useState(local_all_admins);
   const [banners, setBanners] = useState(local_banners);
   const [courses, setCourses] = useState(local_courses);
+  const [kelas_summery, set_kelas_summery] = useState(local_kelas_summery);
   const [accounting_payments, set_accounting_payments] = useState(
     local_accounting_payments
   );
@@ -170,6 +173,9 @@ const DataProvider = ({ children }) => {
         if (!local_hesabdar_payments) {
           get_hesabdar_payments();
         }
+        if (!local_kelas_summery) {
+          get_kelas_summery();
+        }
       }
     } else {
       get_kelasses();
@@ -183,6 +189,7 @@ const DataProvider = ({ children }) => {
       get_not_approved_classes();
       get_accounting_payments();
       get_products();
+      get_kelas_summery();
     }
   }, []);
   const get_all_users = () => {
@@ -479,6 +486,22 @@ const DataProvider = ({ children }) => {
         console.log(e.message);
       });
   };
+  const get_kelas_summery = () => {
+    axios
+      .get(urls.kelas_summery)
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          set_kelas_summery(response);
+          localStorage.setItem("kelas_summery", JSON.stringify(response));
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   return (
     <DataContext.Provider
       value={{
@@ -487,6 +510,9 @@ const DataProvider = ({ children }) => {
         factors,
         kelasses,
         setKelasses,
+        kelas_summery,
+        set_kelas_summery,
+        get_kelas_summery,
         teachers,
         essentials,
         account_info,

@@ -1,16 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import LittleLoading from "../../reusable/little-loading";
 import convert_to_persian from "../../functions/convert-to-persian";
 import convert_days from "../../functions/convert-days";
 import urls from "../../urls/urls";
+import { DataContext } from "../../context/DataContext";
 const Upload = ({
   set_allow_upload,
   active_session,
   set_active_session,
-  get_jalasat,
   find_single_class,
 }) => {
+  const { get_jalasat } = useContext(DataContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [pause, setPause] = useState(false);
   const [type, set_type] = useState("نمونه جزوه");
@@ -50,20 +51,12 @@ const Upload = ({
       .then((res) => {
         setPause(false);
         const jalase = res.data;
-        console.log(jalase);
         set_active_session(jalase);
         get_jalasat();
         find_single_class();
       })
       .catch((e) => console.log(e));
   };
-  // const make_new_set = (jalase) => {
-  //   const temp_jalasat = [...jalasat];
-  //   const index = temp_jalasat.indexOf(jalase);
-  //   console.log(index);
-  //   // temp_jalasat.splice(index, 1, jalase);
-  //   // set_jalasat(temp_jalasat);
-  // };
   const fill_input = (value) => {
     if (value.length > 3) {
       setTitle(value);
@@ -109,13 +102,6 @@ const Upload = ({
         ) : (
           <LittleLoading />
         )}
-        {/* {active_session.start_time.split(":")[0] +
-          ":" +
-          active_session.start_time.split(":")[1]}
-        -
-        {active_session.finish_time.split(":")[0] +
-          ":" +
-          active_session.finish_time.split(":")[1]} */}
       </h3>
       <h4 className="pick-title">انتخاب نوع دسته فایل</h4>
       <div className="pick-file-cat">
@@ -162,17 +148,7 @@ const Upload = ({
       <span className="error-input">
         {title === "short" ? "نام وارد شده کوتاه است" : ""}
       </span>
-      {/* <div className="chosen-files">
-        <span className="file-img">FILE</span>
-        <span className="uploaded-files">
-          <span className="uploaded-file">
-            <span className="uploaded-file-name">
-              توضیح و حل مسئله در مورد فصل نوسان فیزیک دوازدهم ریاضی.pdf
-            </span>
-            <span className="delete-btn">پاک کردن</span>
-          </span>
-        </span>
-      </div> */}
+
       <div className="upload-file-btns">
         <label htmlFor="file-input" className="upload-btn">
           انتخاب فایل

@@ -922,6 +922,111 @@ body {
             }
         }
     }
+    .custom-drop-down-wrapper{
+        width: 120px;
+        height: 27px;
+        border: 0.5px solid #7E818A;
+        border-radius: 5px;
+        padding: 3px 5px 0;
+        @include flexMixin(row, space-between, center);
+        color: #000;
+        cursor: pointer;
+        img{
+            width: 13px;
+            margin-left: 2px;
+        }
+    }
+    .drop-down-wrapper{
+        width: 120px;
+        position: absolute;
+        top: 80px;
+        @include flexMixin(column,flex-start,center);
+        background-color: #f7f7f7;
+        padding:10px 5px;
+        border-radius: 5px;
+        gap: 5px;
+        z-index: 99999;
+    }
+    .drop-down-item{
+        font-size: 12px;
+        height: 25px;
+        @include flexMixin(row,center,center);
+        border: 1px solid #fff;
+        width: 100%;
+        border-radius: 5px;
+        padding: 2px 5px 0;
+        cursor: pointer;
+        transition: $transition;
+        &:hover{
+            background-color: #fff;
+        }
+    }
+    .file-filter{
+        label{
+            width: 120px;
+            height: 27px;
+            border: 0.5px solid #7E818A;
+            border-radius: 5px;
+            padding: 3px 5px 0;
+            @include flexMixin(row, center, center);
+            color: #000;
+            cursor: pointer;
+        }
+        input[type="file"]{
+            display: none;
+        }
+        img{
+            border-radius: 12px;
+        }
+    }
+    .new-photo-text{
+        font-weight: bold;
+        font-size: 12px;
+        margin: -10px 0;
+    }
+    .new-photo-wrapper{
+        width: 100px;
+        height: 100px;
+        background-color: #f7f7f7;
+        @include flexMixin(row,center,center);
+        padding: 5px;
+        border-radius: 12px;
+    }
+    .filter.text-area-filter{
+        width: 100%;
+        flex: unset;
+        textarea{
+            width: 100%;
+            height: 200px;
+            border: 0.5px solid #7E818A;
+            border-radius: 5px;
+            padding:3px 10px; 
+            resize: vertical;
+            min-height: 27px;       
+            &::placeholder {
+                color: #999;
+            }
+        }
+    }
+    .name-text-area{
+        width: 100%;
+        min-height: 27px;
+        height: 27px;
+        border: 0.5px solid #7E818A;
+        border-radius: 5px;
+        padding: 3px 10px;
+        resize: vertical;
+    
+        &::placeholder {
+            color: #999;
+        }
+    }
+    .info-errors{
+        position: absolute;
+        top: 25px;
+        font-size: 12px;
+        color: #ff0000;
+    }
     .drop-down-sample{
         cursor: pointer;
         color: #999;

@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import convert_days from "../../functions/convert-days";
 import convert_to_persian from "../../functions/convert-to-persian";
 import axios from "axios";
 import LittleLoading from "../../reusable/little-loading";
 import urls from "../../urls/urls";
+import { DataContext } from "../../context/DataContext";
 const Session_edit = ({
-  jalasat,
   single_class,
   active_session,
   set_active_session,
   set_allow_upload,
-  get_jalasat,
   find_single_class,
 }) => {
+  const { jalasat, get_jalasat } = useContext(DataContext);
   const class_jalasat = single_class
     ? jalasat
       ? [...jalasat.filter((j) => single_class.jalasat.includes(j.jalase_id))]
@@ -51,7 +51,6 @@ const Session_edit = ({
       axios
         .patch(urls.jalasat, send_obj)
         .then((res) => {
-          //console.log(res.data);
           set_active_session(res.data);
           get_jalasat();
           find_single_class();
@@ -81,7 +80,6 @@ const Session_edit = ({
     axios
       .patch(urls.jalasat, send_obj)
       .then((res) => {
-        console.log(res.data);
         set_active_session(false);
         get_jalasat();
         find_single_class();

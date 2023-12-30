@@ -15,15 +15,7 @@ const Card = ({ single_class, teachers }) => {
             {single_class ? single_class.kelas_title : <LittleLoading />}
           </span>
           <span className="teacher-name">
-            {single_class ? (
-              {
-                ...teachers.find(
-                  (t) => t.teacher_id === single_class.teachers[0]
-                ),
-              }.fullname
-            ) : (
-              <LittleLoading />
-            )}
+            {single_class ? single_class.ostad_name : <LittleLoading />}
           </span>
         </span>
         <span className="prices-wrppaer">

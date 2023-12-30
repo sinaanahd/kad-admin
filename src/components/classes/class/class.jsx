@@ -18,13 +18,18 @@ const Kelas = ({ kelas, doreha }) => {
       </Link>
       <span className="class-info">
         <span className="class-teacher-name">
-          <span className="class-name">{kelas.kelas_title_and_ostad_name}</span>
+          <span className="class-name">
+            {kelas.kelas_title}
+            <br />
+            {kelas.ostad_name.replace("استاد", "")}
+          </span>
           <span className="teacher-name">
-            {
+            {/* {
               {
                 ...doreha.find((d) => d.dore_id === kelas.parent_dore_id),
               }.dore_title
-            }
+            } */}
+            {kelas.parent_dore}
           </span>
         </span>
         <span className="prices-wrppaer">

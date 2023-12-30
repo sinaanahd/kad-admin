@@ -8,6 +8,8 @@ import Upload from "./upload/upload";
 import Edit_info from "./edit-info/edit-info";
 import Session_edit from "./session-edit/session-edit";
 import LittleLoading from "../reusable/little-loading";
+import axios from "axios";
+import urls from "../urls/urls";
 
 const EditClassPage = () => {
   const {
@@ -40,18 +42,32 @@ const EditClassPage = () => {
   }, []);
   const find_single_class = () => {
     const slug = parseInt(window.location.pathname.split("/")[2]);
-    const single_class = { ...kelasses.find((k) => k.kelas_id === slug) };
-    if (Object.keys(single_class).length !== 0) setSingle_class(single_class);
-    else {
-      window.location.pathname = "not-found";
-    }
+    // const single_class = { ...kelasses.find((k) => k.kelas_id === slug) };
+    axios
+      .get(`${urls.kelas_summery}/${slug}`)
+      .then((res) => {
+        // console.log(res.data);
+        const { result, response, error } = res.data;
+        if (result) {
+          setSingle_class(response);
+        } else {
+          console.log(error);
+          alert("مشکلی پیش آمده");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    // if (Object.keys(single_class).length !== 0) setSingle_class(single_class);
+    // else {
+    //   // window.location.pathname = "not-found";
+    // }
   };
   return (
     <>
       <Helmet>
         <title>
-          ویرایش کلاس{" "}
-          {single_class ? single_class.kelas_title_and_ostad_name : ""}
+          ویرایش کلاس {single_class ? single_class.kelas_title : ""}
         </title>
       </Helmet>
       <section className="edit-class-page page-wrapper">
