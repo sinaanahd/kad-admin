@@ -70,6 +70,7 @@ const ClassesPage = () => {
       }
       setSelected_courses(new_select);
     }
+    console.log(filter_kind, new_select);
   };
   const delete_all_filters = () => {
     setFilter_kind(false);
@@ -81,11 +82,7 @@ const ClassesPage = () => {
   const handle_class_search = ({ value }) => {
     let result = false;
     if (value.length >= 3) {
-      result = [
-        ...kelas_summery.filter((k) =>
-          k.kelas_title_and_ostad_name.includes(value)
-        ),
-      ];
+      result = [...kelas_summery.filter((k) => k.kelas_title.includes(value))];
     }
     // console.log(result);
     setSearched_classes(result);
@@ -104,12 +101,12 @@ const ClassesPage = () => {
       if (selected_doreha.length === 0) {
         dore_check = true;
       } else {
-        dore_check = selected_doreha.includes(k.parent_dore_id);
+        dore_check = selected_doreha.includes(k.parent_dore);
       }
       if (selected_teachers.length === 0) {
         teachers_check = true;
       } else {
-        teachers_check = selected_teachers.includes(k.teachers[0]);
+        teachers_check = selected_teachers.includes(k.ostad_name);
       }
       if (course_check && dore_check && teachers_check) {
         filtered.push(k);
@@ -140,6 +137,7 @@ const ClassesPage = () => {
     setFiltered_doreha(result);
   };
   const handle_reload = (e) => {
+    setSearched_classes(false);
     set_kelas_summery(false);
     get_kelas_summery();
   };
@@ -258,11 +256,11 @@ const ClassesPage = () => {
                     filtered_teachers.map((t) => (
                       <span
                         onClick={() => {
-                          handle(t.teacher_id);
+                          handle(t.fullname);
                         }}
                         key={t.teacher_id}
                         className={
-                          selected_teachers.includes(t.teacher_id)
+                          selected_teachers.includes(t.fullname)
                             ? "selected-field-option active"
                             : "selected-field-option"
                         }
@@ -276,11 +274,11 @@ const ClassesPage = () => {
                     teachers.map((t) => (
                       <span
                         onClick={() => {
-                          handle(t.teacher_id);
+                          handle(t.fullname);
                         }}
                         key={t.teacher_id}
                         className={
-                          selected_teachers.includes(t.teacher_id)
+                          selected_teachers.includes(t.fullname)
                             ? "selected-field-option active"
                             : "selected-field-option"
                         }
@@ -302,11 +300,11 @@ const ClassesPage = () => {
                     filtered_doreha.map((t) => (
                       <span
                         onClick={() => {
-                          handle(t.dore_id);
+                          handle(t.dore_title);
                         }}
                         key={t.dore_id}
                         className={
-                          selected_doreha.includes(t.dore_id)
+                          selected_doreha.includes(t.dore_title)
                             ? "selected-field-option active"
                             : "selected-field-option"
                         }
@@ -320,11 +318,11 @@ const ClassesPage = () => {
                     doreha.map((t) => (
                       <span
                         onClick={() => {
-                          handle(t.dore_id);
+                          handle(t.dore_title);
                         }}
                         key={t.dore_id}
                         className={
-                          selected_doreha.includes(t.dore_id)
+                          selected_doreha.includes(t.dore_title)
                             ? "selected-field-option active"
                             : "selected-field-option"
                         }

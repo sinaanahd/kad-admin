@@ -5,6 +5,7 @@ import split_in_three from "../../functions/spilit_in_three";
 import convert_to_persian from "../../functions/convert-to-persian";
 
 const Kelas = ({ kelas, doreha }) => {
+  // console.log(kelas.discounted_price);
   return (
     <div className="class-wrapper">
       <Link to={`/classes/${kelas.kelas_id}`} className="img-wrapper">
@@ -40,10 +41,7 @@ const Kelas = ({ kelas, doreha }) => {
                 : "normal-price discounted"
             }
           >
-            {kelas.discounted_price === kelas.price
-              ? split_in_three(convert_to_persian(kelas.price))
-              : 0}{" "}
-            تومان
+            {split_in_three(convert_to_persian(kelas.price))} تومان
           </span>
           <span className="discounted-price">
             {kelas.discounted_price

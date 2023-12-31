@@ -802,6 +802,7 @@ body {
         gap: 5px;
         font-size: 13px;
         font-weight: bold;
+        flex: 150px;
     }
     .prices-wrppaer{
         align-items: flex-end;
@@ -1033,6 +1034,17 @@ body {
     }
     .filter-title{
         font-weight: bold;
+    }
+    .need-icon{
+        @include flexMixin(row,space-between,center);
+        width: 100%;
+        .copy-icon{
+            @include flexMixin(row,center,center);
+            height: 100%;
+            cursor: pointer;
+            color: $color-2;
+            font-size: 15px;
+        }
     }
     .input-options {
         position: absolute;

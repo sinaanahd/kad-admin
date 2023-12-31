@@ -8,6 +8,8 @@ import axios from "axios";
 import urls from "../../urls/urls";
 import { DataContext } from "../../context/DataContext";
 import arrow_down from "../../../asset/images/arrow-down.svg";
+import { FaCopy } from "react-icons/fa";
+import copy_to_clip_board from "../../functions/copy-to-clip-board";
 
 const Edit_info = ({ single_class, setSingle_class }) => {
   const { get_kelas_summery, teachers, doreha } = useContext(DataContext);
@@ -150,6 +152,13 @@ const Edit_info = ({ single_class, setSingle_class }) => {
   const handle_drop_down = (entry) => {
     set_drop_down(entry);
   };
+  const make_full_text = (arr) => {
+    let full_text = "";
+    arr.forEach((item) => {
+      full_text += item + "\n";
+    });
+    return full_text;
+  };
   return (
     <div className="edit-satge-area">
       <h1 className="edit-title">
@@ -285,9 +294,28 @@ const Edit_info = ({ single_class, setSingle_class }) => {
           )}
         </span>
         <span className="filter text-area-filter">
-          <span className="filter-title">توضیحات کلاس</span>
+          <span className="filter-title need-icon">
+            توضیحات کلاس
+            <span
+              className="copy-icon"
+              onClick={() => {
+                copy_to_clip_board(
+                  single_class
+                    ? make_full_text(single_class.description)
+                    : "توضیحات ندارد"
+                );
+              }}
+            >
+              <FaCopy />
+            </span>
+          </span>
+
           <textarea
-            placeholder={single_class ? single_class.description : "وارد نشده"}
+            placeholder={
+              single_class
+                ? make_full_text(single_class.description)
+                : "وارد نشده"
+            }
             onInput={handle_description}
           ></textarea>
         </span>
