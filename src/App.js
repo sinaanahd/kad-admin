@@ -19,6 +19,8 @@ import Accounting from './components/accounting/accounting';
 import PaymentResults from './components/payment-results/payment-result';
 
 import './asset/css/index.scss';
+import AllTeachers from './components/all-teachers/all-teachers';
+import SingleTeacher from './components/single-teacher/single-teacher';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path="/users" exact component={UsersPage} />
         <Route path="/users/:id" component={SingleUser} />
         <Route path="/account" component={MyAccount} />
+        <Route path="/all-teachers" component={AllTeachers} />
+        <Route path="/teacher/:id" component={SingleTeacher} />
         <Route path="/essentials" component={Essentials} />
         <Route path="/all-admins" component={AllAdminPage} />
         <Route path="/admin/:id" component={SingleAdmin} />

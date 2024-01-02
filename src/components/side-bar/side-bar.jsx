@@ -107,6 +107,14 @@ const SideBar = () => {
       required_level: [20],
       id: 10,
     },
+    {
+      imgs: [financeIcon, financeIconActive],
+      type: true,
+      url: "all-teachers",
+      text: "اساتید",
+      required_level: [20, 10, 9],
+      id: 12,
+    },
   ]);
   const { user } = useContext(DataContext);
   const [active_item, setActive] = useState(

@@ -30,6 +30,8 @@ const local_sample_files =
 const local_all_admins =
   JSON.parse(localStorage.getItem("all_admins")) || false;
 const local_banners = JSON.parse(localStorage.getItem("banners")) || false;
+const local_teachers_summary =
+  JSON.parse(localStorage.getItem("teachers_summary")) || false;
 const local_courses = JSON.parse(localStorage.getItem("courses")) || false;
 const local_accounting_payments =
   JSON.parse(localStorage.getItem("accounting_payments")) || false;
@@ -58,6 +60,9 @@ const DataProvider = ({ children }) => {
   const [banners, setBanners] = useState(local_banners);
   const [courses, setCourses] = useState(local_courses);
   const [kelas_summery, set_kelas_summery] = useState(local_kelas_summery);
+  const [teachers_summary, set_teachers_summary] = useState(
+    local_teachers_summary
+  );
   const [accounting_payments, set_accounting_payments] = useState(
     local_accounting_payments
   );
@@ -124,6 +129,7 @@ const DataProvider = ({ children }) => {
         get_products();
         get_accounting_payments();
         get_hesabdar_payments();
+        get_teachers_summary();
       } else {
         if (!local_factors) {
           get_factors();
@@ -176,6 +182,9 @@ const DataProvider = ({ children }) => {
         if (!local_kelas_summery) {
           get_kelas_summery();
         }
+        if (!local_teachers_summary) {
+          get_teachers_summary();
+        }
       }
     } else {
       get_kelasses();
@@ -190,6 +199,9 @@ const DataProvider = ({ children }) => {
       get_accounting_payments();
       get_products();
       get_kelas_summery();
+      get_teachers_summary();
+      get_accounting_payments();
+      get_hesabdar_payments();
     }
   }, []);
   const get_all_users = () => {
@@ -502,6 +514,23 @@ const DataProvider = ({ children }) => {
         console.log(e.message);
       });
   };
+  const get_teachers_summary = (e) => {
+    axios
+      .get(urls.admin_teachers_page)
+      .then((res) => {
+        const { result, response, error } = res.data;
+        if (result) {
+          // console.log(response);
+          set_teachers_summary(response);
+          localStorage.setItem("teachers_summary", JSON.stringify(response));
+        } else {
+          console.log(error);
+        }
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   return (
     <DataContext.Provider
       value={{
@@ -514,6 +543,8 @@ const DataProvider = ({ children }) => {
         set_kelas_summery,
         get_kelas_summery,
         teachers,
+        get_teachers,
+        setTeachers,
         essentials,
         account_info,
         all_users,
@@ -547,6 +578,9 @@ const DataProvider = ({ children }) => {
         hesabdar_payments,
         get_hesabdar_payments,
         set_hesabdar_payments,
+        teachers_summary,
+        set_teachers_summary,
+        get_teachers_summary,
       }}
     >
       {window.location.pathname === "/login" ? <></> : <Header />}

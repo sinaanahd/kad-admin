@@ -10,6 +10,7 @@ import Session_edit from "./session-edit/session-edit";
 import LittleLoading from "../reusable/little-loading";
 import axios from "axios";
 import urls from "../urls/urls";
+import AddVideo from "./add-video/add-video";
 
 const EditClassPage = () => {
   const {
@@ -50,6 +51,7 @@ const EditClassPage = () => {
         const { result, response, error } = res.data;
         if (result) {
           setSingle_class(response);
+          console.log(response);
         } else {
           console.log(error);
           alert("مشکلی پیش آمده");
@@ -162,7 +164,7 @@ const EditClassPage = () => {
               ) : (
                 <LittleLoading />
               )}
-
+              <AddVideo kelas={single_class} />
               {/* <div className="edit-satge-area">
                 <h1 className="edit-title">
                   ویرایش اطلاعات کلی درس

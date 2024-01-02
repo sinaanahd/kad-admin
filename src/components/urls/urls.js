@@ -39,6 +39,8 @@ const urls = {
   accounting_payments : `${base_site}accounting_payments`,
   admin_hesabdar_page : `${base_site}admin_hesabdar_page`,
   products : `${base_site}products`,
-  kelas_summery :` ${base_site}admin_kelases_page`
+  kelas_summery :` ${base_site}admin_kelases_page`,
+  admin_teachers_page : `${base_site}admin_teachers_page`,
+  admin_sample_video_file : `${base_site}admin_sample_video_file`
 };
 export default urls;
