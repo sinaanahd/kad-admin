@@ -21,6 +21,9 @@ import PaymentResults from './components/payment-results/payment-result';
 import './asset/css/index.scss';
 import AllTeachers from './components/all-teachers/all-teachers';
 import SingleTeacher from './components/single-teacher/single-teacher';
+import AllReports from './components/reports/all-reports';
+import Doreha from './components/doreha/doreha';
+import SingleDore from './components/single-dore/single-dore';
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
         <Route path="/payments" component={PaymentResults} />
         <Route path="/classes" exact component={ClassesPage} />
         <Route path="/classes/:id"  component={EditClassPage} />
+        <Route path="/doreha" exact component={Doreha} />
+        <Route path="/doreha/:id" component={SingleDore} />
         <Route path="/login" component={Login} />
         <Route path="/users" exact component={UsersPage} />
         <Route path="/users/:id" component={SingleUser} />
@@ -42,6 +47,7 @@ function App() {
         <Route path="/all-admins" component={AllAdminPage} />
         <Route path="/admin/:id" component={SingleAdmin} />
         <Route path="/banners" component={Banners} />
+        <Route path="/reports" component={AllReports} />
         <Route path="/add-new-class" component={AddClass} />
         <Route path="/confirm-class" component={ConfirmClass} />
         {/* <Route path="/test" component={StudentSignupChart} /> */}

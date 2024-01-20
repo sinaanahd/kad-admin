@@ -5,6 +5,7 @@ import { DataContext } from "../context/DataContext";
 import scrollToTop from "../functions/scroll";
 
 import dasboardIcon from "../../asset/images/dashboard.svg";
+import dasboardIconActive from "../../asset/images/dashboard-active.svg";
 import financeIconActive from "../../asset/images/finance-icon.svg";
 import financeIcon from "../../asset/images/finance-icon-active.svg";
 import classesIcon from "../../asset/images/classes-icon.svg";
@@ -20,11 +21,11 @@ import my_accountIconActive from "../../asset/images/my-account-active.svg";
 const SideBar = () => {
   const [menu_items, setMenuItems] = useState([
     {
-      imgs: [dasboardIcon],
-      type: false,
-      url: "dashboard",
-      text: "داشبورد",
-      required_level: [20, 10, 9, 7],
+      imgs: [dasboardIcon, dasboardIconActive],
+      type: true,
+      url: "reports",
+      text: "گزارش ها",
+      required_level: [20],
       id: 0,
     },
     {
@@ -50,6 +51,14 @@ const SideBar = () => {
       text: "کلاس ها",
       required_level: [10, 20],
       id: 2,
+    },
+    {
+      imgs: [classesIcon, classesIconActive],
+      type: true,
+      url: "doreha",
+      text: "دوره ها",
+      required_level: [10, 20],
+      id: 13,
     },
     {
       imgs: [usersIcon, usersIconActive],
@@ -83,22 +92,22 @@ const SideBar = () => {
       required_level: [20],
       id: 6,
     },
-    {
-      imgs: [elanatIcon],
-      type: false,
-      url: "notify",
-      text: "اعلانات",
-      required_level: [20, 10, 9, 7],
-      id: 7,
-    },
-    {
-      imgs: [gozasheratIcon],
-      type: false,
-      url: "reports",
-      text: "گزارشات",
-      required_level: [20, 10, 9, 7],
-      id: 8,
-    },
+    // {
+    //   imgs: [elanatIcon],
+    //   type: false,
+    //   url: "notify",
+    //   text: "اعلانات",
+    //   required_level: [20, 10, 9, 7],
+    //   id: 7,
+    // },
+    // {
+    //   imgs: [gozasheratIcon],
+    //   type: false,
+    //   url: "reports",
+    //   text: "گزارشات",
+    //   required_level: [20, 10, 9, 7],
+    //   id: 8,
+    // },
     {
       imgs: [financeIcon, financeIconActive],
       type: true,

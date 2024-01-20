@@ -3272,3 +3272,260 @@ body {
     }
 }
 /* single teachers page */
+
+/* all reports page */
+.all-reports-wrapper{
+  .add-class-page{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 12px;
+    @include flexMixin(column,flex-start,center);
+    padding: 20px;
+    gap: 40px;
+  }
+  .section-header{
+    @include flexMixin(row,space-between,center);
+    width: 100%;
+    padding: 0 0 20px;
+    border-bottom: 2px solid #000;
+  }
+  .page-title{
+    font-size: 25px;
+  }
+  .monthly-sales-wrapper{
+    width: 100%;
+    @include flexMixin(column,flex-start,center);
+    gap: 20px;
+  }
+  .chart-container{
+    width: 100%;
+    direction: ltr;
+  }
+  .custom-tooltip{
+    width: 200px;
+    padding: 20px 0;
+    background-color: $background-color;
+    @include flexMixin(column, center, center);
+    font-weight: bold;
+    border-radius: 20px;
+    gap: 10px;
+  }
+  .get-full-detialed-month-report{
+    width: 100%;
+    @include flexMixin(column,flex-start,center);
+    gap: 20px;
+  }
+  .select-month-box-wrapper{
+    width: 100%;
+    @include flexMixin(row,space-between,flex-start);
+    gap: 20px;
+  }
+  .month-box-title{
+    flex: 0 0 200px;
+  }
+  .all-months-options{
+    @include flexMixin(row,flex-start,center);
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .month-option{
+    color: $color-1;
+    padding: 2px 15px 0;
+    @include flexMixin(row,center,center);
+    height: 30px;
+    border: 2px solid $color-1;
+    font-weight: bold;
+    border-radius: 12px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: $transition;
+    
+  }
+  .active.month-option{
+    color: #fff;
+    background-color: $color-1;
+    transform: translateY(-5px);
+  }
+  .all-reporst-digrams{
+    width: 100%;
+    @include flexMixin(row,space-evenly , center);
+    gap: 20px;
+  }
+  .sell-amount-diagram, .sellerr-amount-diagram{
+    width: 100%;
+    direction: ltr;
+  }
+}
+/* all reports page */
+
+/* doreha page */
+.doreha-page-wrapper{
+    width: 100%;
+    .doreha-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 30px 20px;
+    }
+    .section-header{
+        @include flexMixin(row,space-between,center);
+        padding: 0 0 20px;
+        border-bottom: 2px solid #000;
+        width: 100%;
+    }
+    .page-title{
+        font-size: 21px;
+    }
+    .all-doreha-wrapper{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(6,1fr);
+        row-gap: 10px;
+        column-gap: 10px;
+    }
+    .dore-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        background-color: $background-color;
+        border-radius: 20px;
+        padding: 10px;
+        gap: 10px;
+        img{
+            width: 100%;
+            border-radius: 20px;
+        }
+    }
+    .dore-name{
+        font-size: 15px;
+        color: #000;
+    }
+}
+/* doreha page */
+
+/* single dore */
+.single-dore-page-wrapper{
+    .main-content{
+        align-items: flex-start;
+    }
+    .single-dore-wrapper{
+        @include flexMixin(row,flex-start,flex-start);
+        gap: 20px;
+    }
+    .dore-card{
+        flex: 0 0 200px;
+        background-color: #fff;
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+        padding: 10px;
+        border-radius: 20px;
+        img{
+            border-radius: 20px;
+        }
+    }
+    .page-title{
+        font-size: 17px;
+    }
+    .change-data{
+       width: 100%;
+       @include flexMixin(column,flex-start,center);
+       flex-wrap: wrap;
+       background-color: #fff;
+       border-radius: 20px;
+       padding: 20px;
+       gap: 20px;
+       max-width: 900px;
+    }
+    .section-header{
+        width: 100%;
+        padding: 0 0 10px;
+        border-bottom: 2px solid #000;
+        @include flexMixin(row,space-between,center);
+    }
+    .change-title{
+        font-size: 21px;
+    }
+    .dore-inputs{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+    }
+    .input-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-start,flex-start);
+        gap: 20px;
+    }
+    .input-title{
+        font-weight: bold;
+        font-size: 15px;
+        flex: 0 0 130px;
+    }
+    .input-box{
+        @include flexMixin(column,flex-start,center);
+        gap: 10px;
+        width: 100%;
+        input,textarea{
+            border: 1px solid $gray;
+            border-radius: 5px;
+            height: 30px;
+            min-height: 30px;
+            width: 100%;
+            padding: 5px 10px;
+            resize: vertical;
+        }
+        textarea{
+            height: 100px;
+        }
+        #dore-img{
+            display: none;
+        }
+    }
+    .date-box{
+        @include flexMixin(row, flex-start, center);
+    }
+    .choose-img-btn{
+        width: 100px;
+        height: 30px;
+        background-color: #000;
+        color: #fff;
+        @include flexMixin(row,center,center);
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .submit-btn-wrapper{
+        width: 100%;
+        @include flexMixin(row,flex-end,center);
+    }
+    .submit-btn{
+        width: 150px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #27AE60;
+        height: 35px;
+        font-size: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .all-errors{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .error-wrapper{
+        height: 30px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #FF5858;
+        padding: 0 10px;
+        border-radius: 12px;
+        @include flexMixin(row,center,center);
+        font-weight: bold;
+    }
+}
+/* single dore */
