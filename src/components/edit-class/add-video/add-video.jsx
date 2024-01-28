@@ -45,8 +45,8 @@ const AddVideo = ({ kelas }) => {
   };
   const send_data = () => {
     if (title && video_src && video_kind) {
-      // const teacher_id = find_teacher();
-      const teacher_id = 15205;
+      const teacher_id = find_teacher();
+      // const teacher_id = 15205;
       set_pause(true);
       if (teacher_id) {
         const send_obj = {
@@ -126,13 +126,24 @@ const AddVideo = ({ kelas }) => {
             >
               معرفی کلاس
             </button>
+            <button
+              className={
+                video_kind === "کلاس رایگان"
+                  ? "video-type-btn active"
+                  : "video-type-btn"
+              }
+              onClick={() => {
+                set_video_kind("کلاس رایگان");
+              }}
+            >
+              کلاس رایگان
+            </button>
           </span>
         </span>
         <div className="aparat-needed-div">
           <span className="upload-video-text">ویدئو باگذاری شده : </span>
           {video_src ? <AparatVideo src={video_src} /> : "ویدئو وارد نشده است"}
         </div>
-        {/* "https://www.aparat.com/video/video/embed/videohash/wXtxZ/vt/frame" */}
         <div className="upload-video-errors">
           <span className="video-err">{title_err ? title_err : ""}</span>
           <span className="video-err">

@@ -41,6 +41,7 @@ const urls = {
   products : `${base_site}products`,
   kelas_summery :` ${base_site}admin_kelases_page`,
   admin_teachers_page : `${base_site}admin_teachers_page`,
-  admin_sample_video_file : `${base_site}admin_sample_video_file`
+  admin_sample_video_file : `${base_site}admin_sample_video_file`,
+  specialKelasesList: `${base_site}specialKelasesList/`,
 };
 export default urls;

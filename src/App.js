@@ -24,6 +24,7 @@ import SingleTeacher from './components/single-teacher/single-teacher';
 import AllReports from './components/reports/all-reports';
 import Doreha from './components/doreha/doreha';
 import SingleDore from './components/single-dore/single-dore';
+import SpecialKelasses from './components/special-kelasses/special-kelasses';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/accounting" component={Accounting} />
         <Route path="/payments" component={PaymentResults} />
         <Route path="/classes" exact component={ClassesPage} />
+        <Route path="/special-classes" exact component={SpecialKelasses} />
         <Route path="/classes/:id"  component={EditClassPage} />
         <Route path="/doreha" exact component={Doreha} />
         <Route path="/doreha/:id" component={SingleDore} />

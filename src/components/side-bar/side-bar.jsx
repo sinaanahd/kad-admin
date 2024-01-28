@@ -53,6 +53,14 @@ const SideBar = () => {
       id: 2,
     },
     {
+      imgs: [my_accountIcon, my_accountIconActive],
+      type: true,
+      url: "special-classes",
+      text: "کلاس های ویژه",
+      required_level: [20, 10, 9],
+      id: 15,
+    },
+    {
       imgs: [classesIcon, classesIconActive],
       type: true,
       url: "doreha",
@@ -92,22 +100,6 @@ const SideBar = () => {
       required_level: [20],
       id: 6,
     },
-    // {
-    //   imgs: [elanatIcon],
-    //   type: false,
-    //   url: "notify",
-    //   text: "اعلانات",
-    //   required_level: [20, 10, 9, 7],
-    //   id: 7,
-    // },
-    // {
-    //   imgs: [gozasheratIcon],
-    //   type: false,
-    //   url: "reports",
-    //   text: "گزارشات",
-    //   required_level: [20, 10, 9, 7],
-    //   id: 8,
-    // },
     {
       imgs: [financeIcon, financeIconActive],
       type: true,

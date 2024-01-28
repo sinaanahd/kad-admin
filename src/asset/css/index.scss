@@ -1175,6 +1175,7 @@ body {
         width: 100%;
         @include flexMixin(row,center,center);
         gap: 5px;
+        flex-wrap: wrap;
     }
     .video-type-btn.active{
         background-color: #289800;
@@ -1182,7 +1183,7 @@ body {
         color: #fff;
     }
     .video-type-btn{
-        width: 90px;
+        width: 80px;
         height: 27px;
         font-weight: bold;
         border-radius: 12px;
@@ -3529,3 +3530,107 @@ body {
     }
 }
 /* single dore */
+
+
+/* add special ids */
+.special-classes-page-wrapper{
+    .special-classes-page{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 40px;
+        background-color: #fff;
+        padding: 35px;
+        border-radius: 20px;
+    }
+    .section-header {
+        width: 100%;
+        padding: 0 0 10px;
+        border-bottom: 2px solid #000;
+        @include flexMixin(row, space-between, center);
+    }
+    .special-kind-wrapper{
+        width: 100%;
+        @include flexMixin(column,flex-start,center);
+        gap: 20px;
+    }
+    .special-kind-title{
+        width: 100%;
+    }
+    .kelasses-div{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+    }
+    .kelas-wrapper{
+        flex: 0 0 250px;
+        background-color: $background-color;
+        border-radius: 12px;
+        padding: 10px;
+        @include flexMixin(column,space-between,center);
+        gap: 10px;
+        transition: $transition;
+        opacity: 1;
+        filter: grayscale(0);
+        cursor: pointer;
+        img{
+            border-radius: 20px;
+        }
+    }
+    .selected.kelas-wrapper{
+        opacity: 0.5;
+        filter: grayscale(1);
+    }
+    .to-choose.kelas-wrapper{
+        filter: grayscale(1);
+        transform: translateY(0);
+        &:hover{
+            filter: grayscale(0);
+        }
+    }
+    .choosen.to-choose.kelas-wrapper{
+        filter: grayscale(0);
+        transform: translateY(-10px);
+    }
+    .kelas-title-name{
+        font-weight: bold;
+        text-align: center;
+    }
+    .kelas-btns{
+        width: 100%;
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+        margin: 20px 0 0;
+        grid-column-start: 1;
+        grid-column-end: 6;
+    }
+    .choose-new-classes-btn{
+        font-size: 15px;
+        color: #fff;
+        background-color: #000;
+        border-radius: 20px;
+        font-weight: bold;
+        width: 200px;
+        height: 30px;
+    }
+    .delete-selected-classes-btn{
+        font-size: 15px;
+        color: #fff;
+        background-color: #C80000;
+        border-radius: 20px;
+        font-weight: bold;
+        width: 200px;
+        height: 30px;
+    }
+    .submit-new-classes-btn{
+        font-size: 15px;
+        color: #fff;
+        background-color: #289800;
+        border-radius: 20px;
+        font-weight: bold;
+        width: 200px;
+        height: 30px;
+    }
+}
+/* add special ids */
