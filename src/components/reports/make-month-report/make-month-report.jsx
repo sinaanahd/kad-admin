@@ -22,25 +22,59 @@ const MakeMonthReport = () => {
       name: "  ",
       amount: 0,
     };
-    // const reports = [null_obj];
     const reports = [];
-    const payed = accounting_payments.filter(
-      (p) => p.is_payed && p.paying_datetime && p.manager_confirmation
+    // const payed = accounting_payments.filter(
+    //   (p) => p.is_payed && p.paying_datetime && p.manager_confirmation
+    // );
+    // payed.forEach((p) => {
+    //   const pay_date = new Date(p.paying_datetime).toLocaleDateString("fa-ir");
+    //   const month_num = parseInt(p2e(pay_date.split("/")[1]));
+    //   const month_name = find_month(month_num);
+    //   const month_year_name = `${month_name} ${pay_date.split("/")[0]}`;
+    //   const in_reports = reports.find((r) => r.name === month_year_name);
+    //   if (in_reports) {
+    //     in_reports.amount += p.payment_amount;
+    //   } else {
+    //     const obj = {
+    //       name: month_year_name,
+    //       amount: p.payment_amount,
+    //     };
+    //     reports.push(obj);
+    //   }
+    // });
+    const all_kind = accounting_payments.filter(
+      (p) => p.is_payed && p.paying_datetime
     );
-    payed.forEach((p) => {
+    all_kind.forEach((p) => {
       const pay_date = new Date(p.paying_datetime).toLocaleDateString("fa-ir");
       const month_num = parseInt(p2e(pay_date.split("/")[1]));
       const month_name = find_month(month_num);
       const month_year_name = `${month_name} ${pay_date.split("/")[0]}`;
       const in_reports = reports.find((r) => r.name === month_year_name);
-      if (in_reports) {
-        in_reports.amount += p.payment_amount;
+      if (p.manager_confirmation) {
+        if (in_reports) {
+          in_reports.amount += p.payment_amount;
+          in_reports.unconfirmed_amount += p.payment_amount;
+        } else {
+          const obj = {
+            name: month_year_name,
+            amount: p.payment_amount,
+            unconfirmed_amount: p.payment_amount,
+          };
+          reports.push(obj);
+        }
       } else {
-        const obj = {
-          name: month_year_name,
-          amount: p.payment_amount,
-        };
-        reports.push(obj);
+        if (in_reports) {
+          // in_reports.amount += p.payment_amount;
+          in_reports.unconfirmed_amount += p.payment_amount;
+        } else {
+          const obj = {
+            name: month_year_name,
+            amount: 0,
+            unconfirmed_amount: p.payment_amount,
+          };
+          reports.push(obj);
+        }
       }
     });
     // reports.push(null_obj);
@@ -52,8 +86,14 @@ const MakeMonthReport = () => {
       return (
         <div className="custom-tooltip">
           <p className="label">
-            {`${label} : ${split_in_three(
+            {`تایید شده - ${label} : ${split_in_three(
               convert_to_persian(payload[0].payload.amount)
+            )}`}{" "}
+            تومان
+          </p>
+          <p className="label">
+            {`تمام فروش  - ${label} : ${split_in_three(
+              convert_to_persian(payload[0].payload.unconfirmed_amount)
             )}`}{" "}
             تومان
           </p>
@@ -168,8 +208,13 @@ const MakeMonthReport = () => {
                 >
                   <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                   <XAxis dataKey="name" />
-                  <YAxis dataKey="amount" />
+                  <YAxis dataKey="unconfirmed_amount" />
                   <Bar dataKey="amount" barSize={20} fill="#57298A" />
+                  <Bar
+                    dataKey="unconfirmed_amount"
+                    barSize={20}
+                    fill="#56298a2b"
+                  />
                   <Tooltip content={CustomTooltip} fill="#fff" />
                 </BarChart>
               </ResponsiveContainer>

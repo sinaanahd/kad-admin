@@ -16,7 +16,9 @@ const AllReports = () => {
   };
   return (
     <>
-      <Helmet>گزارشات پنل ادمین</Helmet>
+      <Helmet>
+        <title>گزارشات</title>
+      </Helmet>
       <section className="all-reports-wrapper page-wrapper">
         <SideBar />
         <div className="main-content">
