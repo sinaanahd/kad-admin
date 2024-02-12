@@ -7,6 +7,7 @@ import SellersReport from "./seller-report/seller-reports";
 import MonthlyDiagram from "./monthly-diagram/monthly-diagram";
 import { DataContext } from "../context/DataContext";
 import MakeMonthReport from "./make-month-report/make-month-report";
+import ProdSaleDiagram from "./prod-sale-diagram/prod-sale-diagram";
 const AllReports = () => {
   const { set_accounting_payments, get_accounting_payments } =
     useContext(DataContext);
@@ -32,6 +33,12 @@ const AllReports = () => {
             <div className="monthly-sales-wrapper">
               <h2 className="section-title">فروش ماهانه</h2>
               <MonthlyDiagram />
+            </div>
+            <div className="monthly-sales-wrapper">
+              <h2 className="section-title">
+                گزارش فروش روزانه محصولات از ۱۸ بهمن
+              </h2>
+              <ProdSaleDiagram />
             </div>
             <div className="monthly-sales-wrapper">
               <h2 className="section-title">فروش هر فروشنده</h2>
