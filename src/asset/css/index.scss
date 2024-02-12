@@ -3329,11 +3329,25 @@ body {
   }
   .prod-wrapper{
     width: 100%;
-    height: 30px;
+    min-height: 30px;
     border-radius: 12px;
     background-color: $color-2;
     color: #fff;
-    @include flexMixin(row,center,center);
+    @include flexMixin(row,space-between,center);
+    padding: 10px;
+  }
+  .prod-date-count{
+    flex: 0 0 30px;
+    height: 30px;
+    background-color: #fff;
+    color: $color-2;
+    border-radius: 50%;
+    @include flexMixin(row-reverse,center,center);
+    padding: 2px 0 0;
+    gap: 3px;
+  }
+  .counter-icon{
+    font-size: 12px;
   }
   .monthly-sales-wrapper{
     width: 100%;

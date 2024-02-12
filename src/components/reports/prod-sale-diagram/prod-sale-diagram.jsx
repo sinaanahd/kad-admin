@@ -3,15 +3,6 @@ import { DataContext } from "../../context/DataContext";
 import LittleLoading from "../../reusable/little-loading";
 import convert_to_persian from "../../functions/convert-to-persian";
 import split_in_three from "../../functions/spilit_in_three";
-import {
-  ResponsiveContainer,
-  LineChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Line,
-  Tooltip,
-} from "recharts";
 const ProdSaleDiagram = () => {
   const { accounting_payments, kelasses } = useContext(DataContext);
   const make_prod_based_digram = () => {
@@ -51,16 +42,27 @@ const ProdSaleDiagram = () => {
     return base_date <= entry_date_time_stamp;
   };
   const fill_prod_ids = (base_arr, to_add) => {
-    const final_arr = base_arr;
-    const filtered_to_add = to_add.filter((id) => !base_arr.includes(id));
-    filtered_to_add.forEach((id) => {
-      base_arr.push(id);
+    const final_arr = [...base_arr];
+    // const filtered_to_add = to_add.filter((id) => !base_arr.includes(id));
+    to_add.forEach((id) => {
+      final_arr.push(id);
     });
     return final_arr;
   };
   const fill_kelasses = (arr) => {
     const found_kelasses = kelasses.filter((k) => arr.includes(k.kelas_id));
-    return found_kelasses;
+    const needed_data = [];
+    found_kelasses.forEach((k) => {
+      if (!needed_data.some((d) => k.kelas_id === d.id)) {
+        const kelas_obj = {
+          id: k.kelas_id,
+          name: k.kelas_title_and_ostad_name,
+          count: arr.filter((item) => item === k.kelas_id).length,
+        };
+        needed_data.push(kelas_obj);
+      }
+    });
+    return needed_data;
   };
   const data =
     kelasses && accounting_payments ? make_prod_based_digram() : false;
@@ -76,8 +78,12 @@ const ProdSaleDiagram = () => {
               </span>
               <span className="prods-wrapper">
                 {d.products.map((p) => (
-                  <span key={p.kelas_id} className="prod-wrapper">
-                    {p.kelas_title_and_ostad_name}
+                  <span key={p.id} className="prod-wrapper">
+                    <span className="prod-date-name">{p.name}</span>
+                    <span className="prod-date-count">
+                      <font className="counter-icon">x</font>
+                      {convert_to_persian(p.count)}
+                    </span>
                   </span>
                 ))}
               </span>
