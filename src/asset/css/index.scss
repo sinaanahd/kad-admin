@@ -3014,6 +3014,49 @@ body {
 
 /* accounting page */
 .accounting-page{
+    .unconfirmed-payments-month{
+        width: 100%;
+        @include flexMixin(column,flex-start,flex-start);
+        gap: 20px;
+        margin: 0 0 20px;
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 20px;
+    }
+    .unconfirmed-payments-title{
+        font-weight: bold;
+        font-size: 25px;
+    }
+    .month-select-wrapper{
+        width: 100%;
+        flex-wrap: wrap;
+        @include flexMixin(row,flex-start,center);
+        gap: 10px;
+    }
+    .month-unconfirmed-btn{
+        color: $color-2;
+        background-color: #fff;
+        @include flexMixin(row,space-between,center);
+        gap: 20px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: bold;
+        border: 2px solid $color-2;
+        transition: $transition;
+        cursor: pointer;
+    }
+    .month-unconfirmed-btn.active{
+        color: #fff;
+        background-color: $color-2;
+    }
+    .all-payments-title{
+        width: 100%;
+        margin: 20px 0 20px;
+        text-align: right;
+        font-size: 25px;
+        padding: 0 20px;
+    }
     .bills {
         position: relative;
     }

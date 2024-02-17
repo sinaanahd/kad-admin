@@ -11,6 +11,7 @@ const PaymentDetails = ({
   products,
   set_kind_to_show,
   kind_to_show,
+  set_selected_month,
 }) => {
   const {
     accounting_payments,
@@ -53,6 +54,7 @@ const PaymentDetails = ({
     );
     new_accounting_payments[index] = obj;
     // console.log(index, obj, new_accounting_payments[index]);
+    set_selected_month(false);
     set_accounting_payments(false);
     set_accounting_payments(new_accounting_payments);
     localStorage.setItem(
