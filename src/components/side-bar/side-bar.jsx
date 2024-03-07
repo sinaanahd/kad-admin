@@ -45,6 +45,14 @@ const SideBar = () => {
       id: 11,
     },
     {
+      imgs: [bannersIcon, bannersIconActive],
+      type: true,
+      url: "dr-sebti",
+      text: "دکتر سبطی",
+      required_level: [20],
+      id: 16,
+    },
+    {
       imgs: [classesIcon, classesIconActive],
       type: true,
       url: "classes",
@@ -100,6 +108,7 @@ const SideBar = () => {
       required_level: [20],
       id: 6,
     },
+
     {
       imgs: [financeIcon, financeIconActive],
       type: true,
